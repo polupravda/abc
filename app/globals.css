@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+:root {
+  --background: #0F172A; /* slate-900 equivalent */
+  --foreground: #E2E8F0; /* slate-200 equivalent */
+}
+
+/* @theme inline removed as it might conflict or be part of a specific setup not used broadly */
+
+/* @media (prefers-color-scheme: dark) { 
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */ /* Removed to make dark theme default */
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif; /* Updated to Montserrat */
+  overscroll-behavior: contain; /* Prevent bounce effects */
+}
+
+/* Disable overscroll/bounce effects */
+html, body {
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* For browsers that support it, prevent space key scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Microphone pulsing effect (keeping if used elsewhere, though not directly relevant to math game now) */
+.mic-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+/* Hide spinners for WebKit browsers (Chrome, Safari, Edge) */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide spinners for Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

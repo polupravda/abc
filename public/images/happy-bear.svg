@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <path fill="#F0F0F0" d="M256,512c141.4,0 256,-114.6 256,-256c0,-141.4 -114.6,-256 -256,-256c-141.4,0 -256,114.6 -256,256c0,141.4 114.6,256 256,256Z" />
+  <!-- Face -->
+  <path fill="#FFFFFF" d="M390,256c0,74 -60,134 -134,134c-74,0 -134,-60 -134,-134c0,-74 60,-134 134,-134c74,0 134,60 134,134Z" />
+  <!-- Ears -->
+  <circle fill="#FFFFFF" cx="157" cy="170" r="28" />
+  <circle fill="#FFFFFF" cx="355" cy="170" r="28" />
+  <!-- Eyes -->
+  <circle fill="#333333" cx="210" cy="230" r="18" />
+  <circle fill="#333333" cx="302" cy="230" r="18" />
+  <!-- Highlights in eyes -->
+  <circle fill="#FFFFFF" cx="216" cy="224" r="6" />
+  <circle fill="#FFFFFF" cx="308" cy="224" r="6" />
+  <!-- Nose -->
+  <path fill="#333333" d="M256,280 a20,14 0 1,0 1,0 z" />
+  <!-- Smile -->
+  <path fill="none" stroke="#333333" stroke-width="8" stroke-linecap="round" d="M210,290 C230,320 282,320 302,290" />
+  <!-- Cheeks -->
+  <circle fill="#FFCCCC" cx="190" cy="270" r="15" opacity="0.8" />
+  <circle fill="#FFCCCC" cx="322" cy="270" r="15" opacity="0.8" />
+</svg> 

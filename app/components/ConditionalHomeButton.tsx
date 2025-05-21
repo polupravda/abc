@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import HomeIcon from "./HomeIcon";
+import React from "react";
 
-const ConditionalHomeButton = () => {
+const ConditionalHomeButton: React.FC = () => {
   const pathname = usePathname();
 
-  // Don't show on the start page ("/") or any API routes
   if (pathname === "/" || pathname.startsWith("/api")) {
     return null;
   }
@@ -15,10 +15,17 @@ const ConditionalHomeButton = () => {
   return (
     <Link
       href="/"
-      className="fixed top-4 left-4 z-50 p-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full shadow-lg transition-all duration-200 ease-in-out group"
-      aria-label="Go to Home Page"
+      className="fixed top-4 left-4 z-50 rounded-full"
+      aria-label="Go to homepage"
+      title="Home"
     >
-      <HomeIcon className="w-16 h-16 sm:w-20 sm:h-20 text-blue-500 group-hover:scale-105 transition-transform duration-200 ease-in-out" />
+      <Image
+        src="/shootingStar.svg"
+        alt="Home"
+        width={80}
+        height={80}
+        className="drop-shadow-lg/20 h-16 w-16 sm:h-20 sm:w-20 transition-all duration-300 ease-in-out transform hover:scale-110"
+      />
     </Link>
   );
 };

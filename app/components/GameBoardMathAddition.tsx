@@ -4,19 +4,11 @@ import React, { useState, useEffect, useRef } from "react";
 import NumberVisualizer from "./NumberVisualizer";
 import FeedbackSuccess from "./FeedbackSuccess";
 import FeedbackFailure from "./FeedbackFailure";
-
-// Loudspeaker Icon SVG Component (can be moved to a separate file if used in many places)
-const LoudspeakerIcon = ({ className }: { className?: string }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    className={className || "w-6 h-6"}
-  >
-    <path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.903A9.7 9.7 0 0 0 1.5 12c0 .898.121 1.768.35 2.597.343 1.24 1.518 1.903 2.66 1.903h1.932l4.5 4.5c.944.945 2.56.276 2.56-1.06V4.06ZM18.584 12c0-1.857-.87-3.555-2.25-4.685a.75.75 0 0 0-.916 1.192A2.99 2.99 0 0 1 16.084 12a2.99 2.99 0 0 1-1.666 2.493.75.75 0 0 0 .916 1.192C17.714 15.555 18.584 13.857 18.584 12Z" />
-    <path d="M19.816 7.192a.75.75 0 0 0-1.06 1.06A5.502 5.502 0 0 1 21.084 12a5.502 5.502 0 0 1-2.328 3.748.75.75 0 1 0 1.06 1.06A6.993 6.993 0 0 0 22.584 12a6.993 6.993 0 0 0-2.768-4.808Z" />
-  </svg>
-);
+import LoudspeakerIcon from "./icons/LoudspeakerIcon";
+import { CardLight } from "./elements/Card";
+import { InstructionButton } from "./elements/InstructionButton";
+import { HeadlineInstruction } from "./elements/HeadlineInstruction";
+import { MathProblem } from "./elements/MathProblem";
 
 // interface GameBoardMathAdditionProps {
 //   // Props can be added here if needed in the future
@@ -30,12 +22,10 @@ const GameBoardMathAddition: React.FC<GameBoardMathAdditionProps> = () => {
   const [feedback, setFeedback] = useState("");
   const [showAstronaut, setShowAstronaut] = useState(false);
   const [showFailureMonster, setShowFailureMonster] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const successTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const failureTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
-  const instructionUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
 
   const successSoundFiles = Array.from(
     { length: 12 },
@@ -46,43 +36,10 @@ const GameBoardMathAddition: React.FC<GameBoardMathAdditionProps> = () => {
     (_, i) => `/sounds/failure/failure-${i + 1}.aac`
   );
 
-  const playInstructions = () => {
-    if (typeof window !== "undefined" && window.speechSynthesis) {
-      window.speechSynthesis.cancel(); // Cancel any previous speech (instructions or other game speech)
-
-      const utterance = new SpeechSynthesisUtterance(
-        "Add the numbers together!"
-      );
-      instructionUtteranceRef.current = utterance;
-      const voices = window.speechSynthesis.getVoices();
-      let preferredVoice = voices.find(
-        (v) => v.lang === "en-US" && v.name.toLowerCase().includes("female")
-      );
-      if (!preferredVoice)
-        preferredVoice = voices.find((v) => v.lang === "en-US");
-      if (!preferredVoice)
-        preferredVoice = voices.find((v) => v.lang.startsWith("en"));
-
-      if (preferredVoice) {
-        utterance.voice = preferredVoice;
-      }
-      utterance.pitch = 1;
-      utterance.rate = 1;
-      utterance.onend = () => {
-        instructionUtteranceRef.current = null;
-      };
-      utterance.onerror = () => {
-        instructionUtteranceRef.current = null;
-      };
-      window.speechSynthesis.speak(utterance);
-    }
-  };
-
   const playRandomSound = (soundFiles: string[]) => {
     if (typeof window !== "undefined" && window.speechSynthesis.speaking) {
       window.speechSynthesis.cancel(); // Stop instructions if they are speaking
     }
-    if (isMuted) return;
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -212,28 +169,8 @@ const GameBoardMathAddition: React.FC<GameBoardMathAdditionProps> = () => {
 
   const isFeedbackShowing = showAstronaut || showFailureMonster;
 
-  const toggleMute = () => {
-    setIsMuted(!isMuted);
-  };
-
   return (
-    <div className="p-8 bg-neutral-800 rounded-xl shadow-2xl text-center max-w-3xl mx-auto border-2 border-teal-500 relative">
-      <div className="absolute top-4 flex space-x-2">
-        <button
-          onClick={playInstructions}
-          title="Play Instructions"
-          className="p-2 text-sky-300 bg-zinc-700 hover:bg-zinc-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-neutral-800 focus:ring-sky-500 transition-colors"
-        >
-          <LoudspeakerIcon className="w-5 h-5" />
-        </button>
-        <button
-          onClick={toggleMute}
-          className="px-3 py-1.5 text-sm font-medium text-sky-300 bg-zinc-700 hover:bg-zinc-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-neutral-800 focus:ring-sky-500 transition-colors"
-        >
-          {isMuted ? "Unmute" : "Mute"}
-        </button>
-      </div>
-
+    <CardLight>
       {showAstronaut && (
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-neutral-800 bg-opacity-95 z-10 rounded-xl">
           <FeedbackSuccess className="animate-bounce-gentle" />
@@ -247,68 +184,23 @@ const GameBoardMathAddition: React.FC<GameBoardMathAdditionProps> = () => {
         </div>
       )}
 
-      <div
-        className={`mb-8 ${
-          isFeedbackShowing ? "opacity-0" : "opacity-100"
-        } transition-opacity duration-300`}
-      >
-        <div className="flex justify-between items-center font-mono font-bold">
-          <div className="flex-1 text-center text-sky-400 text-9xl">
-            {" "}
-            {/* Num1 */}
-            <span>{num1}</span>
-          </div>
-          <div className="flex-none px-3 md:px-4 text-neutral-400 text-6xl">
-            {" "}
-            {/* + operator */}
-            <span>+</span>
-          </div>
-          <div className="flex-1 text-center text-sky-400 text-9xl">
-            {" "}
-            {/* Num2 */}
-            <span>{num2}</span>
-          </div>
-          <div className="flex-none px-3 md:px-4 text-neutral-400 text-6xl">
-            {" "}
-            {/* = operator */}
-            <span>=</span>
-          </div>
-          <div className="flex-1 flex justify-center">
-            {" "}
-            {/* Input field area */}
-            <input
-              ref={inputRef}
-              type="number"
-              value={userAnswer}
-              onChange={handleInputChange}
-              onKeyDown={handleKeyDown}
-              disabled={isFeedbackShowing}
-              className="w-full max-w-[200px] text-9xl font-mono font-bold text-sky-400 bg-transparent border-b-4 border-sky-500 focus:border-sky-300 outline-none text-center appearance-none m-0 p-0"
-              aria-label="Enter sum"
-            />
-          </div>
-        </div>
+      <HeadlineInstruction
+        headlineText="What is the sum?"
+        instructionText="What is the sum? Add numbers together!"
+      />
 
-        {/* Row 2: Visualizers (aligned with row above) */}
-        <div className="mt-3 flex justify-between items-start min-h-[80px] md:min-h-[100px]">
-          {" "}
-          {/* Adjusted min-height and mt */}
-          <div className="flex-1 flex justify-center">
-            {" "}
-            {/* Num1 Visualizer */}
-            <NumberVisualizer count={num1} circleColor="bg-pink-500" />
-          </div>
-          <div className="flex-none px-3 md:px-4"> {/* Spacer for + */} </div>
-          <div className="flex-1 flex justify-center">
-            {" "}
-            {/* Num2 Visualizer */}
-            <NumberVisualizer count={num2} circleColor="bg-indigo-600" />
-          </div>
-          <div className="flex-none px-3 md:px-4"> {/* Spacer for = */} </div>
-          <div className="flex-1"> {/* Spacer for Input */} </div>
-        </div>
-      </div>
-    </div>
+      <MathProblem
+        num1={num1}
+        num2={num2}
+        operator="+"
+        userAnswer={userAnswer}
+        onUserAnswerChange={handleInputChange}
+        onKeyDown={handleKeyDown}
+        isFeedbackShowing={isFeedbackShowing}
+        inputRef={inputRef}
+        inputAriaLabel="Enter sum"
+      />
+    </CardLight>
   );
 };
 

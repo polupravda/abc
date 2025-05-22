@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import NumberVisualizer from "../NumberVisualizer"; // Adjusted path
+import NumberVisualizer from "../components/NumberVisualizer"; // Adjusted path
 
 interface MathProblemProps {
   num1: number;

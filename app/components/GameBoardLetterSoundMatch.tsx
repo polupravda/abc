@@ -3,11 +3,11 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import FeedbackSuccess from "./FeedbackSuccess";
 import FeedbackFailure from "./FeedbackFailure";
-import { HeadlineInstruction } from "./elements/HeadlineInstruction";
-import { CardLight } from "./elements/Card";
-import { LetterCard } from "./elements/LetterCard";
-import { Button } from "./elements/Button";
-import LoudspeakerIcon from "./icons/LoudspeakerIcon";
+import { HeadlineInstruction } from "../elements/HeadlineInstruction";
+import { CardLight } from "../elements/Card";
+import { LetterCard } from "../elements/LetterCard";
+import { Button } from "../elements/Button";
+import LoudspeakerIcon from "../icons/LoudspeakerIcon";
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 

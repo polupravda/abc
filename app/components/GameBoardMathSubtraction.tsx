@@ -4,10 +4,10 @@ import React, { useState, useEffect, useRef } from "react";
 import NumberVisualizer from "./NumberVisualizer";
 import FeedbackSuccess from "./FeedbackSuccess";
 import FeedbackFailure from "./FeedbackFailure";
-import { InstructionButton } from "./elements/InstructionButton";
-import { HeadlineInstruction } from "./elements/HeadlineInstruction";
-import { CardLight } from "./elements/Card";
-import { MathProblem } from "./elements/MathProblem";
+import { InstructionButton } from "../elements/InstructionButton";
+import { HeadlineInstruction } from "../elements/HeadlineInstruction";
+import { CardLight } from "../elements/Card";
+import { MathProblem } from "../elements/MathProblem";
 type GameBoardMathSubtractionProps = Record<string, never>;
 
 const GameBoardMathSubtraction: React.FC<

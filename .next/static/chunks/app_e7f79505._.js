@@ -740,7 +740,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$element
 ;
 const HeadlineInstruction = ({ headlineText, instructionText, children, className })=>{
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: `w-full flex gap-3 items-center ${className || ""}`,
+        className: `w-full flex gap-3 items-center mb-4 ${className || ""}`,
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                 className: "text-3xl md:text-4xl font-bold text-sky-950 mb-6 md:mb-8",

@@ -4,11 +4,11 @@ import React, { useState, useEffect, useRef } from "react";
 import NumberVisualizer from "./NumberVisualizer";
 import FeedbackSuccess from "./FeedbackSuccess";
 import FeedbackFailure from "./FeedbackFailure";
-import LoudspeakerIcon from "./icons/LoudspeakerIcon";
-import { CardLight } from "./elements/Card";
-import { InstructionButton } from "./elements/InstructionButton";
-import { HeadlineInstruction } from "./elements/HeadlineInstruction";
-import { MathProblem } from "./elements/MathProblem";
+import LoudspeakerIcon from "../icons/LoudspeakerIcon";
+import { CardLight } from "../elements/Card";
+import { InstructionButton } from "../elements/InstructionButton";
+import { HeadlineInstruction } from "../elements/HeadlineInstruction";
+import { MathProblem } from "../elements/MathProblem";
 
 // interface GameBoardMathAdditionProps {
 //   // Props can be added here if needed in the future

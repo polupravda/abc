@@ -30,11 +30,12 @@ const ConditionalHomeButton = ()=>{
         "aria-label": "Go to homepage",
         title: "Home",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-            src: "/shootingStar.svg",
+            src: "/images/shootingStar.svg",
             alt: "Home",
             width: 80,
             height: 80,
-            className: "drop-shadow-lg/20 h-16 w-16 sm:h-20 sm:w-20 transition-all duration-300 ease-in-out transform hover:scale-110"
+            className: "drop-shadow-lg/20 h-16 w-16 sm:h-20 sm:w-20 transition-all duration-300 ease-in-out transform hover:scale-110",
+            priority: true
         }, void 0, false, {
             fileName: "[project]/app/components/ConditionalHomeButton.tsx",
             lineNumber: 22,

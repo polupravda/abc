@@ -20,11 +20,12 @@ const ConditionalHomeButton: React.FC = () => {
       title="Home"
     >
       <Image
-        src="/shootingStar.svg"
+        src="/images/shootingStar.svg"
         alt="Home"
         width={80}
         height={80}
         className="drop-shadow-lg/20 h-16 w-16 sm:h-20 sm:w-20 transition-all duration-300 ease-in-out transform hover:scale-110"
+        priority
       />
     </Link>
   );

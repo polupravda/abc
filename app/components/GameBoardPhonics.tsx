@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { CardLight } from "./elements/Card";
-import { InstructionButton } from "./elements/InstructionButton";
-import { HeadlineInstruction } from "./elements/HeadlineInstruction";
-import { LetterCard } from "./elements/LetterCard";
+import { CardLight } from "../elements/Card";
+import { InstructionButton } from "../elements/InstructionButton";
+import { HeadlineInstruction } from "../elements/HeadlineInstruction";
+import { LetterCard } from "../elements/LetterCard";
 
 const GameBoardPhonics: React.FC = () => {
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");

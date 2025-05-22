@@ -1,27 +1,26 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import GameBadge from "./GameBadge";
 
 const GameMenu: React.FC = () => {
   const additionGameIcon = (
-    <div className="w-full h-full flex flex-col items-center justify-center relative rounded-full overflow-hidden">
-      <div
-        className="absolute inset-0 w-full h-full z-0"
-        style={{
-          backgroundImage: "url('/images/space-1.svg')",
-          backgroundPosition: "35% 50%",
-          backgroundSize: "600%",
-          backgroundRepeat: "no-repeat",
-          filter: "contrast(0.7)",
-        }}
-      ></div>
+    <div className="relative">
+      <Image
+        src="/images/shootingStar.svg"
+        alt="Home"
+        width={80}
+        height={80}
+        className="absolute top-0 left-0 drop-shadow-lg/20 h-16 w-16 sm:h-20 sm:w-20 transition-all duration-300 ease-in-out transform hover:scale-110"
+        priority
+      />
 
       <div className="relative z-10 h-20 w-20">
-        <span className="text-6xl font-bold text-amber-500 z-10 absolute top-2 left-1">
+        <span className="text-5xl font-bold text-amber-500 z-10 absolute top-0 left-1">
           10
         </span>
-        <span className="text-5xl font-bold text-fuchsia-100 z-10 absolute right-2 -bottom-1">
+        <span className="text-4xl font-bold text-aureolin z-10 absolute right-2 bottom-3">
           +
         </span>
       </div>
@@ -104,17 +103,17 @@ const GameMenu: React.FC = () => {
         <div className="flex flex-wrap justify-start gap-2 flex-col items-start">
           <GameBadge
             title="Addition up to 10"
-            href="/math/addition"
+            href="/games/addition"
             icon={additionGameIcon}
           />
           <GameBadge
             title="Subtraction up to 10"
-            href="/math/subtraction"
+            href="/games/subtraction"
             icon={subtractionGameIcon}
           />
           <GameBadge
             title="Learn Phonics"
-            href="/phonics"
+            href="/games/phonics"
             icon={phonicsGameIcon}
           />
           <GameBadge

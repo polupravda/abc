@@ -509,7 +509,6 @@ const threeLetterWords = [
     "ZIP",
     "LIP",
     "TIP",
-    "RIP",
     "JAM",
     "YAM"
 ];

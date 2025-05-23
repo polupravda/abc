@@ -97,6 +97,42 @@ const GameMenu: React.FC = () => {
     </div>
   );
 
+  const blendingGameIcon = (
+    <div className="w-full h-full flex flex-col items-center justify-center relative rounded-full overflow-hidden">
+      <div
+        className="absolute inset-0 w-full h-full z-0"
+        style={{
+          backgroundImage: "url('/images/space-1.svg')",
+          backgroundPosition: "20% 80%",
+          backgroundSize: "600%",
+          backgroundRepeat: "no-repeat",
+          filter: "contrast(0.7)",
+        }}
+      ></div>
+      <div className="relative z-10 h-20 w-20 flex items-center justify-center">
+        <span className="text-3xl font-bold text-cyan-400">BLEND</span>
+      </div>
+    </div>
+  );
+
+  const greaterOrLessGameIcon = (
+    <div className="w-full h-full flex flex-col items-center justify-center relative rounded-full overflow-hidden">
+      <div
+        className="absolute inset-0 w-full h-full z-0"
+        style={{
+          backgroundImage: "url('/images/space-1.svg')",
+          backgroundPosition: "80% 20%",
+          backgroundSize: "550%",
+          backgroundRepeat: "no-repeat",
+          filter: "contrast(0.7)",
+        }}
+      ></div>
+      <div className="relative z-10 h-20 w-20 flex items-center justify-center">
+        <span className="text-4xl font-bold text-lime-400">{`<>`}</span>
+      </div>
+    </div>
+  );
+
   return (
     <div className="w-full h-screen p-8 relative">
       <div className="absolute top-8 right-8 flex flex-col items-start">
@@ -124,7 +160,12 @@ const GameMenu: React.FC = () => {
           <GameBadge
             title="Blending"
             href="/games/blending"
-            icon={letterSoundMatchIcon}
+            icon={blendingGameIcon}
+          />
+          <GameBadge
+            title="Greater or Less"
+            href="/games/greater-or-less"
+            icon={greaterOrLessGameIcon}
           />
           {/* Future game badges can be added here */}
         </div>

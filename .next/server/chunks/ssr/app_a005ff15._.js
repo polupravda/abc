@@ -510,6 +510,65 @@ const threeLetterWords = [
     "YAM"
 ];
 }}),
+"[project]/app/elements/ButtonSpeak.tsx [app-ssr] (ecmascript)": ((__turbopack_context__) => {
+"use strict";
+
+var { g: global, __dirname } = __turbopack_context__;
+{
+__turbopack_context__.s({
+    "ButtonSpeak": (()=>ButtonSpeak)
+});
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+;
+const ButtonSpeak = ({ text, icon: IconComponent, className, ...props })=>{
+    // Define the classes for the icon and its wrapper as seen in your InstructionButton
+    const iconWrapperClasses = "flex items-center justify-center bg-gradient-to-br from-amber-400 to-amber-600 rounded-full p-1 shadow-md/20";
+    const iconClasses = "w-8 h-8 fill-white drop-shadow-md/20"; // Default classes for the icon
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+        className: `p-4 h-[10rem] w-[10rem] flex flex-col items-center justify-start gap-2 shadow-lg/20 text-purple-300 bg-gradient-to-br from-purple-400 to-purple-600 hover:bg-gradient-to-r hover:from-purple-500 hover:to-purple-700 rounded-full focus:outline-none transition-colors ${className || ""}`,
+        ...props,
+        children: [
+            IconComponent && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: iconWrapperClasses,
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(IconComponent, {
+                    className: iconClasses
+                }, void 0, false, {
+                    fileName: "[project]/app/elements/ButtonSpeak.tsx",
+                    lineNumber: 29,
+                    columnNumber: 11
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/elements/ButtonSpeak.tsx",
+                lineNumber: 28,
+                columnNumber: 9
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                className: "font-bold text-2xl text-wrap text-white drop-shadow-md/30",
+                children: text
+            }, void 0, false, {
+                fileName: "[project]/app/elements/ButtonSpeak.tsx",
+                lineNumber: 32,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/elements/ButtonSpeak.tsx",
+        lineNumber: 21,
+        columnNumber: 5
+    }, this);
+}; // Example of how to use this Button component:
+ // import LoudspeakerIcon from '../icons/LoudspeakerIcon';
+ //
+ // const MyPageComponent = () => {
+ //   return (
+ //     <Button
+ //       text="My Action"
+ //       icon={LoudspeakerIcon}
+ //       onClick={() => console.log('Button clicked!')}
+ //     />
+ //   );
+ // };
+}}),
 "[project]/app/components/gameBoards/GameBoardBlending.tsx [app-ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
@@ -522,12 +581,14 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$HeadlineInstruction$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/elements/HeadlineInstruction.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$Card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/elements/Card.tsx [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$Button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/elements/Button.tsx [app-ssr] (ecmascript)"); // Assuming a generic Button
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$Button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/elements/Button.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$FeedbackSuccessAnimation$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/components/FeedbackSuccessAnimation.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$BouncingMicrophone$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/elements/BouncingMicrophone.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$const$2f$words$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/const/words.ts [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$icons$2f$LoudspeakerIcon$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/icons/LoudspeakerIcon.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$ButtonSpeak$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/elements/ButtonSpeak.tsx [app-ssr] (ecmascript)");
 "use client";
+;
 ;
 ;
 ;
@@ -545,8 +606,9 @@ const GameBoardBlending = ()=>{
     const [startSuccessAnimation, setStartSuccessAnimation] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const instructionUtteranceRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
     const successSoundAudioRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
-    const letterSoundAudioRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null); // Ref for letter sounds
+    const letterSoundAudioRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
     const recognitionRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const resultReceivedRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(false);
     const successAppearTimeoutRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
     const successDurationTimeoutRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
     const successHideTimeoutRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
@@ -559,14 +621,13 @@ const GameBoardBlending = ()=>{
         if (successHideTimeoutRef.current) clearTimeout(successHideTimeoutRef.current);
     }, []);
     const playSuccessSound = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(()=>{
-        // Ensure other sounds are stopped
         if (letterSoundAudioRef.current) letterSoundAudioRef.current.pause();
         if (successSoundAudioRef.current) successSoundAudioRef.current.pause();
         const randomIndex = Math.floor(Math.random() * successSoundFiles.length);
         const soundToPlay = successSoundFiles[randomIndex];
         const audio = new Audio(soundToPlay);
         successSoundAudioRef.current = audio;
-        audio.play().catch((err)=>console.error("Error playing success sound:", err));
+        audio.play().catch(console.error);
         audio.onended = ()=>{
             if (successSoundAudioRef.current === audio) successSoundAudioRef.current = null;
         };
@@ -577,134 +638,217 @@ const GameBoardBlending = ()=>{
         successSoundFiles
     ]);
     const playLetterSound = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((letter)=>{
-        if ("TURBOPACK compile-time falsy", 0) {
-            "TURBOPACK unreachable";
-        }
-        if (successSoundAudioRef.current) successSoundAudioRef.current.pause(); // Stop success sound if playing
+        if (window.speechSynthesis.speaking) window.speechSynthesis.cancel();
+        if (successSoundAudioRef.current) successSoundAudioRef.current.pause();
         const soundSrc = `/sounds/phonics/${letter.toLowerCase()}.m4a`;
-        const audioRefToUse = letterSoundAudioRef;
-        if (audioRefToUse.current) {
-            audioRefToUse.current.pause();
-            audioRefToUse.current.onended = null;
-            audioRefToUse.current.onerror = null;
+        if (letterSoundAudioRef.current) {
+            letterSoundAudioRef.current.pause();
+            letterSoundAudioRef.current.onended = null;
+            letterSoundAudioRef.current.onerror = null;
         }
         const audio = new Audio(soundSrc);
-        audioRefToUse.current = audio;
+        letterSoundAudioRef.current = audio;
         audio.onended = ()=>{
-            if (audioRefToUse.current === audio) audioRefToUse.current = null;
+            if (letterSoundAudioRef.current === audio) letterSoundAudioRef.current = null;
         };
-        audio.onerror = (event)=>{
-            console.error(`Audio element error for ${soundSrc}:`, event);
-            if (audioRefToUse.current === audio) audioRefToUse.current = null;
+        audio.onerror = ()=>{
+            if (letterSoundAudioRef.current === audio) letterSoundAudioRef.current = null;
         };
-        audio.play().catch((error)=>{
-            if (error.name === "AbortError") {
-            // console.log(`Play attempt on ${soundSrc} was aborted.`);
-            } else {
-                console.error(`Error starting sound ${soundSrc}:`, error);
-            }
-            if (audioRefToUse.current === audio) {
-                audioRefToUse.current = null;
-            }
+        audio.play().catch((err)=>{
+            if (err.name !== "AbortError") console.error(err);
         });
     }, []);
     const generateNewWord = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(()=>{
         clearAllTimeouts();
+        if (recognitionRef.current) {
+            recognitionRef.current.abort();
+            recognitionRef.current = null;
+        }
         setShowSuccessContainer(false);
         setStartSuccessAnimation(false);
         setIsListening(false);
-        const randomIndex = Math.floor(Math.random() * __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$const$2f$words$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["threeLetterWords"].length);
-        const newWord = __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$const$2f$words$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["threeLetterWords"][randomIndex];
+        const idx = Math.floor(Math.random() * __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$const$2f$words$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["threeLetterWords"].length);
+        const newWord = __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$const$2f$words$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["threeLetterWords"][idx];
         setCurrentWord(newWord);
         setLettersOfCurrentWord(newWord.split(""));
     }, [
         clearAllTimeouts
     ]);
     const speakWord = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((wordToSpeak)=>{
-        if (letterSoundAudioRef.current) letterSoundAudioRef.current.pause(); // Stop letter sound
-        if (successSoundAudioRef.current) successSoundAudioRef.current.pause(); // Stop success sound
-        if ("TURBOPACK compile-time falsy", 0) {
-            "TURBOPACK unreachable";
+        if (letterSoundAudioRef.current) letterSoundAudioRef.current.pause();
+        if (successSoundAudioRef.current) successSoundAudioRef.current.pause();
+        if (window.speechSynthesis) {
+            if (window.speechSynthesis.speaking) window.speechSynthesis.cancel();
+            const utt = new SpeechSynthesisUtterance(wordToSpeak);
+            instructionUtteranceRef.current = utt;
+            const voices = window.speechSynthesis.getVoices();
+            const voice = voices.find((v)=>v.lang === "en-US" && v.name.toLowerCase().includes("female")) || voices.find((v)=>v.lang === "en-US");
+            if (voice) utt.voice = voice;
+            utt.onend = ()=>{
+                instructionUtteranceRef.current = null;
+                setTimeout(()=>generateNewWord(), 100);
+            };
+            utt.onerror = ()=>{
+                instructionUtteranceRef.current = null;
+                setTimeout(()=>generateNewWord(), 100);
+            };
+            window.speechSynthesis.speak(utt);
         } else {
             setTimeout(()=>generateNewWord(), 100);
         }
     }, [
         generateNewWord
     ]);
+    const stopRecognition = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(()=>{
+        if (recognitionRef.current) recognitionRef.current.stop();
+    }, []);
     const handleSpeechRecognition = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(()=>{
-        if (letterSoundAudioRef.current) letterSoundAudioRef.current.pause(); // Stop letter sound before listening
-        if ("TURBOPACK compile-time truthy", 1) return;
-        "TURBOPACK unreachable";
-        const SpeechRecognitionAPI = undefined;
-        const recognition = undefined;
+        if (letterSoundAudioRef.current) letterSoundAudioRef.current.pause();
+        const API = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!API) {
+            console.warn("Speech Recognition not supported");
+            speakWord(currentWord);
+            return;
+        }
+        if (recognitionRef.current) {
+            recognitionRef.current.abort();
+            recognitionRef.current = null;
+        }
+        resultReceivedRef.current = false;
+        const recognition = new API();
+        recognitionRef.current = recognition;
+        recognition.lang = "en-US";
+        recognition.interimResults = false;
+        // Keep listening until user stops (e.g. release or evaluate)
+        recognition.continuous = true;
+        setIsListening(true);
+        recognition.onresult = (evt)=>{
+            resultReceivedRef.current = true;
+            const transcript = evt.results[0][0].transcript.trim().toLowerCase();
+            console.log("transcript", transcript);
+            console.log("currentWord", currentWord.toLowerCase());
+            if (transcript.includes(currentWord.toLowerCase())) {
+                setShowSuccessContainer(true);
+                setStartSuccessAnimation(false);
+                playSuccessSound();
+                successAppearTimeoutRef.current = setTimeout(()=>setStartSuccessAnimation(true), 50);
+                successDurationTimeoutRef.current = setTimeout(()=>setStartSuccessAnimation(false), 3050);
+                successHideTimeoutRef.current = setTimeout(()=>generateNewWord(), 3350);
+            } else {
+                speakWord(currentWord);
+            }
+        };
+        recognition.onerror = (evt)=>{
+            // Ignore abort errors triggered by manual stop
+            if (evt.error === "aborted") {
+                return;
+            }
+            resultReceivedRef.current = true;
+            console.error("Speech Recognition Error:", evt.error, evt.message);
+            speakWord(currentWord);
+        };
+        recognition.onend = ()=>{
+            setIsListening(false);
+            if (recognitionRef.current === recognition) recognitionRef.current = null;
+            if (!resultReceivedRef.current) {
+                // User clicked evaluate without speaking
+                speakWord(currentWord);
+            }
+        };
+        try {
+            recognition.start();
+        } catch (e) {
+            console.error(e);
+            setIsListening(false);
+            if (recognitionRef.current === recognition) recognitionRef.current = null;
+            speakWord(currentWord);
+        }
     }, [
         currentWord,
         playSuccessSound,
         generateNewWord,
-        speakWord,
-        isListening
+        speakWord
     ]);
     const triggerListen = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(()=>{
-        if ("TURBOPACK compile-time falsy", 0) {
-            "TURBOPACK unreachable";
+        if (isListening) {
+            stopRecognition();
+        } else {
+            if (window.speechSynthesis && window.speechSynthesis.speaking) window.speechSynthesis.cancel();
+            if (letterSoundAudioRef.current) letterSoundAudioRef.current.pause();
+            handleSpeechRecognition();
         }
-        if (letterSoundAudioRef.current) letterSoundAudioRef.current.pause(); // Ensure letter sound stops
-        handleSpeechRecognition();
     }, [
+        isListening,
+        stopRecognition,
         handleSpeechRecognition
     ]);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         generateNewWord();
-        const currentRec = recognitionRef.current;
-        const synth = ("TURBOPACK compile-time falsy", 0) ? ("TURBOPACK unreachable", undefined) : null;
-        const utterance = instructionUtteranceRef.current;
-        const successAudio = successSoundAudioRef.current;
-        const letterAudio = letterSoundAudioRef.current; // Capture for cleanup
         return ()=>{
             clearAllTimeouts();
-            if (currentRec) {
-                currentRec.abort();
-            }
-            if ("TURBOPACK compile-time falsy", 0) {
-                "TURBOPACK unreachable";
-            }
-            if (successAudio) {
-                successAudio.pause();
-            }
-            if (letterAudio) {
-                letterAudio.pause();
-            }
+            if (recognitionRef.current) recognitionRef.current.abort();
+            if (instructionUtteranceRef.current && window.speechSynthesis) window.speechSynthesis.cancel();
+            if (successSoundAudioRef.current) successSoundAudioRef.current.pause();
+            if (letterSoundAudioRef.current) letterSoundAudioRef.current.pause();
         };
     }, [
         generateNewWord,
         clearAllTimeouts
     ]);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        const handleKeyDown = (event)=>{
-            if (event.code === "Space") {
-                event.preventDefault();
-                if (!isListening && !showSuccessContainer) {
+        const onKeyDown = (e)=>{
+            if (e.code === "Space" && !e.repeat) {
+                e.preventDefault();
+                if (!isListening && !showSuccessContainer && ![
+                    "INPUT",
+                    "TEXTAREA"
+                ].includes(document.activeElement?.tagName || "")) {
                     triggerListen();
                 }
             }
         };
-        window.addEventListener("keydown", handleKeyDown);
+        const onKeyUp = (e)=>{
+            if (e.code === "Space") {
+                if (isListening && recognitionRef.current) stopRecognition();
+            }
+        };
+        window.addEventListener("keydown", onKeyDown);
+        window.addEventListener("keyup", onKeyUp);
         return ()=>{
-            window.removeEventListener("keydown", handleKeyDown);
+            window.removeEventListener("keydown", onKeyDown);
+            window.removeEventListener("keyup", onKeyUp);
         };
     }, [
         triggerListen,
         isListening,
-        showSuccessContainer
+        showSuccessContainer,
+        stopRecognition
     ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "h-full w-full flex flex-col items-center justify-center relative overflow-hidden",
+        className: "h-full w-full flex flex-col items-center justify-center relative",
         children: [
+            isListening && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "absolute bottom-[25%] left-1/2 -translate-x-1/2 z-30",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$Button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
+                    text: "Evaluate Now",
+                    onClick: stopRecognition,
+                    className: "px-6 py-3 text-lg font-semibold bg-green-500 hover:bg-green-600 text-white focus:ring-green-400",
+                    "aria-label": "Evaluate speech input now"
+                }, void 0, false, {
+                    fileName: "[project]/app/components/gameBoards/GameBoardBlending.tsx",
+                    lineNumber: 323,
+                    columnNumber: 11
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/components/gameBoards/GameBoardBlending.tsx",
+                lineNumber: 322,
+                columnNumber: 9
+            }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$BouncingMicrophone$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                 isVisible: isListening
             }, void 0, false, {
                 fileName: "[project]/app/components/gameBoards/GameBoardBlending.tsx",
-                lineNumber: 338,
+                lineNumber: 331,
                 columnNumber: 7
             }, this),
             showSuccessContainer && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -713,81 +857,82 @@ const GameBoardBlending = ()=>{
                     show: startSuccessAnimation
                 }, void 0, false, {
                     fileName: "[project]/app/components/gameBoards/GameBoardBlending.tsx",
-                    lineNumber: 341,
+                    lineNumber: 334,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/components/gameBoards/GameBoardBlending.tsx",
-                lineNumber: 340,
+                lineNumber: 333,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "h-auto max-h-[80vh] mb-10 flex flex-col items-center",
+                className: `h-auto max-h-[80vh] mb-10 flex flex-col items-center transition-opacity duration-300 ${isListening ? "opacity-30 pointer-events-none" : "opacity-100"}`,
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$HeadlineInstruction$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["HeadlineInstruction"], {
                         headlineText: "Blend the sounds to make a word!",
-                        instructionText: "Click letters to hear their sounds. Blend them to make a word. Click the button or press Space to speak.",
-                        className: `transition-opacity duration-300 ${isListening || showSuccessContainer && startSuccessAnimation ? "opacity-0" : "opacity-100"}`
+                        instructionText: "Click letters to hear sounds. Click button or press Space to speak. Release Space or click Evaluate to finish.",
+                        className: `${showSuccessContainer && startSuccessAnimation ? "opacity-0" : "opacity-100"} transition-opacity duration-300`
                     }, void 0, false, {
                         fileName: "[project]/app/components/gameBoards/GameBoardBlending.tsx",
-                        lineNumber: 346,
+                        lineNumber: 343,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$Card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CardLight"], {
-                        className: `transition-opacity duration-300 ${isListening || showSuccessContainer && startSuccessAnimation ? "opacity-0" : "opacity-100"}`,
+                        className: `${showSuccessContainer && startSuccessAnimation ? "opacity-0" : "opacity-100"}`,
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex justify-center items-center space-x-2 md:space-x-4 my-8 px-4",
-                                children: lettersOfCurrentWord.map((letter, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        className: "text-[12rem] font-bold text-fuchsia-950 focus:outline-none rounded-lg p-2 transition-transform hover:scale-105 active:scale-95",
+                                children: lettersOfCurrentWord.map((letter, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         onClick: ()=>playLetterSound(letter),
+                                        disabled: isListening || showSuccessContainer,
                                         "aria-label": `Play sound for letter ${letter}`,
-                                        children: index === 0 ? letter : letter.toLowerCase()
-                                    }, `${currentWord}-${index}`, false, {
+                                        className: "text-[12rem] leading-none font-bold text-fuchsia-950 focus:outline-none rounded-lg p-2 transition-transform hover:scale-105 active:scale-95 disabled:opacity-50",
+                                        children: idx === 0 ? letter : letter.toLowerCase()
+                                    }, `${currentWord}-${idx}`, false, {
                                         fileName: "[project]/app/components/gameBoards/GameBoardBlending.tsx",
-                                        lineNumber: 364,
+                                        lineNumber: 361,
                                         columnNumber: 15
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/app/components/gameBoards/GameBoardBlending.tsx",
-                                lineNumber: 362,
+                                lineNumber: 359,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex justify-center mt-8 mb-4",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$Button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$ButtonSpeak$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ButtonSpeak"], {
                                     onClick: triggerListen,
                                     disabled: isListening || showSuccessContainer,
-                                    text: "Speak Word",
+                                    text: isListening ? "Listening..." : "Speak Word",
                                     "aria-label": "Speak the word",
                                     className: "px-8 py-4 text-xl font-semibold",
                                     icon: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$icons$2f$LoudspeakerIcon$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"]
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/gameBoards/GameBoardBlending.tsx",
-                                    lineNumber: 375,
+                                    lineNumber: 373,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/components/gameBoards/GameBoardBlending.tsx",
-                                lineNumber: 374,
+                                lineNumber: 372,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/gameBoards/GameBoardBlending.tsx",
-                        lineNumber: 355,
+                        lineNumber: 352,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/gameBoards/GameBoardBlending.tsx",
-                lineNumber: 345,
+                lineNumber: 338,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/components/gameBoards/GameBoardBlending.tsx",
-        lineNumber: 337,
+        lineNumber: 320,
         columnNumber: 5
     }, this);
 };
@@ -824,4 +969,4 @@ function BlendingPage() {
 
 };
 
-//# sourceMappingURL=app_670e99c8._.js.map
+//# sourceMappingURL=app_a005ff15._.js.map

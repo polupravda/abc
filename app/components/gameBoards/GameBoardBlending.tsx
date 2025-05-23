@@ -230,7 +230,7 @@ const GameBoardBlending: React.FC = () => {
       setIsListening(false);
       if (recognitionRef.current === recognition) recognitionRef.current = null;
 
-      if (transcript === currentWord) {
+      if (transcript.includes(currentWord)) {
         setShowSuccessContainer(true);
         setStartSuccessAnimation(false);
         playSuccessSound(); // This already stops letter sounds
@@ -334,8 +334,14 @@ const GameBoardBlending: React.FC = () => {
   }, [triggerListen, isListening, showSuccessContainer]);
 
   return (
-    <div className="h-full w-full flex flex-col items-center justify-center relative">
-      <BouncingMicrophone isVisible={isListening} />
+    <div className="h-full w-full flex flex-col items-center justify-center relative overflow-hidden">
+      <BouncingMicrophone
+        isVisible={isListening}
+        stopListening={() => {
+          if (recognitionRef.current) recognitionRef.current.stop();
+          setIsListening(false);
+        }}
+      />
       {showSuccessContainer && (
         <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
           <FeedbackSuccessAnimation show={startSuccessAnimation} />
@@ -352,13 +358,7 @@ const GameBoardBlending: React.FC = () => {
               : "opacity-100"
           }`}
         />
-        <CardLight
-          className={`transition-opacity duration-300 ${
-            isListening || (showSuccessContainer && startSuccessAnimation)
-              ? "opacity-0"
-              : "opacity-100"
-          }`}
-        >
+        <CardLight className={`transition-opacity duration-300`}>
           <div className="flex justify-center items-center space-x-2 md:space-x-4 my-8 px-4">
             {lettersOfCurrentWord.map((letter, index) => (
               <button
@@ -377,6 +377,7 @@ const GameBoardBlending: React.FC = () => {
               disabled={isListening || showSuccessContainer}
               text="Speak Word"
               aria-label="Speak the word"
+              className="px-8 py-4 text-xl font-semibold"
               icon={MicrophoneIcon}
             />
           </div>

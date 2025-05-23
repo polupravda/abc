@@ -5,10 +5,12 @@ import Image from "next/image";
 
 interface BouncingMicrophoneProps {
   isVisible: boolean;
+  stopListening: () => void;
 }
 
 const BouncingMicrophone: React.FC<BouncingMicrophoneProps> = ({
   isVisible,
+  stopListening,
 }) => {
   if (!isVisible) return null;
 
@@ -26,11 +28,15 @@ const BouncingMicrophone: React.FC<BouncingMicrophoneProps> = ({
             style={{ filter: "drop-shadow(0 0 8px rgba(239, 68, 68, 0.5))" }}
           />
         </div>
-        <div className="mt-8 bg-white px-8 py-4 rounded-full shadow-lg">
-          <p className="text-xl font-bold text-blue-600">
-            I&apos;m listening...
-          </p>
-        </div>
+        <p className="text-3xl font-bold text-blue-800 my-4">
+          I&apos;m listening...
+        </p>
+        <button
+          className="mt-8 bg-white px-8 py-4 rounded-full shadow-lg font-bold text-lg text-slate-700"
+          onClick={stopListening}
+        >
+          Stop
+        </button>
       </div>
     </div>
   );

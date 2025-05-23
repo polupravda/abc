@@ -324,7 +324,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$imag
 "use client";
 ;
 ;
-const BouncingMicrophone = ({ isVisible })=>{
+const BouncingMicrophone = ({ isVisible, stopListening })=>{
     if (!isVisible) return null;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "fixed inset-0 flex items-center justify-center z-50 backdrop-blur-sm bg-black/10",
@@ -338,7 +338,7 @@ const BouncingMicrophone = ({ isVisible })=>{
                             className: "absolute inset-0 bg-red-500 rounded-full opacity-20 animate-ping"
                         }, void 0, false, {
                             fileName: "[project]/app/elements/BouncingMicrophone.tsx",
-                            lineNumber: 19,
+                            lineNumber: 21,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -352,39 +352,41 @@ const BouncingMicrophone = ({ isVisible })=>{
                             }
                         }, void 0, false, {
                             fileName: "[project]/app/elements/BouncingMicrophone.tsx",
-                            lineNumber: 20,
+                            lineNumber: 22,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/elements/BouncingMicrophone.tsx",
-                    lineNumber: 18,
+                    lineNumber: 20,
                     columnNumber: 9
                 }, this),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "mt-8 bg-white px-8 py-4 rounded-full shadow-lg",
-                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                        className: "text-xl font-bold text-blue-600",
-                        children: "I'm listening..."
-                    }, void 0, false, {
-                        fileName: "[project]/app/elements/BouncingMicrophone.tsx",
-                        lineNumber: 30,
-                        columnNumber: 11
-                    }, this)
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                    className: "text-3xl font-bold text-blue-800 my-4",
+                    children: "I'm listening..."
                 }, void 0, false, {
                     fileName: "[project]/app/elements/BouncingMicrophone.tsx",
-                    lineNumber: 29,
+                    lineNumber: 31,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                    className: "mt-8 bg-white px-8 py-4 rounded-full shadow-lg font-bold text-lg text-slate-700",
+                    onClick: stopListening,
+                    children: "Stop"
+                }, void 0, false, {
+                    fileName: "[project]/app/elements/BouncingMicrophone.tsx",
+                    lineNumber: 34,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/app/elements/BouncingMicrophone.tsx",
-            lineNumber: 17,
+            lineNumber: 19,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/elements/BouncingMicrophone.tsx",
-        lineNumber: 16,
+        lineNumber: 18,
         columnNumber: 5
     }, this);
 };
@@ -820,10 +822,14 @@ const GameBoardBlending = ()=>{
         showSuccessContainer
     ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "h-full w-full flex flex-col items-center justify-center relative",
+        className: "h-full w-full flex flex-col items-center justify-center relative overflow-hidden",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$BouncingMicrophone$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                isVisible: isListening
+                isVisible: isListening,
+                stopListening: ()=>{
+                    if (recognitionRef.current) recognitionRef.current.stop();
+                    setIsListening(false);
+                }
             }, void 0, false, {
                 fileName: "[project]/app/components/gameBoards/GameBoardBlending.tsx",
                 lineNumber: 338,
@@ -835,12 +841,12 @@ const GameBoardBlending = ()=>{
                     show: startSuccessAnimation
                 }, void 0, false, {
                     fileName: "[project]/app/components/gameBoards/GameBoardBlending.tsx",
-                    lineNumber: 341,
+                    lineNumber: 347,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/components/gameBoards/GameBoardBlending.tsx",
-                lineNumber: 340,
+                lineNumber: 346,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -852,11 +858,11 @@ const GameBoardBlending = ()=>{
                         className: `transition-opacity duration-300 ${isListening || showSuccessContainer && startSuccessAnimation ? "opacity-0" : "opacity-100"}`
                     }, void 0, false, {
                         fileName: "[project]/app/components/gameBoards/GameBoardBlending.tsx",
-                        lineNumber: 346,
+                        lineNumber: 352,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$Card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CardLight"], {
-                        className: `transition-opacity duration-300 ${isListening || showSuccessContainer && startSuccessAnimation ? "opacity-0" : "opacity-100"}`,
+                        className: `transition-opacity duration-300`,
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex justify-center items-center space-x-2 md:space-x-4 my-8 px-4",
@@ -882,6 +888,7 @@ const GameBoardBlending = ()=>{
                                     disabled: isListening || showSuccessContainer,
                                     text: "Speak Word",
                                     "aria-label": "Speak the word",
+                                    className: "px-8 py-4 text-xl font-semibold",
                                     icon: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$icons$2f$MicrophoneIcon$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"]
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/gameBoards/GameBoardBlending.tsx",
@@ -896,13 +903,13 @@ const GameBoardBlending = ()=>{
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/gameBoards/GameBoardBlending.tsx",
-                        lineNumber: 355,
+                        lineNumber: 361,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/gameBoards/GameBoardBlending.tsx",
-                lineNumber: 345,
+                lineNumber: 351,
                 columnNumber: 7
             }, this)
         ]

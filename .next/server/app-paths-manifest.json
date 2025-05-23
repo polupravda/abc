@@ -1,10 +1,7 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/games/addition/page": "app/games/addition/page.js",
   "/games/blending/page": "app/games/blending/page.js",
-  "/games/letter-sound-match/page": "app/games/letter-sound-match/page.js",
   "/games/phonics/page": "app/games/phonics/page.js",
-  "/games/subtraction/page": "app/games/subtraction/page.js",
   "/page": "app/page.js"
 }

@@ -121,6 +121,11 @@ const GameMenu: React.FC = () => {
             href="/games/letter-sound-match"
             icon={letterSoundMatchIcon}
           />
+          <GameBadge
+            title="Blending"
+            href="/games/blending"
+            icon={letterSoundMatchIcon}
+          />
           {/* Future game badges can be added here */}
         </div>
       </div>

@@ -18,11 +18,11 @@ const BouncingMicrophone: React.FC<BouncingMicrophoneProps> = ({
         <div className="bg-white rounded-full p-8 shadow-xl animate-bounce-custom relative">
           <div className="absolute inset-0 bg-red-500 rounded-full opacity-20 animate-ping"></div>
           <Image
-            src="/microphone.svg"
+            src="/images/microphone.svg"
             alt="Microphone"
             width={80}
             height={80}
-            className="relative z-10 mic-pulse text-red-500"
+            className="relative z-10 pulse-mic text-red-500"
             style={{ filter: "drop-shadow(0 0 8px rgba(239, 68, 68, 0.5))" }}
           />
         </div>

@@ -7,6 +7,7 @@
       --tw-rotate-z: initial;
       --tw-skew-x: initial;
       --tw-skew-y: initial;
+      --tw-space-x-reverse: 0;
       --tw-border-style: solid;
       --tw-gradient-position: initial;
       --tw-gradient-from: #0000;
@@ -348,6 +349,10 @@
     position: relative;
   }
 
+  .static {
+    position: static;
+  }
+
   .inset-0 {
     inset: calc(var(--spacing) * 0);
   }
@@ -552,6 +557,10 @@
 
   .m-0 {
     margin: calc(var(--spacing) * 0);
+  }
+
+  .my-8 {
+    margin-block: calc(var(--spacing) * 8);
   }
 
   .mt-1 {
@@ -858,6 +867,12 @@
     gap: calc(var(--spacing) * 6);
   }
 
+  :where(.space-x-2 > :not(:last-child)) {
+    --tw-space-x-reverse: 0;
+    margin-inline-start: calc(calc(var(--spacing) * 2) * var(--tw-space-x-reverse));
+    margin-inline-end: calc(calc(var(--spacing) * 2) * calc(1 - var(--tw-space-x-reverse)));
+  }
+
   .gap-y-3 {
     row-gap: calc(var(--spacing) * 3);
   }
@@ -1051,6 +1066,10 @@
 
   .px-3 {
     padding-inline: calc(var(--spacing) * 3);
+  }
+
+  .px-4 {
+    padding-inline: calc(var(--spacing) * 4);
   }
 
   .px-8 {
@@ -1515,6 +1534,14 @@
   @media (width >= 48rem) {
     .md\:gap-4 {
       gap: calc(var(--spacing) * 4);
+    }
+  }
+
+  @media (width >= 48rem) {
+    :where(.md\:space-x-4 > :not(:last-child)) {
+      --tw-space-x-reverse: 0;
+      margin-inline-start: calc(calc(var(--spacing) * 4) * var(--tw-space-x-reverse));
+      margin-inline-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-x-reverse)));
     }
   }
 
@@ -2304,6 +2331,12 @@
 @property --tw-skew-y {
   syntax: "*";
   inherits: false
+}
+
+@property --tw-space-x-reverse {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
 }
 
 @property --tw-border-style {

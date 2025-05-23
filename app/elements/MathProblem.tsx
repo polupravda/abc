@@ -31,50 +31,59 @@ export const MathProblem: React.FC<MathProblemProps> = ({
   inputAriaLabel,
 }) => {
   return (
-    <>
+    <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] gap-y-3 items-center font-mono font-bold tracking-tighter">
       {/* Row 1: Numbers, Operator, Input */}
-      <div className="flex justify-between items-center font-mono font-bold">
-        <div className="flex-1 text-center text-sky-950 text-9xl lg:text-[12rem]">
-          <span>{num1}</span>
-        </div>
-        <div className="flex-none px-6 md:px-8 text-sky-900 text-7xl">
-          <span>{operator}</span>
-        </div>
-        <div className="flex-1 text-center text-sky-950 text-9xl lg:text-[12rem]">
-          <span>{num2}</span>
-        </div>
-        <div className="flex-none px-6 md:px-8 text-sky-900 text-7xl">
-          <span>=</span>
-        </div>
-        <div className="flex-1 flex justify-center">
-          <input
-            ref={inputRef}
-            type="number"
-            value={userAnswer}
-            onChange={onUserAnswerChange}
-            onKeyDown={onKeyDown}
-            disabled={isFeedbackShowing}
-            className="w-full max-w-[200px] text-sky-950 text-9xl lg:text-[12rem] font-mono font-bold bg-transparent border-b-4 border-indigo-500 focus:border-indigo-300 outline-none text-center appearance-none m-0 p-0"
-            aria-label={inputAriaLabel}
-          />
-        </div>
+      <div className="text-center text-sky-950 text-9xl lg:text-[12rem]">
+        <span>{num1}</span>
+      </div>
+      <div className="text-sky-900 text-7xl text-center">
+        {" "}
+        {/* Operator */}
+        <span>{operator}</span>
+      </div>
+      <div className="text-center text-sky-950 text-9xl lg:text-[12rem]">
+        <span>{num2}</span>
+      </div>
+      <div className="text-sky-900 text-7xl text-center">
+        {" "}
+        {/* Equals */}
+        <span>=</span>
+      </div>
+      <div className="flex justify-center">
+        {" "}
+        {/* Input field container */}
+        <input
+          ref={inputRef}
+          type="number"
+          value={userAnswer}
+          onChange={onUserAnswerChange}
+          onKeyDown={onKeyDown}
+          disabled={isFeedbackShowing}
+          maxLength={2}
+          className="w-[2.4ch] text-sky-950 text-9xl lg:text-[12rem] font-mono font-bold bg-transparent border-b-4 border-indigo-500 focus:border-indigo-300 outline-none text-center appearance-none m-0 p-0"
+          aria-label={inputAriaLabel}
+        />
       </div>
 
       {/* Row 2: Visualizers (aligned with row above) */}
-      <div className="mt-3 flex justify-between items-start min-h-[80px] md:min-h-[100px]">
-        <div className="flex-1 flex justify-center">
-          <NumberVisualizer count={num1} circleColor={num1VisualizerColor} />
-        </div>
-        <div className="flex-none px-3 md:px-4">
-          {" "}
-          {/* Spacer for operator */}{" "}
-        </div>
-        <div className="flex-1 flex justify-center">
-          <NumberVisualizer count={num2} circleColor={num2VisualizerColor} />
-        </div>
-        <div className="flex-none px-3 md:px-4"> {/* Spacer for = */} </div>
-        <div className="flex-1"> {/* Spacer for Input */} </div>
+      <div className="flex justify-center min-h-[80px] md:min-h-[100px]">
+        <NumberVisualizer count={num1} circleColor={num1VisualizerColor} />
       </div>
-    </>
+      <div className="min-h-[80px] md:min-h-[100px]">
+        {" "}
+        {/* Spacer for operator */}{" "}
+      </div>
+      <div className="flex justify-center min-h-[80px] md:min-h-[100px]">
+        <NumberVisualizer count={num2} circleColor={num2VisualizerColor} />
+      </div>
+      <div className="min-h-[80px] md:min-h-[100px]">
+        {" "}
+        {/* Spacer for equals */}{" "}
+      </div>
+      <div className="min-h-[80px] md:min-h-[100px]">
+        {" "}
+        {/* Spacer for Input */}{" "}
+      </div>
+    </div>
   );
 };

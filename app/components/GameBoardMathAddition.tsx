@@ -1,12 +1,9 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import NumberVisualizer from "./NumberVisualizer";
-import FeedbackSuccess from "./FeedbackSuccess";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import FeedbackSuccessAnimation from "./FeedbackSuccessAnimation";
 import FeedbackFailure from "./FeedbackFailure";
-import LoudspeakerIcon from "../icons/LoudspeakerIcon";
 import { CardLight } from "../elements/Card";
-import { InstructionButton } from "../elements/InstructionButton";
 import { HeadlineInstruction } from "../elements/HeadlineInstruction";
 import { MathProblem } from "../elements/MathProblem";
 
@@ -20,10 +17,13 @@ const GameBoardMathAddition: React.FC<GameBoardMathAdditionProps> = () => {
   const [num2, setNum2] = useState(0);
   const [userAnswer, setUserAnswer] = useState("");
   const [feedback, setFeedback] = useState("");
-  const [showAstronaut, setShowAstronaut] = useState(false);
+  const [showSuccessContainer, setShowSuccessContainer] = useState(false);
+  const [startSuccessAnimation, setStartSuccessAnimation] = useState(false);
   const [showFailureMonster, setShowFailureMonster] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const successTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const successAppearTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const successDurationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const successHideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const failureTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -31,14 +31,10 @@ const GameBoardMathAddition: React.FC<GameBoardMathAdditionProps> = () => {
     { length: 12 },
     (_, i) => `/sounds/success/success-${i + 1}.aac`
   );
-  const failureSoundFiles = Array.from(
-    { length: 9 },
-    (_, i) => `/sounds/failure/failure-${i + 1}.aac`
-  );
 
-  const playRandomSound = (soundFiles: string[]) => {
+  const playRandomSound = useCallback((soundFiles: string[]) => {
     if (typeof window !== "undefined" && window.speechSynthesis.speaking) {
-      window.speechSynthesis.cancel(); // Stop instructions if they are speaking
+      window.speechSynthesis.cancel();
     }
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
@@ -53,25 +49,28 @@ const GameBoardMathAddition: React.FC<GameBoardMathAdditionProps> = () => {
       .catch((error) =>
         console.error(`Error playing sound ${soundToPlay}:`, error)
       );
-  };
+  }, []);
 
-  const clearAllTimeouts = () => {
-    if (successTimeoutRef.current) {
-      clearTimeout(successTimeoutRef.current);
-      successTimeoutRef.current = null;
-    }
+  const clearAllTimeouts = useCallback(() => {
+    if (successAppearTimeoutRef.current)
+      clearTimeout(successAppearTimeoutRef.current);
+    if (successDurationTimeoutRef.current)
+      clearTimeout(successDurationTimeoutRef.current);
+    if (successHideTimeoutRef.current)
+      clearTimeout(successHideTimeoutRef.current);
     if (failureTimeoutRef.current) {
       clearTimeout(failureTimeoutRef.current);
       failureTimeoutRef.current = null;
     }
-  };
+  }, []);
 
-  const generateProblem = () => {
-    setShowAstronaut(false);
-    setShowFailureMonster(false);
+  const generateProblem = useCallback(() => {
     clearAllTimeouts();
-    const newNum1 = Math.floor(Math.random() * 11); // num1 can be 0-10
-    const newNum2 = Math.floor(Math.random() * (11 - newNum1)); // num2 is 0 to (10 - newNum1)
+    setShowSuccessContainer(false);
+    setStartSuccessAnimation(false);
+    setShowFailureMonster(false);
+    const newNum1 = Math.floor(Math.random() * 11);
+    const newNum2 = Math.floor(Math.random() * (11 - newNum1));
     setNum1(newNum1);
     setNum2(newNum2);
     setUserAnswer("");
@@ -79,7 +78,7 @@ const GameBoardMathAddition: React.FC<GameBoardMathAdditionProps> = () => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
-  };
+  }, [clearAllTimeouts]);
 
   useEffect(() => {
     generateProblem();
@@ -89,45 +88,45 @@ const GameBoardMathAddition: React.FC<GameBoardMathAdditionProps> = () => {
         currentAudioRef.current.pause();
       }
       if (typeof window !== "undefined" && window.speechSynthesis.speaking) {
-        window.speechSynthesis.cancel(); // Cancel instructions if unmounting while speaking
+        window.speechSynthesis.cancel();
       }
     };
-  }, []);
+  }, [generateProblem, clearAllTimeouts]);
 
   useEffect(() => {
-    if (showAstronaut) {
+    if (startSuccessAnimation) {
       playRandomSound(successSoundFiles);
     }
-  }, [showAstronaut, playRandomSound, successSoundFiles]);
+  }, [startSuccessAnimation, playRandomSound, successSoundFiles]);
 
   useEffect(() => {
-    if (showFailureMonster) {
-      // playRandomSound(failureSoundFiles); // Sound for incorrect answer removed
-    }
-  }, [showFailureMonster, playRandomSound, failureSoundFiles]);
-
-  useEffect(() => {
-    if (inputRef.current && !showAstronaut && !showFailureMonster) {
+    if (inputRef.current && !showSuccessContainer && !showFailureMonster) {
       inputRef.current.focus();
     }
-  }, [num1, num2, showAstronaut, showFailureMonster]);
+  }, [num1, num2, showSuccessContainer, showFailureMonster]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let value = event.target.value;
-    // Allow only up to 2 digits for the answer
     if (value.length > 2) {
       value = value.slice(0, 2);
     }
     setUserAnswer(value);
     if (feedback) setFeedback("");
-    if (showAstronaut) setShowAstronaut(false);
-    if (showFailureMonster) setShowFailureMonster(false);
-    clearAllTimeouts();
+    if (showSuccessContainer) {
+      clearAllTimeouts();
+      setShowSuccessContainer(false);
+      setStartSuccessAnimation(false);
+    }
+    if (showFailureMonster) {
+      clearAllTimeouts();
+      setShowFailureMonster(false);
+    }
   };
 
   const handleCheckAnswer = () => {
     clearAllTimeouts();
-    setShowAstronaut(false);
+    setShowSuccessContainer(false);
+    setStartSuccessAnimation(false);
     setShowFailureMonster(false);
 
     const answer = parseInt(userAnswer, 10);
@@ -138,10 +137,20 @@ const GameBoardMathAddition: React.FC<GameBoardMathAdditionProps> = () => {
 
     if (answer === num1 + num2) {
       setFeedback("Correct!");
-      setShowAstronaut(true);
-      successTimeoutRef.current = setTimeout(() => {
+      setShowSuccessContainer(true);
+      setStartSuccessAnimation(false);
+
+      successAppearTimeoutRef.current = setTimeout(() => {
+        setStartSuccessAnimation(true);
+      }, 50);
+
+      successDurationTimeoutRef.current = setTimeout(() => {
+        setStartSuccessAnimation(false);
+      }, 3050);
+
+      successHideTimeoutRef.current = setTimeout(() => {
         generateProblem();
-      }, 3000);
+      }, 3050 + 300);
     } else {
       setFeedback(`Try again! ${num1} + ${num2} is not ${answer}.`);
       setShowFailureMonster(true);
@@ -152,12 +161,10 @@ const GameBoardMathAddition: React.FC<GameBoardMathAdditionProps> = () => {
           inputRef.current.select();
         }
       }, 2500);
-    }
-    if (inputRef.current && !(answer === num1 + num2)) {
-      inputRef.current.focus();
-      inputRef.current.select();
-    } else if (inputRef.current && answer === num1 + num2) {
-      inputRef.current.focus();
+      if (inputRef.current) {
+        inputRef.current.focus();
+        inputRef.current.select();
+      }
     }
   };
 
@@ -167,40 +174,46 @@ const GameBoardMathAddition: React.FC<GameBoardMathAdditionProps> = () => {
     }
   };
 
-  const isFeedbackShowing = showAstronaut || showFailureMonster;
+  const isFeedbackShowing =
+    (showSuccessContainer && startSuccessAnimation) || showFailureMonster;
 
   return (
-    <CardLight>
-      {showAstronaut && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-neutral-800 bg-opacity-95 z-10 rounded-xl">
-          <FeedbackSuccess className="animate-bounce-gentle" />
-          <p className="text-4xl font-bold text-green-500 mt-4">Correct!</p>
+    <div className="h-full w-full flex flex-col items-center justify-center relative">
+      {showSuccessContainer && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
+          <FeedbackSuccessAnimation show={startSuccessAnimation} />
         </div>
       )}
       {showFailureMonster && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-neutral-800 bg-opacity-95 z-10 rounded-xl">
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-stone-300 bg-opacity-95 z-10 rounded-xl">
           <FeedbackFailure className="" />
           <p className="text-4xl font-bold text-red-500 mt-4">Try again!</p>
         </div>
       )}
 
-      <HeadlineInstruction
-        headlineText="What is the sum?"
-        instructionText="What is the sum? Add numbers together!"
-      />
-
-      <MathProblem
-        num1={num1}
-        num2={num2}
-        operator="+"
-        userAnswer={userAnswer}
-        onUserAnswerChange={handleInputChange}
-        onKeyDown={handleKeyDown}
-        isFeedbackShowing={isFeedbackShowing}
-        inputRef={inputRef}
-        inputAriaLabel="Enter sum"
-      />
-    </CardLight>
+      <div className="h-auto max-h-[80vh] mb-10">
+        <HeadlineInstruction
+          headlineText="What is the sum?"
+          instructionText="What is the sum? Add numbers together!"
+          className={`transition-opacity duration-300 ${
+            isFeedbackShowing ? "opacity-0" : "opacity-100"
+          }`}
+        />
+        <CardLight>
+          <MathProblem
+            num1={num1}
+            num2={num2}
+            operator="+"
+            userAnswer={userAnswer}
+            onUserAnswerChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+            isFeedbackShowing={isFeedbackShowing}
+            inputRef={inputRef}
+            inputAriaLabel="Enter sum"
+          />
+        </CardLight>
+      </div>
+    </div>
   );
 };
 

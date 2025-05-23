@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
 // import defaultTheme from "tailwindcss/defaultTheme"; // Reverted: defaultTheme import removed
 
 const config: Config = {
@@ -9,6 +10,18 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        indigo: "#440C7E",
+        "persian-indigo": "#330C67",
+        "electric-purple": "#CC00EF",
+        "chrysler-blue": "#2500DF",
+        mauveine: "#8D00A6",
+        "magenta-dye": "#D20682",
+        raspberry: "#DB034B",
+        ochre: "#C67200",
+        "princeton-orange": "#F68D00",
+        aureolin: "#FAED1A",
+      },
       // fontFamily: { // Reverted: fontFamily extension removed
       //   sans: ["Montserrat", ...defaultTheme.fontFamily.sans],
       // },
@@ -49,7 +62,20 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addUtilities, theme }) {
+      const newUtilities = {
+        ".text-outline-ochre": {
+          textShadow: `-1px -1px 0 ${theme("colors.ochre")}, 1px -1px 0 ${theme(
+            "colors.ochre"
+          )}, -1px 1px 0 ${theme("colors.ochre")}, 1px 1px 0 ${theme(
+            "colors.ochre"
+          )}`,
+        },
+      };
+      addUtilities(newUtilities, ["responsive", "hover"]);
+    }),
+  ],
 };
 
 export default config;

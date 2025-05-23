@@ -4,7 +4,7 @@ import React from "react";
 import GameMenu from "@/app/components/GameMenu";
 import RocketAnimation from "@/app/components/RocketAnimation";
 import "@/app/components/RocketAnimation.css"; // Import CSS globally for the page
-
+import "@/app/globals.css";
 export default function Home() {
   return (
     <main className="rocket-animation-sky-background flex min-h-screen flex-col items-center justify-center relative overflow-hidden">

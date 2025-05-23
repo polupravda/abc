@@ -99,7 +99,7 @@ const GameMenu = ()=>{
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                        className: "text-4xl font-bold text-aureolin z-10 absolute right-2 bottom-3",
+                        className: "text-4xl font-bold text-[#DB034B] z-10 absolute right-2 bottom-3 text-outline-ochre",
                         children: "+"
                     }, void 0, false, {
                         fileName: "[project]/app/components/GameMenu.tsx",
@@ -634,6 +634,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$GameMenu$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/components/GameMenu.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$RocketAnimation$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/components/RocketAnimation.tsx [app-client] (ecmascript)");
 "use client";
+;
 ;
 ;
 ;

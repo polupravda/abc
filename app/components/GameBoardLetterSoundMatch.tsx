@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import FeedbackSuccess from "./FeedbackSuccess";
+import FeedbackSuccessAnimation from "./FeedbackSuccessAnimation";
 import FeedbackFailure from "./FeedbackFailure";
 import { HeadlineInstruction } from "../elements/HeadlineInstruction";
 import { CardLight } from "../elements/Card";
@@ -16,15 +16,18 @@ const GameBoardLetterSoundMatch: React.FC = () => {
   const [letter2, setLetter2] = useState<string | null>(null);
   const [correctLetter, setCorrectLetter] = useState<string | null>(null);
   const [feedbackText, setFeedbackText] = useState("");
-  const [showSuccess, setShowSuccess] = useState(false);
+
+  const [showSuccessContainer, setShowSuccessContainer] = useState(false);
+  const [startSuccessAnimation, setStartSuccessAnimation] = useState(false);
   const [showFailure, setShowFailure] = useState(false);
   const [isGameActive, setIsGameActive] = useState(true);
 
   const currentPhonicAudioRef = useRef<HTMLAudioElement | null>(null);
   const currentFeedbackAudioRef = useRef<HTMLAudioElement | null>(null);
-  const instructionUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
 
-  const successTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const successAppearTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const successDurationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const successHideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const failureTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const successSoundFiles = Array.from(
@@ -32,69 +35,32 @@ const GameBoardLetterSoundMatch: React.FC = () => {
     (_, i) => `/sounds/success/success-${i + 1}.aac`
   );
 
-  const playInstructions = () => {
-    if (typeof window !== "undefined" && window.speechSynthesis) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(
-        "Which letter makes the sound? Click on the letter or find it on the keyboard!"
-      );
-      instructionUtteranceRef.current = utterance;
-      const voices = window.speechSynthesis.getVoices();
-      let preferredVoice = voices.find(
-        (v) => v.lang === "en-US" && v.name.toLowerCase().includes("female")
-      );
-      if (!preferredVoice)
-        preferredVoice = voices.find((v) => v.lang === "en-US");
-      if (!preferredVoice)
-        preferredVoice = voices.find((v) => v.lang.startsWith("en"));
-      if (preferredVoice) utterance.voice = preferredVoice;
-      utterance.pitch = 1;
-      utterance.rate = 1;
-      utterance.onend = () => {
-        instructionUtteranceRef.current = null;
-      };
-      utterance.onerror = () => {
-        instructionUtteranceRef.current = null;
-      };
-      window.speechSynthesis.speak(utterance);
-    }
-  };
-
   const playSound = useCallback(
-    (soundSrc: string, isPhonicSound: boolean = false) => {
+    (
+      soundSrc: string,
+      audioRefToUse: React.MutableRefObject<HTMLAudioElement | null>
+    ) => {
       if (typeof window !== "undefined" && window.speechSynthesis.speaking) {
         window.speechSynthesis.cancel();
       }
-      const audioRef = isPhonicSound
-        ? currentPhonicAudioRef
-        : currentFeedbackAudioRef;
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.onended = null;
-        audioRef.current.onerror = null;
-        audioRef.current = null;
+      if (audioRefToUse.current) {
+        audioRefToUse.current.pause();
+        audioRefToUse.current.onended = null;
+        audioRefToUse.current.onerror = null;
+        audioRefToUse.current = null;
       }
       const audio = new Audio(soundSrc);
-      audioRef.current = audio;
-      audio
-        .play()
-        .then(() => {})
-        .catch((error) => {
-          if (error.name === "AbortError") {
-            // console.log(`Playback aborted: ${soundSrc}`);
-          } else {
-            console.error(`Error playing sound ${soundSrc}:`, error);
-            if (isPhonicSound)
-              setFeedbackText("Error playing sound. Please try refreshing.");
-          }
-          if (audioRef.current === audio) audioRef.current = null;
-        });
+      audioRefToUse.current = audio;
+      audio.play().catch((error) => {
+        console.error(`Error playing sound ${soundSrc}:`, error);
+        if (audioRefToUse.current === audio) audioRefToUse.current = null;
+      });
       audio.onended = () => {
-        if (audioRef.current === audio) audioRef.current = null;
+        if (audioRefToUse.current === audio) audioRefToUse.current = null;
       };
       audio.onerror = (event) => {
         console.error(`Audio element error for ${soundSrc}:`, event);
-        if (audioRef.current === audio) audioRef.current = null;
+        if (audioRefToUse.current === audio) audioRefToUse.current = null;
       };
     },
     []
@@ -102,16 +68,30 @@ const GameBoardLetterSoundMatch: React.FC = () => {
 
   const playCorrectLetterSound = useCallback(() => {
     if (correctLetter) {
-      playSound(`/sounds/phonics/${correctLetter.toLowerCase()}.m4a`, true);
+      playSound(
+        `/sounds/phonics/${correctLetter.toLowerCase()}.m4a`,
+        currentPhonicAudioRef
+      );
     }
   }, [correctLetter, playSound]);
 
+  const clearAllTimeouts = useCallback(() => {
+    if (successAppearTimeoutRef.current)
+      clearTimeout(successAppearTimeoutRef.current);
+    if (successDurationTimeoutRef.current)
+      clearTimeout(successDurationTimeoutRef.current);
+    if (successHideTimeoutRef.current)
+      clearTimeout(successHideTimeoutRef.current);
+    if (failureTimeoutRef.current) clearTimeout(failureTimeoutRef.current);
+  }, []);
+
   const generateProblem = useCallback(() => {
-    setShowSuccess(false);
+    clearAllTimeouts();
+    setShowSuccessContainer(false);
+    setStartSuccessAnimation(false);
     setShowFailure(false);
     setIsGameActive(true);
     setFeedbackText("");
-    clearAllTimeouts();
 
     const l1Index = Math.floor(Math.random() * ALPHABET.length);
     let l2Index = Math.floor(Math.random() * ALPHABET.length);
@@ -131,11 +111,11 @@ const GameBoardLetterSoundMatch: React.FC = () => {
       if (newCorrectLetter) {
         playSound(
           `/sounds/phonics/${newCorrectLetter.toLowerCase()}.m4a`,
-          true
+          currentPhonicAudioRef
         );
       }
     }, 100);
-  }, [playSound]);
+  }, [playSound, clearAllTimeouts]);
 
   useEffect(() => {
     generateProblem();
@@ -148,7 +128,15 @@ const GameBoardLetterSoundMatch: React.FC = () => {
         window.speechSynthesis.cancel();
       }
     };
-  }, [generateProblem]);
+  }, [generateProblem, clearAllTimeouts]);
+
+  useEffect(() => {
+    if (startSuccessAnimation) {
+      const randomSuccessSound =
+        successSoundFiles[Math.floor(Math.random() * successSoundFiles.length)];
+      playSound(randomSuccessSound, currentFeedbackAudioRef);
+    }
+  }, [startSuccessAnimation, successSoundFiles, playSound]);
 
   const handleAnswer = useCallback(
     (chosenLetter: string) => {
@@ -156,18 +144,28 @@ const GameBoardLetterSoundMatch: React.FC = () => {
       if (typeof window !== "undefined" && window.speechSynthesis.speaking) {
         window.speechSynthesis.cancel();
       }
+      clearAllTimeouts();
+      setShowSuccessContainer(false);
+      setStartSuccessAnimation(false);
+      setShowFailure(false);
       setIsGameActive(false);
+
       if (chosenLetter.toUpperCase() === correctLetter.toUpperCase()) {
         setFeedbackText("Correct!");
-        setShowSuccess(true);
-        const randomSuccessSound =
-          successSoundFiles[
-            Math.floor(Math.random() * successSoundFiles.length)
-          ];
-        playSound(randomSuccessSound);
-        successTimeoutRef.current = setTimeout(() => {
+        setShowSuccessContainer(true);
+        setStartSuccessAnimation(false);
+
+        successAppearTimeoutRef.current = setTimeout(() => {
+          setStartSuccessAnimation(true);
+        }, 50);
+
+        successDurationTimeoutRef.current = setTimeout(() => {
+          setStartSuccessAnimation(false);
+        }, 3050);
+
+        successHideTimeoutRef.current = setTimeout(() => {
           generateProblem();
-        }, 3500);
+        }, 3050 + 300);
       } else {
         setFeedbackText("Try again!");
         setShowFailure(true);
@@ -178,12 +176,12 @@ const GameBoardLetterSoundMatch: React.FC = () => {
         }, 3000);
       }
     },
-    [isGameActive, correctLetter, successSoundFiles, playSound, generateProblem]
+    [isGameActive, correctLetter, generateProblem, clearAllTimeouts]
   );
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
-      if (!isGameActive || showSuccess || showFailure) return;
+      if (!isGameActive || showSuccessContainer || showFailure) return;
       const keyPressed = event.key.toUpperCase();
       if (letter1 && keyPressed === letter1.toUpperCase()) {
         handleAnswer(letter1);
@@ -195,25 +193,28 @@ const GameBoardLetterSoundMatch: React.FC = () => {
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [letter1, letter2, isGameActive, showSuccess, showFailure, handleAnswer]);
-
-  const clearAllTimeouts = () => {
-    if (successTimeoutRef.current) clearTimeout(successTimeoutRef.current);
-    if (failureTimeoutRef.current) clearTimeout(failureTimeoutRef.current);
-  };
+  }, [
+    letter1,
+    letter2,
+    isGameActive,
+    showSuccessContainer,
+    showFailure,
+    handleAnswer,
+  ]);
 
   if (!letter1 || !letter2 || !correctLetter) {
     return <div>Loading game...</div>;
   }
 
   const displayLetters = [letter1, letter2].sort();
+  const isFeedbackShowing =
+    (showSuccessContainer && startSuccessAnimation) || showFailure;
 
   return (
-    <CardLight>
-      {showSuccess && (
+    <div className="h-full w-full flex flex-col items-center justify-center relative">
+      {showSuccessContainer && (
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-neutral-800 bg-opacity-95 z-20 rounded-xl">
-          <FeedbackSuccess className="animate-bounce-gentle w-48 h-48 md:w-64 md:h-64" />
-          <p className="text-4xl font-bold text-green-400 mt-4">Correct!</p>
+          <FeedbackSuccessAnimation show={startSuccessAnimation} />
         </div>
       )}
       {showFailure && (
@@ -223,43 +224,47 @@ const GameBoardLetterSoundMatch: React.FC = () => {
         </div>
       )}
 
-      <HeadlineInstruction
-        headlineText="Which letter makes this sound?"
-        instructionText="Which letter makes this sound?"
-        className={`transition-opacity duration-300 ${
-          showSuccess || showFailure ? "opacity-0" : "opacity-100"
-        }`}
-      />
-      <div className="flex flex-col items-center justify-center gap-6">
-        <Button
-          onClick={playCorrectLetterSound}
-          disabled={showSuccess || showFailure}
-          aria-label="Play sound again"
-          text="Play Sound Again"
-          icon={LoudspeakerIcon}
-        >
-          Play Sound Again
-        </Button>
-        <div className="flex flex-row items-center justify-center">
-          <div className="flex justify-around w-full max-w-md gap-4">
-            {displayLetters.map((letterChoice) => (
-              <LetterCard
-                key={letterChoice}
-                letter={letterChoice}
-                size="L"
-                onClick={() => handleAnswer(letterChoice)}
-                disabled={!isGameActive || showSuccess || showFailure}
-              />
-            ))}
+      <div className="h-auto max-h-[80vh] mb-10">
+        <HeadlineInstruction
+          headlineText="Which letter makes this sound?"
+          instructionText="Which letter makes this sound?"
+          className={`transition-opacity duration-300 ${
+            isFeedbackShowing ? "opacity-0" : "opacity-100"
+          }`}
+        />
+        <CardLight>
+          <div className="flex flex-col items-center justify-center gap-6">
+            <Button
+              onClick={playCorrectLetterSound}
+              disabled={isFeedbackShowing}
+              aria-label="Play sound again"
+              text="Play Sound Again"
+              icon={LoudspeakerIcon}
+            >
+              Play Sound Again
+            </Button>
+            <div className="flex flex-row items-center justify-center">
+              <div className="flex justify-around w-full max-w-md gap-4">
+                {displayLetters.map((letterChoice) => (
+                  <LetterCard
+                    key={letterChoice}
+                    letter={letterChoice}
+                    size="L"
+                    onClick={() => handleAnswer(letterChoice)}
+                    disabled={!isGameActive || isFeedbackShowing}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
+          {feedbackText && !showSuccessContainer && !showFailure && (
+            <p className="mt-6 text-2xl font-semibold text-yellow-400">
+              {feedbackText}
+            </p>
+          )}
+        </CardLight>
       </div>
-      {feedbackText && !showSuccess && !showFailure && (
-        <p className="mt-6 text-2xl font-semibold text-yellow-400">
-          {feedbackText}
-        </p>
-      )}
-    </CardLight>
+    </div>
   );
 };
 

@@ -16,11 +16,11 @@ export const HeadlineInstruction: React.FC<HeadlineInstructionProps> = ({
 }) => {
   return (
     <div className={`w-full flex gap-3 items-center mb-4 ${className || ""}`}>
-      <h1 className="text-3xl md:text-4xl font-bold text-sky-950 mb-6 md:mb-8">
+      <h1 className="text-3xl md:text-4xl font-bold text-sky-950">
         {headlineText}
       </h1>
       {instructionText && (
-        <div className="mb-6 md:mb-8">
+        <div>
           {" "}
           {/* Added margin bottom to match original h1 margin if button is present */}
           <InstructionButton instructions={instructionText} />

@@ -20,7 +20,7 @@ const GameMenu: React.FC = () => {
         <span className="text-5xl font-bold text-amber-500 z-10 absolute top-0 left-1">
           10
         </span>
-        <span className="text-4xl font-bold text-aureolin z-10 absolute right-2 bottom-3">
+        <span className="text-4xl font-bold text-[#DB034B] z-10 absolute right-2 bottom-3 text-outline-ochre">
           +
         </span>
       </div>

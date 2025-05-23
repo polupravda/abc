@@ -924,17 +924,11 @@ const GameBoardLetterSoundMatch = ()=>{
     const [isGameActive, setIsGameActive] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
     const currentPhonicAudioRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
     const currentFeedbackAudioRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
-    const instructionUtteranceRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
     const successTimeoutRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
     const failureTimeoutRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
     const successSoundFiles = Array.from({
         length: 12
     }, (_, i)=>`/sounds/success/success-${i + 1}.aac`);
-    const playInstructions = ()=>{
-        if ("TURBOPACK compile-time falsy", 0) {
-            "TURBOPACK unreachable";
-        }
-    };
     const playSound = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((soundSrc, isPhonicSound = false)=>{
         if ("TURBOPACK compile-time falsy", 0) {
             "TURBOPACK unreachable";
@@ -1000,10 +994,12 @@ const GameBoardLetterSoundMatch = ()=>{
     ]);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         generateProblem();
+        const phonicAudio = currentPhonicAudioRef.current;
+        const feedbackAudio = currentFeedbackAudioRef.current;
         return ()=>{
             clearAllTimeouts();
-            if (currentPhonicAudioRef.current) currentPhonicAudioRef.current.pause();
-            if (currentFeedbackAudioRef.current) currentFeedbackAudioRef.current.pause();
+            if (phonicAudio) phonicAudio.pause();
+            if (feedbackAudio) feedbackAudio.pause();
             if ("TURBOPACK compile-time falsy", 0) {
                 "TURBOPACK unreachable";
             }
@@ -1072,7 +1068,7 @@ const GameBoardLetterSoundMatch = ()=>{
             children: "Loading game..."
         }, void 0, false, {
             fileName: "[project]/app/components/GameBoardLetterSoundMatch.tsx",
-            lineNumber: 206,
+            lineNumber: 180,
             columnNumber: 12
         }, this);
     }
@@ -1089,7 +1085,7 @@ const GameBoardLetterSoundMatch = ()=>{
                         className: "animate-bounce-gentle w-48 h-48 md:w-64 md:h-64"
                     }, void 0, false, {
                         fileName: "[project]/app/components/GameBoardLetterSoundMatch.tsx",
-                        lineNumber: 215,
+                        lineNumber: 189,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1097,13 +1093,13 @@ const GameBoardLetterSoundMatch = ()=>{
                         children: "Correct!"
                     }, void 0, false, {
                         fileName: "[project]/app/components/GameBoardLetterSoundMatch.tsx",
-                        lineNumber: 216,
+                        lineNumber: 190,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/GameBoardLetterSoundMatch.tsx",
-                lineNumber: 214,
+                lineNumber: 188,
                 columnNumber: 9
             }, this),
             showFailure && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1113,7 +1109,7 @@ const GameBoardLetterSoundMatch = ()=>{
                         className: "w-48 h-48 md:w-64 md:h-64"
                     }, void 0, false, {
                         fileName: "[project]/app/components/GameBoardLetterSoundMatch.tsx",
-                        lineNumber: 221,
+                        lineNumber: 195,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1121,13 +1117,13 @@ const GameBoardLetterSoundMatch = ()=>{
                         children: "Try again!"
                     }, void 0, false, {
                         fileName: "[project]/app/components/GameBoardLetterSoundMatch.tsx",
-                        lineNumber: 222,
+                        lineNumber: 196,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/GameBoardLetterSoundMatch.tsx",
-                lineNumber: 220,
+                lineNumber: 194,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$HeadlineInstruction$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["HeadlineInstruction"], {
@@ -1136,7 +1132,7 @@ const GameBoardLetterSoundMatch = ()=>{
                 className: `transition-opacity duration-300 ${showSuccess || showFailure ? "opacity-0" : "opacity-100"}`
             }, void 0, false, {
                 fileName: "[project]/app/components/GameBoardLetterSoundMatch.tsx",
-                lineNumber: 226,
+                lineNumber: 200,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1151,7 +1147,7 @@ const GameBoardLetterSoundMatch = ()=>{
                         children: "Play Sound Again"
                     }, void 0, false, {
                         fileName: "[project]/app/components/GameBoardLetterSoundMatch.tsx",
-                        lineNumber: 234,
+                        lineNumber: 208,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1165,23 +1161,23 @@ const GameBoardLetterSoundMatch = ()=>{
                                     disabled: !isGameActive || showSuccess || showFailure
                                 }, letterChoice, false, {
                                     fileName: "[project]/app/components/GameBoardLetterSoundMatch.tsx",
-                                    lineNumber: 246,
+                                    lineNumber: 220,
                                     columnNumber: 15
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/app/components/GameBoardLetterSoundMatch.tsx",
-                            lineNumber: 244,
+                            lineNumber: 218,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/components/GameBoardLetterSoundMatch.tsx",
-                        lineNumber: 243,
+                        lineNumber: 217,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/GameBoardLetterSoundMatch.tsx",
-                lineNumber: 233,
+                lineNumber: 207,
                 columnNumber: 7
             }, this),
             feedbackText && !showSuccess && !showFailure && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1189,13 +1185,13 @@ const GameBoardLetterSoundMatch = ()=>{
                 children: feedbackText
             }, void 0, false, {
                 fileName: "[project]/app/components/GameBoardLetterSoundMatch.tsx",
-                lineNumber: 258,
+                lineNumber: 232,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/components/GameBoardLetterSoundMatch.tsx",
-        lineNumber: 212,
+        lineNumber: 186,
         columnNumber: 5
     }, this);
 };

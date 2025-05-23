@@ -5,7 +5,7 @@ import GameBoardMathAddition from "@/app/components/GameBoardMathAddition"; // U
 
 const MathAdditionPage: React.FC = () => {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-white p-4 md:p-8">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-white relative h-full">
       <GameBoardMathAddition />
     </main>
   );

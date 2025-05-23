@@ -552,7 +552,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 const CardLight = ({ children })=>{
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "relative w-fit h-full rounded-xl bg-gradient-to-br from-blue-100 to-indigo-200 shadow-2xl p-10",
+        className: "relative w-fit h-fit rounded-xl bg-gradient-to-br from-blue-100 to-indigo-200 shadow-2xl p-10",
         children: children
     }, void 0, false, {
         fileName: "[project]/app/elements/Card.tsx",
@@ -743,7 +743,7 @@ const HeadlineInstruction = ({ headlineText, instructionText, children, classNam
         className: `w-full flex gap-3 items-center mb-4 ${className || ""}`,
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                className: "text-3xl md:text-4xl font-bold text-sky-950 mb-6 md:mb-8",
+                className: "text-3xl md:text-4xl font-bold text-sky-950",
                 children: headlineText
             }, void 0, false, {
                 fileName: "[project]/app/elements/HeadlineInstruction.tsx",
@@ -751,7 +751,6 @@ const HeadlineInstruction = ({ headlineText, instructionText, children, classNam
                 columnNumber: 7
             }, this),
             instructionText && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "mb-6 md:mb-8",
                 children: [
                     " ",
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$InstructionButton$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["InstructionButton"], {
@@ -838,168 +837,165 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$NumberV
 ;
 ;
 const MathProblem = ({ num1, num2, operator, userAnswer, onUserAnswerChange, onKeyDown, isFeedbackShowing, inputRef, num1VisualizerColor = "bg-pink-500", num2VisualizerColor = "bg-indigo-600", inputAriaLabel })=>{
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "grid grid-cols-[1fr_auto_1fr_auto_1fr] gap-y-3 items-center font-mono font-bold tracking-tighter",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "flex justify-between items-center font-mono font-bold",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex-1 text-center text-sky-950 text-9xl lg:text-[12rem]",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                            children: num1
-                        }, void 0, false, {
-                            fileName: "[project]/app/elements/MathProblem.tsx",
-                            lineNumber: 38,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/app/elements/MathProblem.tsx",
-                        lineNumber: 37,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex-none px-6 md:px-8 text-sky-900 text-7xl",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                            children: operator
-                        }, void 0, false, {
-                            fileName: "[project]/app/elements/MathProblem.tsx",
-                            lineNumber: 41,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/app/elements/MathProblem.tsx",
-                        lineNumber: 40,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex-1 text-center text-sky-950 text-9xl lg:text-[12rem]",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                            children: num2
-                        }, void 0, false, {
-                            fileName: "[project]/app/elements/MathProblem.tsx",
-                            lineNumber: 44,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/app/elements/MathProblem.tsx",
-                        lineNumber: 43,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex-none px-6 md:px-8 text-sky-900 text-7xl",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                            children: "="
-                        }, void 0, false, {
-                            fileName: "[project]/app/elements/MathProblem.tsx",
-                            lineNumber: 47,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/app/elements/MathProblem.tsx",
-                        lineNumber: 46,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex-1 flex justify-center",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                            ref: inputRef,
-                            type: "number",
-                            value: userAnswer,
-                            onChange: onUserAnswerChange,
-                            onKeyDown: onKeyDown,
-                            disabled: isFeedbackShowing,
-                            className: "w-full max-w-[200px] text-sky-950 text-9xl lg:text-[12rem] font-mono font-bold bg-transparent border-b-4 border-indigo-500 focus:border-indigo-300 outline-none text-center appearance-none m-0 p-0",
-                            "aria-label": inputAriaLabel
-                        }, void 0, false, {
-                            fileName: "[project]/app/elements/MathProblem.tsx",
-                            lineNumber: 50,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/app/elements/MathProblem.tsx",
-                        lineNumber: 49,
-                        columnNumber: 9
-                    }, this)
-                ]
-            }, void 0, true, {
+                className: "text-center text-sky-950 text-9xl lg:text-[12rem]",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                    children: num1
+                }, void 0, false, {
+                    fileName: "[project]/app/elements/MathProblem.tsx",
+                    lineNumber: 37,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
                 fileName: "[project]/app/elements/MathProblem.tsx",
                 lineNumber: 36,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "mt-3 flex justify-between items-start min-h-[80px] md:min-h-[100px]",
+                className: "text-sky-900 text-7xl text-center",
                 children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex-1 flex justify-center",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$NumberVisualizer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                            count: num1,
-                            circleColor: num1VisualizerColor
-                        }, void 0, false, {
-                            fileName: "[project]/app/elements/MathProblem.tsx",
-                            lineNumber: 66,
-                            columnNumber: 11
-                        }, this)
+                    " ",
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        children: operator
                     }, void 0, false, {
                         fileName: "[project]/app/elements/MathProblem.tsx",
-                        lineNumber: 65,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex-none px-3 md:px-4",
-                        children: [
-                            " ",
-                            " "
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/app/elements/MathProblem.tsx",
-                        lineNumber: 68,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex-1 flex justify-center",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$NumberVisualizer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                            count: num2,
-                            circleColor: num2VisualizerColor
-                        }, void 0, false, {
-                            fileName: "[project]/app/elements/MathProblem.tsx",
-                            lineNumber: 73,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/app/elements/MathProblem.tsx",
-                        lineNumber: 72,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex-none px-3 md:px-4",
-                        children: [
-                            " ",
-                            " "
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/app/elements/MathProblem.tsx",
-                        lineNumber: 75,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex-1",
-                        children: [
-                            " ",
-                            " "
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/app/elements/MathProblem.tsx",
-                        lineNumber: 76,
+                        lineNumber: 42,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/elements/MathProblem.tsx",
-                lineNumber: 64,
+                lineNumber: 39,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "text-center text-sky-950 text-9xl lg:text-[12rem]",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                    children: num2
+                }, void 0, false, {
+                    fileName: "[project]/app/elements/MathProblem.tsx",
+                    lineNumber: 45,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/elements/MathProblem.tsx",
+                lineNumber: 44,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "text-sky-900 text-7xl text-center",
+                children: [
+                    " ",
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        children: "="
+                    }, void 0, false, {
+                        fileName: "[project]/app/elements/MathProblem.tsx",
+                        lineNumber: 50,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/elements/MathProblem.tsx",
+                lineNumber: 47,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex justify-center",
+                children: [
+                    " ",
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                        ref: inputRef,
+                        type: "number",
+                        value: userAnswer,
+                        onChange: onUserAnswerChange,
+                        onKeyDown: onKeyDown,
+                        disabled: isFeedbackShowing,
+                        maxLength: 2,
+                        className: "w-[2.4ch] text-sky-950 text-9xl lg:text-[12rem] font-mono font-bold bg-transparent border-b-4 border-indigo-500 focus:border-indigo-300 outline-none text-center appearance-none m-0 p-0",
+                        "aria-label": inputAriaLabel
+                    }, void 0, false, {
+                        fileName: "[project]/app/elements/MathProblem.tsx",
+                        lineNumber: 55,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/elements/MathProblem.tsx",
+                lineNumber: 52,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex justify-center min-h-[80px] md:min-h-[100px]",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$NumberVisualizer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                    count: num1,
+                    circleColor: num1VisualizerColor
+                }, void 0, false, {
+                    fileName: "[project]/app/elements/MathProblem.tsx",
+                    lineNumber: 70,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/elements/MathProblem.tsx",
+                lineNumber: 69,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "min-h-[80px] md:min-h-[100px]",
+                children: [
+                    " ",
+                    " "
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/elements/MathProblem.tsx",
+                lineNumber: 72,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex justify-center min-h-[80px] md:min-h-[100px]",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$NumberVisualizer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                    count: num2,
+                    circleColor: num2VisualizerColor
+                }, void 0, false, {
+                    fileName: "[project]/app/elements/MathProblem.tsx",
+                    lineNumber: 77,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/elements/MathProblem.tsx",
+                lineNumber: 76,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "min-h-[80px] md:min-h-[100px]",
+                children: [
+                    " ",
+                    " "
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/elements/MathProblem.tsx",
+                lineNumber: 79,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "min-h-[80px] md:min-h-[100px]",
+                children: [
+                    " ",
+                    " "
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/elements/MathProblem.tsx",
+                lineNumber: 83,
                 columnNumber: 7
             }, this)
         ]
-    }, void 0, true);
+    }, void 0, true, {
+        fileName: "[project]/app/elements/MathProblem.tsx",
+        lineNumber: 34,
+        columnNumber: 5
+    }, this);
 };
 _c = MathProblem;
 var _c;
@@ -1050,20 +1046,24 @@ const GameBoardMathAddition = ()=>{
     const failureSoundFiles = Array.from({
         length: 9
     }, (_, i)=>`/sounds/failure/failure-${i + 1}.aac`);
-    const playRandomSound = (soundFiles)=>{
-        if ("object" !== "undefined" && window.speechSynthesis.speaking) {
-            window.speechSynthesis.cancel(); // Stop instructions if they are speaking
+    const playRandomSound = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "GameBoardMathAddition.useCallback[playRandomSound]": (soundFiles)=>{
+            if ("object" !== "undefined" && window.speechSynthesis.speaking) {
+                window.speechSynthesis.cancel(); // Stop instructions if they are speaking
+            }
+            if (currentAudioRef.current) {
+                currentAudioRef.current.pause();
+                currentAudioRef.current.currentTime = 0;
+            }
+            const randomIndex = Math.floor(Math.random() * soundFiles.length);
+            const soundToPlay = soundFiles[randomIndex];
+            const audio = new Audio(soundToPlay);
+            currentAudioRef.current = audio;
+            audio.play().catch({
+                "GameBoardMathAddition.useCallback[playRandomSound]": (error)=>console.error(`Error playing sound ${soundToPlay}:`, error)
+            }["GameBoardMathAddition.useCallback[playRandomSound]"]);
         }
-        if (currentAudioRef.current) {
-            currentAudioRef.current.pause();
-            currentAudioRef.current.currentTime = 0;
-        }
-        const randomIndex = Math.floor(Math.random() * soundFiles.length);
-        const soundToPlay = soundFiles[randomIndex];
-        const audio = new Audio(soundToPlay);
-        currentAudioRef.current = audio;
-        audio.play().catch((error)=>console.error(`Error playing sound ${soundToPlay}:`, error));
-    };
+    }["GameBoardMathAddition.useCallback[playRandomSound]"], []);
     const clearAllTimeouts = ()=>{
         if (successTimeoutRef.current) {
             clearTimeout(successTimeoutRef.current);
@@ -1192,13 +1192,13 @@ const GameBoardMathAddition = ()=>{
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$Card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardLight"], {
         children: [
             showAstronaut && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute inset-0 flex flex-col items-center justify-center bg-neutral-800 bg-opacity-95 z-10 rounded-xl",
+                className: "absolute inset-0 flex flex-col items-center justify-center bg-amber-200 bg-opacity-95 z-10 rounded-xl",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$FeedbackSuccess$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                         className: "animate-bounce-gentle"
                     }, void 0, false, {
                         fileName: "[project]/app/components/GameBoardMathAddition.tsx",
-                        lineNumber: 176,
+                        lineNumber: 173,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1206,23 +1206,23 @@ const GameBoardMathAddition = ()=>{
                         children: "Correct!"
                     }, void 0, false, {
                         fileName: "[project]/app/components/GameBoardMathAddition.tsx",
-                        lineNumber: 177,
+                        lineNumber: 174,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/GameBoardMathAddition.tsx",
-                lineNumber: 175,
+                lineNumber: 172,
                 columnNumber: 9
             }, this),
             showFailureMonster && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute inset-0 flex flex-col items-center justify-center bg-neutral-800 bg-opacity-95 z-10 rounded-xl",
+                className: "absolute inset-0 flex flex-col items-center justify-center bg-stone-300 bg-opacity-95 z-10 rounded-xl",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$FeedbackFailure$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                         className: ""
                     }, void 0, false, {
                         fileName: "[project]/app/components/GameBoardMathAddition.tsx",
-                        lineNumber: 182,
+                        lineNumber: 179,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1230,13 +1230,13 @@ const GameBoardMathAddition = ()=>{
                         children: "Try again!"
                     }, void 0, false, {
                         fileName: "[project]/app/components/GameBoardMathAddition.tsx",
-                        lineNumber: 183,
+                        lineNumber: 180,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/GameBoardMathAddition.tsx",
-                lineNumber: 181,
+                lineNumber: 178,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$HeadlineInstruction$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["HeadlineInstruction"], {
@@ -1244,7 +1244,7 @@ const GameBoardMathAddition = ()=>{
                 instructionText: "What is the sum? Add numbers together!"
             }, void 0, false, {
                 fileName: "[project]/app/components/GameBoardMathAddition.tsx",
-                lineNumber: 187,
+                lineNumber: 184,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$MathProblem$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MathProblem"], {
@@ -1259,17 +1259,17 @@ const GameBoardMathAddition = ()=>{
                 inputAriaLabel: "Enter sum"
             }, void 0, false, {
                 fileName: "[project]/app/components/GameBoardMathAddition.tsx",
-                lineNumber: 192,
+                lineNumber: 189,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/components/GameBoardMathAddition.tsx",
-        lineNumber: 173,
+        lineNumber: 170,
         columnNumber: 5
     }, this);
 };
-_s(GameBoardMathAddition, "6SNKVTd54UG/XcU93Hn7Wo3bjBM=");
+_s(GameBoardMathAddition, "8plxc4+JFBhV9YIZbTGfiEL6IAQ=");
 _c = GameBoardMathAddition;
 const __TURBOPACK__default__export__ = GameBoardMathAddition;
 var _c;
@@ -1287,24 +1287,131 @@ __turbopack_context__.s({
     "default": (()=>__TURBOPACK__default__export__)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$GameBoardMathAddition$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/components/GameBoardMathAddition.tsx [app-client] (ecmascript)"); // Using alias
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/image.js [app-client] (ecmascript)");
+;
+var _s = __turbopack_context__.k.signature();
 "use client";
 ;
 ;
+;
 const MathAdditionPage = ()=>{
+    _s();
+    const [showFeedback, setShowFeedback] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
-        className: "flex min-h-screen flex-col items-center justify-center bg-white p-4 md:p-8",
-        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$GameBoardMathAddition$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
-            fileName: "[project]/app/games/addition/page.tsx",
-            lineNumber: 9,
-            columnNumber: 7
-        }, this)
-    }, void 0, false, {
+        className: "flex min-h-screen flex-col items-center justify-center bg-white relative h-full",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                onClick: ()=>setShowFeedback(!showFeedback),
+                className: "bg-green-500 text-white p-2 rounded-md z-10",
+                children: "Show Feedback"
+            }, void 0, false, {
+                fileName: "[project]/app/games/addition/page.tsx",
+                lineNumber: 11,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$GameBoardMathAddition$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
+                fileName: "[project]/app/games/addition/page.tsx",
+                lineNumber: 17,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                src: "/images/astro-dude-2.png",
+                alt: "Home",
+                width: 300,
+                height: 300,
+                className: `absolute rotate-160 drop-shadow-lg/20 transition-all duration-200 ease-in-out delay-100 ${showFeedback ? "-top-[5%] -left-[5%] opacity-100" : "-top-[10%] -left-[10%] opacity-0"}`
+            }, void 0, false, {
+                fileName: "[project]/app/games/addition/page.tsx",
+                lineNumber: 18,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                src: "/images/astro-dude-1.png",
+                alt: "Home",
+                width: 350,
+                height: 350,
+                className: `absolute -rotate-140 drop-shadow-lg/20 transition-all duration-200 ease-in-out ${showFeedback ? "-top-[10%] -right-[8%] opacity-100" : "-top-[15%] -right-[12%] opacity-0"}`
+            }, void 0, false, {
+                fileName: "[project]/app/games/addition/page.tsx",
+                lineNumber: 29,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                src: "/images/astro-dude-5.png",
+                alt: "Home",
+                width: 350,
+                height: 350,
+                className: `absolute -rotate-18 drop-shadow-lg/20 transition-all duration-200 ease-in-out delay-80 ${showFeedback ? "top-[40%] -right-[10%] opacity-100" : "top-[45%] -right-[15%] opacity-0"}`
+            }, void 0, false, {
+                fileName: "[project]/app/games/addition/page.tsx",
+                lineNumber: 40,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                src: "/images/astro-dude-3.png",
+                alt: "Home",
+                width: 400,
+                height: 400,
+                className: `absolute rotate-18 drop-shadow-lg/20 transition-all duration-200 ease-in-out ${showFeedback ? "top-[40%] -left-[10%] opacity-100" : "top-[45%] -left-[15%] opacity-0"}`
+            }, void 0, false, {
+                fileName: "[project]/app/games/addition/page.tsx",
+                lineNumber: 51,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                src: "/images/astro-dudes.png",
+                alt: "Home",
+                width: 4096,
+                height: 1820,
+                className: `absolute w-[85vw] drop-shadow-lg/20 transition-all duration-200 ease-in-out delay-100 ${showFeedback ? "-bottom-[25%] opacity-100" : "-bottom-[40%] opacity-0"}`
+            }, void 0, false, {
+                fileName: "[project]/app/games/addition/page.tsx",
+                lineNumber: 62,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                src: "/images/astro-dude-3.png",
+                alt: "Home",
+                width: 300,
+                height: 300,
+                className: `absolute rotate-180 drop-shadow-lg/20 transition-all duration-200 ease-in-out delay-80 ${showFeedback ? "-top-[10%] right-[50%] opacity-100" : "-top-[15%] right-[55%] opacity-0"}`
+            }, void 0, false, {
+                fileName: "[project]/app/games/addition/page.tsx",
+                lineNumber: 71,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                src: "/images/astro-dude-4.png",
+                alt: "Home",
+                width: 250,
+                height: 250,
+                className: `absolute rotate-160 drop-shadow-lg/20 transition-all duration-200 ease-in-out delay-120 ${showFeedback ? "-top-[8%] right-[40%] opacity-100" : "-top-[13%] right-[45%] opacity-0"}`
+            }, void 0, false, {
+                fileName: "[project]/app/games/addition/page.tsx",
+                lineNumber: 82,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                src: "/images/astro-dude-6.png",
+                alt: "Home",
+                width: 300,
+                height: 300,
+                className: `absolute rotate-200 drop-shadow-lg/20 transition-all duration-200 ease-in-out ${showFeedback ? "-top-[8%] right-[20%] opacity-100" : "-top-[13%] right-[25%] opacity-0"}`
+            }, void 0, false, {
+                fileName: "[project]/app/games/addition/page.tsx",
+                lineNumber: 93,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
         fileName: "[project]/app/games/addition/page.tsx",
-        lineNumber: 8,
+        lineNumber: 10,
         columnNumber: 5
     }, this);
 };
+_s(MathAdditionPage, "00j+ogSGUaXf0XhlrcmHAhfLxO0=");
 _c = MathAdditionPage;
 const __TURBOPACK__default__export__ = MathAdditionPage;
 var _c;

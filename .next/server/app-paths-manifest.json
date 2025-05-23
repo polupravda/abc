@@ -1,5 +1,4 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/games/addition/page": "app/games/addition/page.js",
   "/games/letter-sound-match/page": "app/games/letter-sound-match/page.js",

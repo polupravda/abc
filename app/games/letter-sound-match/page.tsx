@@ -1,6 +1,6 @@
 "use client";
 
-import GameBoardLetterSoundMatch from "@/app/components/GameBoardLetterSoundMatch";
+import GameBoardLetterSoundMatch from "@/app/components/gameBoards/GameBoardLetterSoundMatch";
 
 export default function LetterSoundMatchPage() {
   return (

@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///Users/elena.volovicheva/Documents/elena-private-workspace/abc/app/games/phonics/page.tsx"],"sourcesContent":["\"use client\";\n\nimport GameBoardPhonics from \"@/app/components/GameBoardPhonics\";\n\nexport default function PhonicsGamePage() {\n  return (\n    <main className=\"flex min-h-screen flex-col items-center justify-center bg-white relative h-full\">\n      <GameBoardPhonics />\n    </main>\n  );\n}\n"],"names":[],"mappings":";;;;;;;;;AAAA;;;AAIe,SAAS;IACtB,qBACE,6LAAC;QAAK,WAAU;kBACd,cAAA,6LAAC;;;;;;;;;;AAGP;KANwB","debugId":null}}]
+}

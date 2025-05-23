@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import FeedbackSuccessAnimation from "./FeedbackSuccessAnimation";
-import FeedbackFailure from "./FeedbackFailure";
-import { HeadlineInstruction } from "../elements/HeadlineInstruction";
-import { CardLight } from "../elements/Card";
-import { LetterCard } from "../elements/LetterCard";
-import { Button } from "../elements/Button";
-import LoudspeakerIcon from "../icons/LoudspeakerIcon";
+import FeedbackSuccessAnimation from "../FeedbackSuccessAnimation";
+import FeedbackFailure from "../FeedbackFailure";
+import { HeadlineInstruction } from "../../elements/HeadlineInstruction";
+import { CardLight } from "../../elements/Card";
+import { LetterCard } from "../../elements/LetterCard";
+import { Button } from "../../elements/Button";
+import LoudspeakerIcon from "../../icons/LoudspeakerIcon";
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
@@ -47,14 +47,9 @@ const GameBoardLetterSoundMatch: React.FC = () => {
         audioRefToUse.current.pause();
         audioRefToUse.current.onended = null;
         audioRefToUse.current.onerror = null;
-        audioRefToUse.current = null;
       }
       const audio = new Audio(soundSrc);
       audioRefToUse.current = audio;
-      audio.play().catch((error) => {
-        console.error(`Error playing sound ${soundSrc}:`, error);
-        if (audioRefToUse.current === audio) audioRefToUse.current = null;
-      });
       audio.onended = () => {
         if (audioRefToUse.current === audio) audioRefToUse.current = null;
       };
@@ -62,6 +57,18 @@ const GameBoardLetterSoundMatch: React.FC = () => {
         console.error(`Audio element error for ${soundSrc}:`, event);
         if (audioRefToUse.current === audio) audioRefToUse.current = null;
       };
+      audio.play().catch((error) => {
+        if (error.name === "AbortError") {
+          // This is an expected interruption, e.g., user clicked play again quickly.
+          // console.log(`Play attempt on ${soundSrc} was aborted (interrupted).`); // Optional: for debugging
+        } else {
+          // This is an unexpected error.
+          console.error(`Error starting sound ${soundSrc}:`, error);
+        }
+        if (audioRefToUse.current === audio) {
+          audioRefToUse.current = null;
+        }
+      });
     },
     []
   );
@@ -119,11 +126,20 @@ const GameBoardLetterSoundMatch: React.FC = () => {
 
   useEffect(() => {
     generateProblem();
+
+    // Capture the ref values at the time the effect runs
+    const phonicAudio = currentPhonicAudioRef.current;
+    const feedbackAudio = currentFeedbackAudioRef.current;
+
     return () => {
       clearAllTimeouts();
-      if (currentPhonicAudioRef.current) currentPhonicAudioRef.current.pause();
-      if (currentFeedbackAudioRef.current)
-        currentFeedbackAudioRef.current.pause();
+      // Use the captured values in the cleanup function
+      if (phonicAudio) {
+        phonicAudio.pause();
+      }
+      if (feedbackAudio) {
+        feedbackAudio.pause();
+      }
       if (typeof window !== "undefined" && window.speechSynthesis.speaking) {
         window.speechSynthesis.cancel();
       }
@@ -213,7 +229,7 @@ const GameBoardLetterSoundMatch: React.FC = () => {
   return (
     <div className="h-full w-full flex flex-col items-center justify-center relative">
       {showSuccessContainer && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-neutral-800 bg-opacity-95 z-20 rounded-xl">
+        <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
           <FeedbackSuccessAnimation show={startSuccessAnimation} />
         </div>
       )}

@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import FeedbackFailure from "./FeedbackFailure";
-import { HeadlineInstruction } from "../elements/HeadlineInstruction";
-import { CardLight } from "../elements/Card";
-import { MathProblem } from "../elements/MathProblem";
-import FeedbackSuccessAnimation from "./FeedbackSuccessAnimation";
+import FeedbackFailure from "../FeedbackFailure";
+import { HeadlineInstruction } from "../../elements/HeadlineInstruction";
+import { CardLight } from "../../elements/Card";
+import { MathProblem } from "../../elements/MathProblem";
+import FeedbackSuccessAnimation from "../FeedbackSuccessAnimation";
 type GameBoardMathSubtractionProps = Record<string, never>;
 
 const GameBoardMathSubtraction: React.FC<

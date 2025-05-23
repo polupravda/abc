@@ -1,6 +1,6 @@
 "use client";
 
-import GameBoardPhonics from "@/app/components/GameBoardPhonics";
+import GameBoardPhonics from "@/app/components/gameBoards/GameBoardPhonics";
 
 export default function PhonicsGamePage() {
   return (

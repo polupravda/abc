@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import FeedbackSuccessAnimation from "./FeedbackSuccessAnimation";
-import FeedbackFailure from "./FeedbackFailure";
-import { CardLight } from "../elements/Card";
-import { HeadlineInstruction } from "../elements/HeadlineInstruction";
-import { MathProblem } from "../elements/MathProblem";
+import FeedbackSuccessAnimation from "../FeedbackSuccessAnimation";
+import FeedbackFailure from "../FeedbackFailure";
+import { CardLight } from "../../elements/Card";
+import { HeadlineInstruction } from "../../elements/HeadlineInstruction";
+import { MathProblem } from "../../elements/MathProblem";
 
 // interface GameBoardMathAdditionProps {
 //   // Props can be added here if needed in the future

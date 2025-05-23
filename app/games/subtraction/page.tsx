@@ -1,6 +1,6 @@
 "use client";
 
-import GameBoardMathSubtraction from "@/app/components/GameBoardMathSubtraction";
+import GameBoardMathSubtraction from "@/app/components/gameBoards/GameBoardMathSubtraction";
 
 export default function SubtractionGamePage() {
   return (

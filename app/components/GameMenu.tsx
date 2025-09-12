@@ -133,10 +133,28 @@ const GameMenu: React.FC = () => {
     </div>
   );
 
+  const multiplicationGameIcon = (
+    <div className="w-full h-full flex flex-col items-center justify-center relative rounded-full overflow-hidden">
+      <div
+        className="absolute inset-0 w-full h-full z-0"
+        style={{
+          backgroundImage: "url('/images/space-1.svg')",
+          backgroundPosition: "60% 35%",
+          backgroundSize: "520%",
+          backgroundRepeat: "no-repeat",
+          filter: "contrast(0.7)",
+        }}
+      ></div>
+      <div className="relative z-10 h-20 w-20 flex items-center justify-center">
+        <span className="text-5xl font-bold text-emerald-400">×</span>
+      </div>
+    </div>
+  );
+
   return (
     <div className="w-full h-screen p-8 relative">
-      <div className="absolute top-8 right-8 flex flex-col items-start">
-        <div className="flex flex-wrap justify-start gap-2 flex-col items-start">
+      <div className="flex flex-col items-end">
+        <div className="flex flex-wrap justify-start gap-2 flex-col items-start h-[100vh]">
           <GameBadge
             title="Addition up to 10"
             href="/games/addition"
@@ -166,6 +184,11 @@ const GameMenu: React.FC = () => {
             title="Greater or Less"
             href="/games/greater-or-less"
             icon={greaterOrLessGameIcon}
+          />
+          <GameBadge
+            title="Multiplication Arrays"
+            href="/games/multiplication"
+            icon={multiplicationGameIcon}
           />
           {/* Future game badges can be added here */}
         </div>

@@ -227,7 +227,7 @@ const GameBoardLetterSoundMatch: React.FC = () => {
     (showSuccessContainer && startSuccessAnimation) || showFailure;
 
   return (
-    <div className="h-full w-full flex flex-col items-center justify-center relative">
+    <div className="h-full w-full flex flex-col items-center justify-center relative overflow-auto">
       {showSuccessContainer && (
         <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
           <FeedbackSuccessAnimation show={startSuccessAnimation} />

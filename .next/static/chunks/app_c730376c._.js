@@ -496,6 +496,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$icons$2f$LoudspeakerI
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$ButtonIcon$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/elements/ButtonIcon.tsx [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
+"use client";
 ;
 ;
 ;
@@ -503,24 +504,80 @@ const InstructionButton = ({ instructions })=>{
     _s();
     const instructionUtteranceRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     const playInstructions = ()=>{
-        if ("object" !== "undefined" && window.speechSynthesis) {
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(instructions);
-            instructionUtteranceRef.current = utterance;
-            const voices = window.speechSynthesis.getVoices();
-            let preferredVoice = voices.find((v)=>v.lang === "en-US" && v.name.toLowerCase().includes("female"));
-            if (!preferredVoice) preferredVoice = voices.find((v)=>v.lang === "en-US");
-            if (!preferredVoice) preferredVoice = voices.find((v)=>v.lang.startsWith("en"));
-            if (preferredVoice) utterance.voice = preferredVoice;
-            utterance.pitch = 1;
-            utterance.rate = 1;
-            utterance.onend = ()=>{
-                instructionUtteranceRef.current = null;
+        if ("object" === "undefined" || !window.speechSynthesis) return;
+        const synth = window.speechSynthesis;
+        // Stop anything currently speaking and ensure not paused
+        try {
+            synth.cancel();
+            if (synth.paused) synth.resume();
+        } catch (_) {}
+        const utterance = new SpeechSynthesisUtterance(instructions);
+        instructionUtteranceRef.current = utterance;
+        utterance.pitch = 1;
+        utterance.rate = 0.8;
+        utterance.lang = "en-US";
+        utterance.onend = ()=>{
+            instructionUtteranceRef.current = null;
+        };
+        utterance.onerror = ()=>{
+            instructionUtteranceRef.current = null;
+        };
+        const pickVoice = (voices)=>{
+            const lower = (s)=>(s || "").toLowerCase();
+            const nameHas = (v, needle)=>lower(v.name).includes(needle);
+            // Preferred high-quality English voices across browsers/OS
+            const preferredByName = [
+                // Chrome (if present)
+                "google us english",
+                "google uk english female",
+                // macOS voices commonly available in Firefox/Safari
+                "samantha",
+                "victoria",
+                "karen",
+                "moira",
+                "serena",
+                // Windows voices
+                "aria",
+                "jenny",
+                "zira"
+            ];
+            for (const pref of preferredByName){
+                const found = voices.find((v)=>nameHas(v, pref));
+                if (found) return found;
+            }
+            // Otherwise prefer en-US female if available
+            let v = voices.find((vv)=>vv.lang === "en-US" && lower(vv.name).includes("female"));
+            if (!v) v = voices.find((vv)=>vv.lang === "en-US");
+            if (!v) v = voices.find((vv)=>vv.lang && vv.lang.startsWith("en"));
+            return v || null;
+        };
+        const speakNow = (voice)=>{
+            if (voice) utterance.voice = voice;
+            try {
+                synth.speak(utterance);
+            } catch (_) {
+                // As a fallback, try once more on next tick
+                setTimeout(()=>synth.speak(utterance), 0);
+            }
+        };
+        // Chrome often returns [] until voices load; wait if needed
+        const voices = synth.getVoices();
+        if (voices && voices.length > 0) {
+            speakNow(pickVoice(voices));
+        } else {
+            const onVoices = ()=>{
+                const loaded = synth.getVoices();
+                synth.removeEventListener("voiceschanged", onVoices);
+                speakNow(pickVoice(loaded));
             };
-            utterance.onerror = ()=>{
-                instructionUtteranceRef.current = null;
-            };
-            window.speechSynthesis.speak(utterance);
+            synth.addEventListener("voiceschanged", onVoices);
+            // Fallback in case event never fires; speak with default voice soon
+            setTimeout(()=>{
+                try {
+                    synth.removeEventListener("voiceschanged", onVoices);
+                } catch (_) {}
+                if (!synth.speaking) speakNow(null);
+            }, 500);
         }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$ButtonIcon$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ButtonIcon"], {
@@ -529,7 +586,7 @@ const InstructionButton = ({ instructions })=>{
         title: "Play Instructions"
     }, void 0, false, {
         fileName: "[project]/app/elements/InstructionButton.tsx",
-        lineNumber: 39,
+        lineNumber: 104,
         columnNumber: 5
     }, this);
 };
@@ -1014,7 +1071,7 @@ const GameBoardMathAddition = ()=>{
     };
     const isFeedbackShowing = showSuccessContainer && startSuccessAnimation || showFailureMonster;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "h-full w-full flex flex-col items-center justify-center relative",
+        className: "h-full w-full flex flex-col items-center justify-center relative overflow-auto",
         children: [
             showSuccessContainer && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute inset-0 flex flex-col items-center justify-center z-10",

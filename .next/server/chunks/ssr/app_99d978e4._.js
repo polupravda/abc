@@ -324,6 +324,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$icons$2f$LoudspeakerIcon$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/icons/LoudspeakerIcon.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$ButtonIcon$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/elements/ButtonIcon.tsx [app-ssr] (ecmascript)");
+"use client";
 ;
 ;
 ;
@@ -331,9 +332,14 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$ButtonIco
 const InstructionButton = ({ instructions })=>{
     const instructionUtteranceRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
     const playInstructions = ()=>{
-        if ("TURBOPACK compile-time falsy", 0) {
-            "TURBOPACK unreachable";
-        }
+        if ("TURBOPACK compile-time truthy", 1) return;
+        "TURBOPACK unreachable";
+        const synth = undefined;
+        const utterance = undefined;
+        const pickVoice = undefined;
+        const speakNow = undefined;
+        // Chrome often returns [] until voices load; wait if needed
+        const voices = undefined;
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$ButtonIcon$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ButtonIcon"], {
         onClick: playInstructions,
@@ -341,7 +347,7 @@ const InstructionButton = ({ instructions })=>{
         title: "Play Instructions"
     }, void 0, false, {
         fileName: "[project]/app/elements/InstructionButton.tsx",
-        lineNumber: 39,
+        lineNumber: 104,
         columnNumber: 5
     }, this);
 };
@@ -931,7 +937,7 @@ const GameBoardMathSubtraction = ()=>{
     // Headline instruction fades out when any feedback (success or failure) starts to appear.
     const isFeedbackShowing = showSuccessContainer && startSuccessAnimation || showFailureMonster;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "h-full w-full flex flex-col items-center justify-center relative",
+        className: "h-full w-full flex flex-col items-center justify-center relative overflow-auto",
         children: [
             showSuccessContainer && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute inset-0 flex flex-col items-center justify-center z-10",

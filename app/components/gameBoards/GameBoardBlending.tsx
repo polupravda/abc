@@ -5,8 +5,7 @@ import { HeadlineInstruction } from "../../elements/HeadlineInstruction";
 import { CardLight } from "../../elements/Card";
 import FeedbackSuccessAnimation from "../FeedbackSuccessAnimation";
 import BouncingMicrophone from "../../elements/BouncingMicrophone";
-import { threeLetterWords } from "../../const/words";
-import MicrophoneIcon from "@/app/icons/MicrophoneIcon";
+import { processedWordList } from "../../const/words";
 import { ButtonSpeak } from "@/app/elements/ButtonSpeak";
 // We might need a MicrophoneIcon for the button itself later. For now, text.
 
@@ -68,6 +67,8 @@ const GameBoardBlending: React.FC = () => {
   const [lettersOfCurrentWord, setLettersOfCurrentWord] = useState<string[]>(
     []
   );
+  const [usedDots, setUsedDots] = useState(0);
+  const [isGameOver, setIsGameOver] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [showSuccessContainer, setShowSuccessContainer] = useState(false);
   const [startSuccessAnimation, setStartSuccessAnimation] = useState(false);
@@ -117,40 +118,18 @@ const GameBoardBlending: React.FC = () => {
     };
   }, [successSoundFiles]);
 
-  const playLetterSound = useCallback((letter: string) => {
-    if (typeof window !== "undefined" && window.speechSynthesis.speaking) {
-      window.speechSynthesis.cancel();
-    }
-    if (successSoundAudioRef.current) successSoundAudioRef.current.pause(); // Stop success sound if playing
+  // Letter sound playback disabled in this mode; clicks consume scoreboard dots instead.
 
-    const soundSrc = `/sounds/phonics/${letter.toLowerCase()}.m4a`;
-    const audioRefToUse = letterSoundAudioRef;
+  const MAX_DOTS = 20;
 
-    if (audioRefToUse.current) {
-      audioRefToUse.current.pause();
-      audioRefToUse.current.onended = null;
-      audioRefToUse.current.onerror = null;
-    }
-    const audio = new Audio(soundSrc);
-    audioRefToUse.current = audio;
-    audio.onended = () => {
-      if (audioRefToUse.current === audio) audioRefToUse.current = null;
-    };
-    audio.onerror = (event) => {
-      console.error(`Audio element error for ${soundSrc}:`, event);
-      if (audioRefToUse.current === audio) audioRefToUse.current = null;
-    };
-    audio.play().catch((error) => {
-      if (error.name === "AbortError") {
-        // console.log(`Play attempt on ${soundSrc} was aborted.`);
-      } else {
-        console.error(`Error starting sound ${soundSrc}:`, error);
-      }
-      if (audioRefToUse.current === audio) {
-        audioRefToUse.current = null;
-      }
+  const handleLetterClick = useCallback(() => {
+    if (isGameOver) return;
+    setUsedDots((prev) => {
+      const next = Math.min(prev + 1, MAX_DOTS);
+      if (next >= MAX_DOTS) setIsGameOver(true);
+      return next;
     });
-  }, []);
+  }, [isGameOver]);
 
   const generateNewWord = useCallback(() => {
     clearAllTimeouts();
@@ -158,8 +137,8 @@ const GameBoardBlending: React.FC = () => {
     setStartSuccessAnimation(false);
     setIsListening(false);
 
-    const randomIndex = Math.floor(Math.random() * threeLetterWords.length);
-    const newWord = threeLetterWords[randomIndex];
+    const randomIndex = Math.floor(Math.random() * processedWordList.length);
+    const newWord = processedWordList[randomIndex];
     setCurrentWord(newWord);
     setLettersOfCurrentWord(newWord.split(""));
   }, [clearAllTimeouts]);
@@ -322,7 +301,7 @@ const GameBoardBlending: React.FC = () => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.code === "Space") {
         event.preventDefault();
-        if (!isListening && !showSuccessContainer) {
+        if (!isListening && !showSuccessContainer && !isGameOver) {
           triggerListen();
         }
       }
@@ -331,10 +310,17 @@ const GameBoardBlending: React.FC = () => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [triggerListen, isListening, showSuccessContainer]);
+  }, [triggerListen, isListening, showSuccessContainer, isGameOver]);
 
   return (
-    <div className="h-full w-full flex flex-col items-center justify-center relative overflow-hidden">
+    <div className="h-full w-full flex flex-col items-center justify-center relative overflow-auto overflow-hidden">
+      {isGameOver && (
+        <div className="absolute inset-0 z-30 bg-white/80 flex items-center justify-center">
+          <div className="text-5xl md:text-6xl font-extrabold text-gray-800">
+            Game over
+          </div>
+        </div>
+      )}
       <BouncingMicrophone
         isVisible={isListening}
         stopListening={() => {
@@ -351,7 +337,7 @@ const GameBoardBlending: React.FC = () => {
       <div className="h-auto max-h-[80vh] mb-10 flex flex-col items-center">
         <HeadlineInstruction
           headlineText="Blend the sounds to make a word!"
-          instructionText="Click letters to hear their sounds. Blend them to make a word. Click the button or press Space to speak."
+          instructionText="Remember letters without listening. Each letter click uses a dot."
           className={`transition-opacity duration-300 ${
             isListening || (showSuccessContainer && startSuccessAnimation)
               ? "opacity-0"
@@ -359,13 +345,26 @@ const GameBoardBlending: React.FC = () => {
           }`}
         />
         <CardLight className={`transition-opacity duration-300`}>
+          <div className="flex flex-wrap gap-2 justify-center items-center mt-6">
+            {Array.from({ length: MAX_DOTS }).map((_, idx) => (
+              <span
+                key={`dot-${idx}`}
+                className={`w-4 h-4 rounded-full ${
+                  idx < usedDots
+                    ? "bg-white border border-gray-300"
+                    : "bg-green-500"
+                }`}
+              />
+            ))}
+          </div>
           <div className="flex justify-center items-center space-x-2 md:space-x-4 my-8 px-4">
             {lettersOfCurrentWord.map((letter, index) => (
               <button
                 className="text-[12rem] leading-none font-bold text-fuchsia-950 focus:outline-none rounded-lg p-2 transition-transform hover:scale-105 active:scale-95"
                 key={`${currentWord}-${index}`}
-                onClick={() => playLetterSound(letter)}
-                aria-label={`Play sound for letter ${letter}`}
+                onClick={handleLetterClick}
+                aria-label={`Letter ${letter}`}
+                disabled={isGameOver}
               >
                 {index === 0 ? letter : letter.toLowerCase()}
               </button>
@@ -373,12 +372,11 @@ const GameBoardBlending: React.FC = () => {
           </div>
           <div className="flex justify-center mt-8 mb-4">
             <ButtonSpeak
-              onClick={triggerListen}
-              disabled={isListening || showSuccessContainer}
-              text="Speak Word"
-              aria-label="Speak the word"
+              onClick={generateNewWord}
+              disabled={isListening || showSuccessContainer || isGameOver}
+              text="Next"
+              aria-label="Next word"
               className="px-8 py-4 text-xl font-semibold"
-              icon={MicrophoneIcon}
             />
           </div>
         </CardLight>

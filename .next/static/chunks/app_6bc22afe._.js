@@ -234,6 +234,41 @@ const Slider = ()=>{
     const range = max - min;
     const trackRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     const [value, setValue] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
+    // Game state
+    const [numberToCompare, setNumberToCompare] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
+    const [symbol, setSymbol] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(">");
+    const [message, setMessage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
+    const [showNextProblemButton, setShowNextProblemButton] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const getRandomInt = (minVal, maxVal)=>{
+        return Math.floor(Math.random() * (maxVal - minVal + 1)) + minVal;
+    };
+    const getRandomSymbol = ()=>{
+        const symbols = [
+            ">",
+            "<",
+            "="
+        ];
+        return symbols[Math.floor(Math.random() * symbols.length)];
+    };
+    const generateNewProblem = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "Slider.useCallback[generateNewProblem]": ()=>{
+            setNumberToCompare(getRandomInt(min, max));
+            setSymbol(getRandomSymbol());
+            setValue(0); // Reset slider to 0 for new problem
+            setMessage("");
+            setShowNextProblemButton(false);
+        }
+    }["Slider.useCallback[generateNewProblem]"], [
+        min,
+        max
+    ]); // Add min, max to dependencies
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "Slider.useEffect": ()=>{
+            generateNewProblem();
+        }
+    }["Slider.useEffect"], [
+        generateNewProblem
+    ]);
     const getValueFromPosition = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
         "Slider.useCallback[getValueFromPosition]": (clientY)=>{
             const track = trackRef.current;
@@ -287,140 +322,264 @@ const Slider = ()=>{
     }["Slider.useEffect"], [
         stopDrag
     ]);
+    const getSpokenComparison = (sym)=>{
+        switch(sym){
+            case ">":
+                return "is greater than";
+            case "<":
+                return "is less than";
+            case "=":
+                return "is equal to";
+            default:
+                return "";
+        }
+    };
+    const speak = (text)=>{
+        if ("object" !== "undefined" && window.speechSynthesis) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = "en-US";
+            window.speechSynthesis.speak(utterance);
+        }
+    };
+    const handleCheck = ()=>{
+        let correct = false;
+        switch(symbol){
+            case ">":
+                correct = value > numberToCompare;
+                break;
+            case "<":
+                correct = value < numberToCompare;
+                break;
+            case "=":
+                correct = value === numberToCompare;
+                break;
+        }
+        const equationString = `${value} ${getSpokenComparison(symbol)} ${numberToCompare}`;
+        speak(equationString);
+        if (correct) {
+            setMessage("Correct!");
+            speak("Correct!");
+            setShowNextProblemButton(true);
+        } else {
+            let correctRelationSymbol;
+            if (value > numberToCompare) {
+                correctRelationSymbol = ">";
+            } else if (value < numberToCompare) {
+                correctRelationSymbol = "<";
+            } else {
+                correctRelationSymbol = "=";
+            }
+            const detailedFeedback = `Try again! ${value} is not ${getSpokenComparison(symbol)} ${numberToCompare}, it ${getSpokenComparison(correctRelationSymbol)} ${numberToCompare}.`;
+            setMessage("Try Again!"); // Keep UI message simple
+            speak(detailedFeedback);
+        }
+    };
     const pointerPosPercent = (max - value) / range * 100;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "flex items-center select-none",
+        className: "flex flex-col items-center select-none p-4 space-y-4",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "text-[12rem] font-bold text-fuchsia-800 h-[16rem] w-[20rem] flex items-center justify-center border-4 border-fuchsia-300 rounded-xl",
-                children: value
-            }, void 0, false, {
-                fileName: "[project]/app/elements/Slider.tsx",
-                lineNumber: 63,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "relative flex items-center",
-                style: {
-                    height: "80vh",
-                    width: "4rem"
-                },
+                className: "flex items-start",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        ref: trackRef,
-                        className: "absolute left-1/2 top-0 -translate-x-1/2 shadow-lg/30",
+                        className: "relative flex items-center mr-[6rem] mt-4",
                         style: {
-                            width: "16px",
-                            top: "-2.5%",
-                            height: "105%",
-                            borderRadius: "8px",
-                            background: "linear-gradient(to bottom, #06b6d4 0%, #06b6d4 50%, #ef4444 50%, #ef4444 100%)"
-                        }
-                    }, void 0, false, {
-                        fileName: "[project]/app/elements/Slider.tsx",
-                        lineNumber: 73,
-                        columnNumber: 9
-                    }, this),
-                    Array.from({
-                        length: range + 1
-                    }, (_, i)=>max - i).map((num)=>{
-                        const pos = (max - num) / range * 100;
-                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "absolute bg-gray-200 rounded-full",
-                            style: {
-                                width: "0.2rem",
-                                height: "0.2rem",
-                                left: "50%",
-                                top: `${pos}%`,
-                                transform: "translate(-50%, -50%)"
-                            }
-                        }, `dot-${num}`, false, {
-                            fileName: "[project]/app/elements/Slider.tsx",
-                            lineNumber: 90,
-                            columnNumber: 13
-                        }, this);
-                    }),
-                    Array.from({
-                        length: range + 1
-                    }, (_, i)=>max - i).map((num)=>{
-                        const pos = (max - num) / range * 100;
-                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                            className: `absolute font-bold text-xl ${num >= 0 ? "text-cyan-800" : "text-red-800"}`,
-                            style: {
-                                top: `${pos}%`,
-                                left: "4rem",
-                                transform: "translateY(-50%)"
-                            },
-                            children: num
-                        }, num, false, {
-                            fileName: "[project]/app/elements/Slider.tsx",
-                            lineNumber: 108,
-                            columnNumber: 13
-                        }, this);
-                    }),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        onMouseDown: startDrag,
-                        onTouchStart: startDrag,
-                        className: "absolute flex items-center justify-center cursor-grab",
-                        style: {
-                            top: `${pointerPosPercent}%`,
-                            left: "50%",
-                            transform: "translate(-50%, -50%)",
-                            width: "2rem",
-                            height: "2rem",
-                            zIndex: 10
+                            height: "70vh",
+                            width: "4rem"
                         },
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "absolute w-full h-full rounded-full bg-purple-700 shadow-lg/30"
-                            }, void 0, false, {
-                                fileName: "[project]/app/elements/Slider.tsx",
-                                lineNumber: 139,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "absolute w-3/5 h-3/5 rounded-full bg-purple-300 shadow-lg/30"
-                            }, void 0, false, {
-                                fileName: "[project]/app/elements/Slider.tsx",
-                                lineNumber: 141,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "absolute",
+                                ref: trackRef,
+                                className: "absolute left-1/2 top-0 -translate-x-1/2 shadow-lg/30",
                                 style: {
-                                    width: 0,
-                                    height: 0,
-                                    borderTop: "0.5rem solid transparent",
-                                    borderBottom: "0.5rem solid transparent",
-                                    borderLeft: "0.75rem solid #7e22ce",
-                                    right: "-0.75rem",
-                                    filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.5))"
+                                    width: "16px",
+                                    top: "-2.5%",
+                                    height: "105%",
+                                    borderRadius: "8px",
+                                    background: "linear-gradient(to bottom, #06b6d4 0%, #06b6d4 50%, #ef4444 50%, #ef4444 100%)"
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/app/elements/Slider.tsx",
-                                lineNumber: 143,
+                                lineNumber: 173,
+                                columnNumber: 11
+                            }, this),
+                            Array.from({
+                                length: range + 1
+                            }, (_, i)=>max - i).map((num)=>{
+                                const pos = (max - num) / range * 100;
+                                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "absolute bg-gray-200 rounded-full cursor-pointer hover:bg-yellow-400 transition-colors",
+                                    style: {
+                                        width: "0.4rem",
+                                        height: "0.4rem",
+                                        left: "50%",
+                                        top: `${pos}%`,
+                                        transform: "translate(-50%, -50%)",
+                                        zIndex: 1
+                                    },
+                                    onClick: ()=>setValue(num)
+                                }, `dot-${num}`, false, {
+                                    fileName: "[project]/app/elements/Slider.tsx",
+                                    lineNumber: 190,
+                                    columnNumber: 15
+                                }, this);
+                            }),
+                            Array.from({
+                                length: range + 1
+                            }, (_, i)=>max - i).map((num)=>{
+                                const pos = (max - num) / range * 100;
+                                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: `absolute font-bold text-lg ${// Slightly smaller labels
+                                    num >= 0 ? "text-cyan-800" : "text-red-800"}`,
+                                    style: {
+                                        top: `${pos}%`,
+                                        left: "4rem",
+                                        transform: "translateY(-50%)"
+                                    },
+                                    children: num
+                                }, num, false, {
+                                    fileName: "[project]/app/elements/Slider.tsx",
+                                    lineNumber: 210,
+                                    columnNumber: 15
+                                }, this);
+                            }),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                onMouseDown: startDrag,
+                                onTouchStart: startDrag,
+                                className: "absolute flex items-center justify-center cursor-grab",
+                                style: {
+                                    top: `${pointerPosPercent}%`,
+                                    left: "50%",
+                                    transform: "translate(-50%, -50%)",
+                                    width: "2rem",
+                                    height: "2rem",
+                                    zIndex: 10
+                                },
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "absolute w-full h-full rounded-full bg-purple-700 shadow-lg/30"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/elements/Slider.tsx",
+                                        lineNumber: 241,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "absolute w-3/5 h-3/5 rounded-full bg-purple-300 shadow-lg/30"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/elements/Slider.tsx",
+                                        lineNumber: 242,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "absolute",
+                                        style: {
+                                            width: 0,
+                                            height: 0,
+                                            borderTop: "0.5rem solid transparent",
+                                            borderBottom: "0.5rem solid transparent",
+                                            borderLeft: "0.75rem solid #7e22ce",
+                                            right: "-0.75rem",
+                                            filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.5))"
+                                        }
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/elements/Slider.tsx",
+                                        lineNumber: 243,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/elements/Slider.tsx",
+                                lineNumber: 228,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/elements/Slider.tsx",
-                        lineNumber: 125,
+                        lineNumber: 168,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-center space-y-2 ml-8 text-6xl md:text-8xl font-bold",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "text-fuchsia-700 h-[8rem] w-[12rem] flex items-center justify-center border-4 border-fuchsia-300 rounded-xl p-2",
+                                children: value
+                            }, void 0, false, {
+                                fileName: "[project]/app/elements/Slider.tsx",
+                                lineNumber: 259,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "text-gray-600 h-[8rem] w-[12rem] flex items-center justify-center",
+                                children: symbol
+                            }, void 0, false, {
+                                fileName: "[project]/app/elements/Slider.tsx",
+                                lineNumber: 262,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "text-blue-600 h-[8rem] w-[12rem] flex items-center justify-center border-4 border-blue-300 rounded-xl p-2",
+                                children: numberToCompare
+                            }, void 0, false, {
+                                fileName: "[project]/app/elements/Slider.tsx",
+                                lineNumber: 265,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/elements/Slider.tsx",
+                        lineNumber: 258,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/elements/Slider.tsx",
-                lineNumber: 68,
+                lineNumber: 166,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "mt-6 flex flex-col items-center space-y-3",
+                children: [
+                    !showNextProblemButton ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        className: "bg-fuchsia-600 hover:bg-fuchsia-700 text-white px-6 py-3 rounded-md text-xl font-semibold shadow-lg transition-colors disabled:bg-gray-400",
+                        onClick: handleCheck,
+                        disabled: message === "Correct!",
+                        children: "Check Answer"
+                    }, void 0, false, {
+                        fileName: "[project]/app/elements/Slider.tsx",
+                        lineNumber: 274,
+                        columnNumber: 11
+                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        className: "bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-md text-xl font-semibold shadow-lg transition-colors",
+                        onClick: generateNewProblem,
+                        children: "Next Problem"
+                    }, void 0, false, {
+                        fileName: "[project]/app/elements/Slider.tsx",
+                        lineNumber: 282,
+                        columnNumber: 11
+                    }, this),
+                    message && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: `text-2xl font-medium ${message === "Correct!" ? "text-green-600" : "text-red-600"}`,
+                        children: message
+                    }, void 0, false, {
+                        fileName: "[project]/app/elements/Slider.tsx",
+                        lineNumber: 290,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/elements/Slider.tsx",
+                lineNumber: 272,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/elements/Slider.tsx",
-        lineNumber: 61,
+        lineNumber: 165,
         columnNumber: 5
     }, this);
 };
-_s(Slider, "iGRa4wZm/YxPKwoDxF7Ax2zMey4=");
+_s(Slider, "4K57Oto6VLBWw9nWkjVw4rS/kNc=");
 _c = Slider;
 const __TURBOPACK__default__export__ = Slider;
 var _c;
@@ -453,25 +612,25 @@ const GameBoardGreaterOrLess = ()=>{
                 instructionText: "Game content coming soon!"
             }, void 0, false, {
                 fileName: "[project]/app/components/gameBoards/GameBoardGreaterOrLess.tsx",
-                lineNumber: 11,
+                lineNumber: 10,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "flex flex-col items-center justify-center",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$elements$2f$Slider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                     fileName: "[project]/app/components/gameBoards/GameBoardGreaterOrLess.tsx",
-                    lineNumber: 16,
+                    lineNumber: 15,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/components/gameBoards/GameBoardGreaterOrLess.tsx",
-                lineNumber: 15,
+                lineNumber: 14,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/components/gameBoards/GameBoardGreaterOrLess.tsx",
-        lineNumber: 10,
+        lineNumber: 9,
         columnNumber: 5
     }, this);
 };

@@ -61,7 +61,7 @@ const GameBoardPhonics: React.FC = () => {
   };
 
   return (
-    <div className="h-full w-full flex flex-col items-center justify-center relative">
+    <div className="h-full w-full flex flex-col items-center justify-center relative overflow-auto">
       <div className="h-auto max-h-[80vh] mb-10">
         <HeadlineInstruction
           headlineText="Click on the letters to hear how they sound"

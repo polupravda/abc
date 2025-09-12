@@ -178,7 +178,7 @@ const GameBoardMathAddition: React.FC<GameBoardMathAdditionProps> = () => {
     (showSuccessContainer && startSuccessAnimation) || showFailureMonster;
 
   return (
-    <div className="h-full w-full flex flex-col items-center justify-center relative">
+    <div className="h-full w-full flex flex-col items-center justify-center relative overflow-auto">
       {showSuccessContainer && (
         <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
           <FeedbackSuccessAnimation show={startSuccessAnimation} />

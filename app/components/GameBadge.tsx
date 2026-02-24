@@ -13,13 +13,13 @@ interface GameBadgeProps {
 
 const GameBadge: React.FC<GameBadgeProps> = ({ title, href, icon }) => {
   return (
-    <Link href={href} className="p-6 bg-indigo-100 rounded-md">
-      <div className="flex gap-4 items-center transition-all duration-300 ease-in-out transform hover:scale-105">
-        <div className="flex-grow flex flex-col items-center justify-center rounded-full">
+    <Link href={href} className="p-4 bg-indigo-100 rounded-md">
+      <div className="flex gap-3 items-center transition-all duration-300 ease-in-out transform hover:scale-105">
+        <div className="shrink-0 w-12 h-12 rounded-full overflow-hidden flex items-center justify-center [&>*]:scale-[0.6] [&>*]:origin-center">
           {icon}
         </div>
         <h3
-          className={`text-xl md:text-2xl font-bold text-slate-800 mt-3 group-hover:underline`}
+          className={`text-lg md:text-xl font-bold text-slate-800 group-hover:underline`}
         >
           {title}
         </h3>

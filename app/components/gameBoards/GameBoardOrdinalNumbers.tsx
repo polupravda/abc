@@ -6,8 +6,6 @@ import FeedbackFailure from "../FeedbackFailure";
 import ShapeIcon, { SHAPE_TYPES, type ShapeType } from "../ShapeIcon";
 import { HeadlineInstruction } from "../../elements/HeadlineInstruction";
 import { CardLight } from "../../elements/Card";
-import { Button } from "../../elements/Button";
-import LoudspeakerIcon from "../../icons/LoudspeakerIcon";
 
 const ORDINAL_NAMES = [
   "first",
@@ -131,16 +129,6 @@ const GameBoardOrdinalNumbers: React.FC = () => {
       ? `First shape is ${capitalize(shapes[0])}. Which shape is ${ORDINAL_NAMES[targetOrdinal - 1]}?`
       : "";
 
-  const speakHint = useCallback(() => {
-    if (typeof window === "undefined" || !window.speechSynthesis || !hintText)
-      return;
-    if (window.speechSynthesis.speaking) window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(hintText);
-    u.rate = 0.9;
-    u.pitch = 1;
-    window.speechSynthesis.speak(u);
-  }, [hintText]);
-
   const correctShape =
     shapes.length === ARRAY_LENGTH ? shapes[targetOrdinal - 1]! : null;
   const uniqueShapes =
@@ -217,14 +205,6 @@ const GameBoardOrdinalNumbers: React.FC = () => {
         />
         <CardLight>
           <div className="flex flex-col items-center justify-center gap-6">
-            <Button
-              onClick={speakHint}
-              disabled={isFeedbackShowing}
-              aria-label="Play hint"
-              text="Play hint"
-              icon={LoudspeakerIcon}
-            />
-
             <div
               className="flex flex-wrap justify-center gap-2 md:gap-3 items-center"
               role="img"

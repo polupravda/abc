@@ -16,6 +16,16 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/games/greater-or-less/page.js"
+    ],
+    "/games/ordinal-numbers/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/games/ordinal-numbers/page.js"
+    ],
+    "/games/continue-pattern/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/games/continue-pattern/page.js"
     ]
   }
 }

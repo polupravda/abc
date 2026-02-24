@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { Button } from "./Button";
+import { getInstructionVoice } from "../lib/speech";
 
 interface SliderProps {
   /** When provided, check result is reported here and visual feedback is handled by parent (e.g. FeedbackSuccess/Failure). Voice feedback is not used. */
@@ -121,9 +122,15 @@ const Slider: React.FC<SliderProps> = ({ onCheck, renderCard, renderRightColumn,
 
   const speak = (text: string) => {
     if (typeof window !== "undefined" && window.speechSynthesis) {
+      const synth = window.speechSynthesis;
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = "en-US";
-      window.speechSynthesis.speak(utterance);
+      const voices = synth.getVoices();
+      if (voices?.length) {
+        const voice = getInstructionVoice(voices);
+        if (voice) utterance.voice = voice;
+      }
+      synth.speak(utterance);
     }
   };
 

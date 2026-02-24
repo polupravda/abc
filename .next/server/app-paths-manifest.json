@@ -1,5 +1,6 @@
 {
   "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/games/greater-or-less/page": "app/games/greater-or-less/page.js",
   "/page": "app/page.js",
-  "/games/greater-or-less/page": "app/games/greater-or-less/page.js"
+  "/games/continue-pattern/page": "app/games/continue-pattern/page.js"
 }

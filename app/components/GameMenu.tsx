@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import GameBadge from "./GameBadge";
+import Toggle from "./Toggle";
 
 // Game card backgrounds (image, position, size as percentage)
 const SUBTRACTION_CARD_BG = {
@@ -36,19 +37,24 @@ const MULTIPLICATION_CARD_BG = {
   size: 520,
 };
 const ORDINAL_CARD_BG = {
-  image: "/images/constelation.svg",
+  image: "/images/space-1.svg",
   position: "30% 70%",
   size: 520,
 };
 const PLUS_MINUS_CARD_BG = {
-  image: "/images/lunarEclipse.svg",
+  image: "/images/space-1.svg",
   position: "60% 25%",
   size: 480,
 };
 const WHICH_PICTURE_CARD_BG = {
-  image: "/images/fullMoon.svg",
+  image: "/images/space-1.svg",
   position: "45% 55%",
   size: 550,
+};
+const CONTINUE_PATTERN_CARD_BG = {
+  image: "/images/space-1.svg",
+  position: "70% 30%",
+  size: 520,
 };
 
 const GameMenu: React.FC = () => {
@@ -198,6 +204,24 @@ const GameMenu: React.FC = () => {
     </div>
   );
 
+  const continuePatternGameIcon = (
+    <div className="w-full h-full flex flex-col items-center justify-center relative rounded-full overflow-hidden">
+      <div
+        className="absolute inset-0 w-full h-full z-0"
+        style={{
+          backgroundImage: `url('${CONTINUE_PATTERN_CARD_BG.image}')`,
+          backgroundPosition: CONTINUE_PATTERN_CARD_BG.position,
+          backgroundSize: `${CONTINUE_PATTERN_CARD_BG.size}%`,
+          backgroundRepeat: "no-repeat",
+          filter: "contrast(0.7)",
+        }}
+      ></div>
+      <div className="relative z-10 h-20 w-20 flex items-center justify-center">
+        <span className="text-2xl font-bold text-amber-500">…?</span>
+      </div>
+    </div>
+  );
+
   const ordinalNumbersGameIcon = (
     <div className="w-full h-full flex flex-col items-center justify-center relative rounded-full overflow-hidden">
       <div
@@ -255,9 +279,14 @@ const GameMenu: React.FC = () => {
   );
 
   return (
-    <div className="w-full h-screen p-8 relative">
-      <div className="flex flex-col items-end">
-        <div className="flex flex-wrap justify-start gap-2 flex-col items-start h-[100vh]">
+    <div className="w-full h-screen p-8 overflow-auto flex justify-end">
+      <div className="flex flex-col items-stretch max-w-2xl w-full gap-6">
+        <Toggle
+          title="Math"
+          iconSrc="/images/icon-math.svg"
+          iconAlt="Math"
+          defaultOpen={true}
+        >
           <GameBadge
             title="Addition up to 10"
             href="/games/addition"
@@ -268,6 +297,33 @@ const GameMenu: React.FC = () => {
             href="/games/subtraction"
             icon={subtractionGameIcon}
           />
+          <GameBadge
+            title="Multiplication Arrays"
+            href="/games/multiplication"
+            icon={multiplicationGameIcon}
+          />
+          <GameBadge
+            title="Greater or Less"
+            href="/games/greater-or-less"
+            icon={greaterOrLessGameIcon}
+          />
+          <GameBadge
+            title="+/- Number"
+            href="/games/plus-minus-number"
+            icon={plusMinusNumberGameIcon}
+          />
+          <GameBadge
+            title="Which picture shows number up to 100?"
+            href="/games/which-picture-number"
+            icon={whichPictureNumberGameIcon}
+          />
+        </Toggle>
+        <Toggle
+          title="English"
+          iconSrc="/images/icon-english.svg"
+          iconAlt="English"
+          defaultOpen={true}
+        >
           <GameBadge
             title="Learn Phonics"
             href="/games/phonics"
@@ -283,33 +339,24 @@ const GameMenu: React.FC = () => {
             href="/games/blending"
             icon={blendingGameIcon}
           />
-          <GameBadge
-            title="Greater or Less"
-            href="/games/greater-or-less"
-            icon={greaterOrLessGameIcon}
-          />
-          <GameBadge
-            title="Multiplication Arrays"
-            href="/games/multiplication"
-            icon={multiplicationGameIcon}
-          />
+        </Toggle>
+        <Toggle
+          title="Logic"
+          iconSrc="/images/icon-logic.svg"
+          iconAlt="Logic"
+          defaultOpen={true}
+        >
           <GameBadge
             title="Ordinal numbers (1st–10th)"
             href="/games/ordinal-numbers"
             icon={ordinalNumbersGameIcon}
           />
           <GameBadge
-            title="+/- Number"
-            href="/games/plus-minus-number"
-            icon={plusMinusNumberGameIcon}
+            title="Continue pattern"
+            href="/games/continue-pattern"
+            icon={continuePatternGameIcon}
           />
-          <GameBadge
-            title="Which picture shows number up to 100?"
-            href="/games/which-picture-number"
-            icon={whichPictureNumberGameIcon}
-          />
-          {/* Future game badges can be added here */}
-        </div>
+        </Toggle>
       </div>
     </div>
   );

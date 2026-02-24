@@ -337,7 +337,7 @@ const GameBoardBlending: React.FC = () => {
       <div className="h-auto max-h-[80vh] mb-10 flex flex-col items-center">
         <HeadlineInstruction
           headlineText="Blend the sounds to make a word!"
-          instructionText="Remember letters without listening. Each letter click uses a dot."
+          instructionText="Blend the sounds to make a word!"
           className={`transition-opacity duration-300 ${
             isListening || (showSuccessContainer && startSuccessAnimation)
               ? "opacity-0"

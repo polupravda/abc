@@ -194,7 +194,7 @@ const GameBoardMathAddition: React.FC<GameBoardMathAdditionProps> = () => {
       <div className="h-auto max-h-[80vh] mb-10">
         <HeadlineInstruction
           headlineText="What is the sum?"
-          instructionText="What is the sum? Add numbers together!"
+          instructionText="What is the sum?"
           className={`transition-opacity duration-300 ${
             isFeedbackShowing ? "opacity-0" : "opacity-100"
           }`}

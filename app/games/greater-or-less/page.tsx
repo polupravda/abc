@@ -6,9 +6,9 @@ import GameBoardGreaterOrLess from "../../components/gameBoards/GameBoardGreater
 
 const GreaterOrLessPage: React.FC = () => {
   return (
-    <main className="h-screen w-screen overflow-hidden flex items-center bg-white justify-center relative">
+    <main className="h-screen w-screen overflow-hidden flex flex-col items-center bg-white justify-center relative">
       {/* <BackgroundSpace /> */}
-      <div className="z-10">
+      <div className="z-10 h-full w-full max-w-full flex items-center justify-center">
         <GameBoardGreaterOrLess />
       </div>
     </main>

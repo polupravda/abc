@@ -1,6 +1,17 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
+import { Button } from "./Button";
 
-const Slider: React.FC = () => {
+interface SliderProps {
+  /** When provided, check result is reported here and visual feedback is handled by parent (e.g. FeedbackSuccess/Failure). Voice feedback is not used. */
+  onCheck?: (correct: boolean) => void;
+  /** When provided, the equation and button are wrapped by this render function (e.g. in CardLight). Slider track stays outside. */
+  renderCard?: (content: React.ReactNode) => React.ReactNode;
+  /** When provided, the entire right column (e.g. Headline + CardLight) is rendered by this function. Overrides renderCard. */
+  renderRightColumn?: (content: React.ReactNode) => React.ReactNode;
+  className?: string;
+}
+
+const Slider: React.FC<SliderProps> = ({ onCheck, renderCard, renderRightColumn, className }) => {
   const min = -10;
   const max = 10;
   const range = max - min;
@@ -130,6 +141,11 @@ const Slider: React.FC = () => {
         break;
     }
 
+    if (onCheck) {
+      onCheck(correct);
+      return;
+    }
+
     const equationString = `${value} ${getSpokenComparison(
       symbol
     )} ${numberToCompare}`;
@@ -161,140 +177,157 @@ const Slider: React.FC = () => {
 
   const pointerPosPercent = ((max - value) / range) * 100;
 
-  return (
-    <div className="flex flex-col items-center select-none p-4 space-y-4">
-      <div className="flex items-start">
-        {/* Slider track and pointer */}
-        <div
-          className="relative flex items-center mr-[6rem] mt-4"
-          style={{ height: "70vh", width: "4rem" }} // Adjusted height slightly
-        >
-          {/* Track */}
-          <div
-            ref={trackRef}
-            className="absolute left-1/2 top-0 -translate-x-1/2 shadow-lg/30"
-            style={{
-              width: "16px",
-              top: "-2.5%",
-              height: "105%",
-              borderRadius: "8px",
-              background:
-                "linear-gradient(to bottom, #06b6d4 0%, #06b6d4 50%, #ef4444 50%, #ef4444 100%)",
-            }}
-          />
-
-          {/* Step dots */}
-          {Array.from({ length: range + 1 }, (_, i) => max - i).map((num) => {
-            const pos = ((max - num) / range) * 100;
-            return (
-              <div
-                key={`dot-${num}`}
-                className="absolute bg-gray-200 rounded-full cursor-pointer hover:bg-yellow-400 transition-colors"
-                style={{
-                  width: "0.4rem",
-                  height: "0.4rem",
-                  left: "50%",
-                  top: `${pos}%`,
-                  transform: "translate(-50%, -50%)",
-                  zIndex: 1,
-                }}
-                onClick={() => setValue(num)}
-              />
-            );
-          })}
-
-          {/* Step labels */}
-          {Array.from({ length: range + 1 }, (_, i) => max - i).map((num) => {
-            const pos = ((max - num) / range) * 100;
-            return (
-              <span
-                key={num}
-                className={`absolute font-bold text-lg ${
-                  // Slightly smaller labels
-                  num >= 0 ? "text-cyan-800" : "text-red-800"
-                }`}
-                style={{
-                  top: `${pos}%`,
-                  left: "4rem", // Adjusted label position
-                  transform: "translateY(-50%)",
-                }}
-              >
-                {num}
-              </span>
-            );
-          })}
-
-          {/* Draggable Pointer */}
-          <div
-            onMouseDown={startDrag}
-            onTouchStart={startDrag}
-            className="absolute flex items-center justify-center cursor-grab"
-            style={{
-              top: `${pointerPosPercent}%`,
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: "2rem",
-              height: "2rem",
-              zIndex: 10,
-            }}
-          >
-            <div className="absolute w-full h-full rounded-full bg-purple-700 shadow-lg/30" />
-            <div className="absolute w-3/5 h-3/5 rounded-full bg-purple-300 shadow-lg/30" />
-            <div
-              className="absolute"
-              style={{
-                width: 0,
-                height: 0,
-                borderTop: "0.5rem solid transparent",
-                borderBottom: "0.5rem solid transparent",
-                borderLeft: "0.75rem solid #7e22ce",
-                right: "-0.75rem",
-                filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.5))",
-              }}
-            />
-          </div>
+  const equationAndButton = (
+    <div className="flex flex-col items-center gap-6">
+      <div className="flex items-center gap-3 font-bold text-sky-950">
+        <div className="rounded-md border border-sky-200 bg-white px-4 py-3 text-4xl md:text-5xl shadow-sm min-w-[4rem] text-center">
+          {value}
         </div>
-        {/* Equation display */}
-        <div className="flex items-center space-y-2 ml-8 text-6xl md:text-8xl font-bold">
-          <div className="text-fuchsia-700 h-[8rem] w-[12rem] flex items-center justify-center border-4 border-fuchsia-300 rounded-xl p-2">
-            {value}
-          </div>
-          <div className="text-gray-600 h-[8rem] w-[12rem] flex items-center justify-center">
-            {symbol}
-          </div>
-          <div className="text-blue-600 h-[8rem] w-[12rem] flex items-center justify-center border-4 border-blue-300 rounded-xl p-2">
-            {numberToCompare}
-          </div>
+        <div className="text-3xl md:text-4xl text-sky-700">{symbol}</div>
+        <div className="rounded-md border border-sky-200 bg-white px-4 py-3 text-4xl md:text-5xl shadow-sm min-w-[4rem] text-center">
+          {numberToCompare}
         </div>
       </div>
-
-      {/* Controls and Message */}
-      <div className="mt-6 flex flex-col items-center space-y-3">
+      <div className="flex flex-col items-center gap-2">
         {!showNextProblemButton ? (
-          <button
-            className="bg-fuchsia-600 hover:bg-fuchsia-700 text-white px-6 py-3 rounded-md text-xl font-semibold shadow-lg transition-colors disabled:bg-gray-400"
-            onClick={handleCheck}
-            disabled={message === "Correct!"} // Disable if already correct before next problem
-          >
-            Check Answer
-          </button>
+          onCheck ? (
+            <Button
+              text="Check Answer"
+              onClick={handleCheck}
+              disabled={message === "Correct!"}
+            />
+          ) : (
+            <button
+              className="bg-fuchsia-600 hover:bg-fuchsia-700 text-white px-6 py-3 rounded-md text-xl font-semibold shadow-lg transition-colors disabled:bg-gray-400"
+              onClick={handleCheck}
+              disabled={message === "Correct!"}
+            >
+              Check Answer
+            </button>
+          )
         ) : (
-          <button
-            className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-md text-xl font-semibold shadow-lg transition-colors"
-            onClick={generateNewProblem}
-          >
-            Next Problem
-          </button>
+          onCheck ? (
+            <Button text="Next Problem" onClick={generateNewProblem} />
+          ) : (
+            <button
+              className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-md text-xl font-semibold shadow-lg transition-colors"
+              onClick={generateNewProblem}
+            >
+              Next Problem
+            </button>
+          )
         )}
         {message && (
           <p
-            className={`text-2xl font-medium ${
+            className={`text-xl font-medium ${
               message === "Correct!" ? "text-green-600" : "text-red-600"
             }`}
           >
             {message}
           </p>
         )}
+      </div>
+    </div>
+  );
+
+  const trackElement = (
+    <div
+      className="relative flex items-center shrink-0 select-none h-full min-h-[280px]"
+      style={{ width: "4rem" }}
+    >
+      <div
+        ref={trackRef}
+        className="absolute left-1/2 top-0 -translate-x-1/2 shadow-lg/30"
+        style={{
+          width: "16px",
+          top: "0",
+          height: "100%",
+          borderRadius: "8px",
+          background:
+            "linear-gradient(to bottom, #06b6d4 0%, #06b6d4 50%, #ef4444 50%, #ef4444 100%)",
+        }}
+      />
+      {Array.from({ length: range + 1 }, (_, i) => max - i).map((num) => {
+        const pos = ((max - num) / range) * 100;
+        return (
+          <div
+            key={`dot-${num}`}
+            className="absolute bg-gray-200 rounded-full cursor-pointer hover:bg-yellow-400 transition-colors"
+            style={{
+              width: "0.4rem",
+              height: "0.4rem",
+              left: "50%",
+              top: `${pos}%`,
+              transform: "translate(-50%, -50%)",
+              zIndex: 1,
+            }}
+            onClick={() => setValue(num)}
+          />
+        );
+      })}
+      {Array.from({ length: range + 1 }, (_, i) => max - i).map((num) => {
+        const pos = ((max - num) / range) * 100;
+        return (
+          <span
+            key={`label-${num}`}
+            className={`absolute font-bold text-lg ${
+              num >= 0 ? "text-cyan-800" : "text-red-800"
+            }`}
+            style={{
+              top: `${pos}%`,
+              left: "4rem",
+              transform: "translateY(-50%)",
+            }}
+          >
+            {num}
+          </span>
+        );
+      })}
+      <div
+        onMouseDown={startDrag}
+        onTouchStart={startDrag}
+        className="absolute flex items-center justify-center cursor-grab"
+        style={{
+          top: `${pointerPosPercent}%`,
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "2rem",
+          height: "2rem",
+          zIndex: 10,
+        }}
+      >
+        <div className="absolute w-full h-full rounded-full bg-purple-700 shadow-lg/30" />
+        <div className="absolute w-3/5 h-3/5 rounded-full bg-purple-300 shadow-lg/30" />
+        <div
+          className="absolute"
+          style={{
+            width: 0,
+            height: 0,
+            borderTop: "0.5rem solid transparent",
+            borderBottom: "0.5rem solid transparent",
+            borderLeft: "0.75rem solid #7e22ce",
+            right: "-0.75rem",
+            filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.5))",
+          }}
+        />
+      </div>
+    </div>
+  );
+
+  return (
+    <div className={`flex flex-row items-stretch justify-center gap-12 w-full h-full min-h-0 select-none p-4 overflow-visible ${className ?? ""}`}>
+      <div
+        className="flex flex-col items-center justify-center p-4 shrink-0 min-h-0 my-6 self-center"
+        style={{ height: "calc(100% - 20px)", maxHeight: "calc(100% - 20px)" }}
+      >
+        {trackElement}
+      </div>
+      <div className="shrink-0 flex flex-col gap-4">
+        {renderRightColumn
+          ? renderRightColumn(equationAndButton)
+          : renderCard
+            ? renderCard(equationAndButton)
+            : equationAndButton}
       </div>
     </div>
   );

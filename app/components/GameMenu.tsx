@@ -4,6 +4,53 @@ import React from "react";
 import Image from "next/image";
 import GameBadge from "./GameBadge";
 
+// Game card backgrounds (image, position, size as percentage)
+const SUBTRACTION_CARD_BG = {
+  image: "/images/space-1.svg",
+  position: "52% 95%",
+  size: 750,
+};
+const PHONICS_CARD_BG = {
+  image: "/images/space-1.svg",
+  position: "50% 87%",
+  size: 501,
+};
+const LETTER_SOUND_MATCH_CARD_BG = {
+  image: "/images/space-1.svg",
+  position: "1% 19%",
+  size: 538,
+};
+const BLENDING_CARD_BG = {
+  image: "/images/space-1.svg",
+  position: "20% 80%",
+  size: 600,
+};
+const GREATER_OR_LESS_CARD_BG = {
+  image: "/images/space-1.svg",
+  position: "80% 20%",
+  size: 550,
+};
+const MULTIPLICATION_CARD_BG = {
+  image: "/images/space-1.svg",
+  position: "60% 35%",
+  size: 520,
+};
+const ORDINAL_CARD_BG = {
+  image: "/images/constelation.svg",
+  position: "30% 70%",
+  size: 520,
+};
+const PLUS_MINUS_CARD_BG = {
+  image: "/images/lunarEclipse.svg",
+  position: "60% 25%",
+  size: 480,
+};
+const WHICH_PICTURE_CARD_BG = {
+  image: "/images/fullMoon.svg",
+  position: "45% 55%",
+  size: 550,
+};
+
 const GameMenu: React.FC = () => {
   const additionGameIcon = (
     <div className="relative">
@@ -31,9 +78,9 @@ const GameMenu: React.FC = () => {
       <div
         className="absolute inset-0 w-full h-full z-0"
         style={{
-          backgroundImage: "url('/images/space-1.svg')",
-          backgroundPosition: "52% 95%",
-          backgroundSize: "750%",
+          backgroundImage: `url('${SUBTRACTION_CARD_BG.image}')`,
+          backgroundPosition: SUBTRACTION_CARD_BG.position,
+          backgroundSize: `${SUBTRACTION_CARD_BG.size}%`,
           backgroundRepeat: "no-repeat",
           filter: "contrast(0.7)",
         }}
@@ -55,9 +102,9 @@ const GameMenu: React.FC = () => {
       <div
         className="absolute inset-0 w-full h-full z-0"
         style={{
-          backgroundImage: "url('/images/space-1.svg')",
-          backgroundPosition: "50% 87%",
-          backgroundSize: "501%",
+          backgroundImage: `url('${PHONICS_CARD_BG.image}')`,
+          backgroundPosition: PHONICS_CARD_BG.position,
+          backgroundSize: `${PHONICS_CARD_BG.size}%`,
           backgroundRepeat: "no-repeat",
           filter: "contrast(0.7)",
         }}
@@ -73,9 +120,9 @@ const GameMenu: React.FC = () => {
       <div
         className="absolute inset-0 w-full h-full z-0"
         style={{
-          backgroundImage: "url('/images/space-1.svg')",
-          backgroundPosition: "1% 19%",
-          backgroundSize: "538%",
+          backgroundImage: `url('${LETTER_SOUND_MATCH_CARD_BG.image}')`,
+          backgroundPosition: LETTER_SOUND_MATCH_CARD_BG.position,
+          backgroundSize: `${LETTER_SOUND_MATCH_CARD_BG.size}%`,
           backgroundRepeat: "no-repeat",
           filter: "contrast(0.7)",
         }}
@@ -102,9 +149,9 @@ const GameMenu: React.FC = () => {
       <div
         className="absolute inset-0 w-full h-full z-0"
         style={{
-          backgroundImage: "url('/images/space-1.svg')",
-          backgroundPosition: "20% 80%",
-          backgroundSize: "600%",
+          backgroundImage: `url('${BLENDING_CARD_BG.image}')`,
+          backgroundPosition: BLENDING_CARD_BG.position,
+          backgroundSize: `${BLENDING_CARD_BG.size}%`,
           backgroundRepeat: "no-repeat",
           filter: "contrast(0.7)",
         }}
@@ -120,9 +167,9 @@ const GameMenu: React.FC = () => {
       <div
         className="absolute inset-0 w-full h-full z-0"
         style={{
-          backgroundImage: "url('/images/space-1.svg')",
-          backgroundPosition: "80% 20%",
-          backgroundSize: "550%",
+          backgroundImage: `url('${GREATER_OR_LESS_CARD_BG.image}')`,
+          backgroundPosition: GREATER_OR_LESS_CARD_BG.position,
+          backgroundSize: `${GREATER_OR_LESS_CARD_BG.size}%`,
           backgroundRepeat: "no-repeat",
           filter: "contrast(0.7)",
         }}
@@ -138,15 +185,71 @@ const GameMenu: React.FC = () => {
       <div
         className="absolute inset-0 w-full h-full z-0"
         style={{
-          backgroundImage: "url('/images/space-1.svg')",
-          backgroundPosition: "60% 35%",
-          backgroundSize: "520%",
+          backgroundImage: `url('${MULTIPLICATION_CARD_BG.image}')`,
+          backgroundPosition: MULTIPLICATION_CARD_BG.position,
+          backgroundSize: `${MULTIPLICATION_CARD_BG.size}%`,
           backgroundRepeat: "no-repeat",
           filter: "contrast(0.7)",
         }}
       ></div>
       <div className="relative z-10 h-20 w-20 flex items-center justify-center">
         <span className="text-5xl font-bold text-emerald-400">×</span>
+      </div>
+    </div>
+  );
+
+  const ordinalNumbersGameIcon = (
+    <div className="w-full h-full flex flex-col items-center justify-center relative rounded-full overflow-hidden">
+      <div
+        className="absolute inset-0 w-full h-full z-0"
+        style={{
+          backgroundImage: `url('${ORDINAL_CARD_BG.image}')`,
+          backgroundPosition: ORDINAL_CARD_BG.position,
+          backgroundSize: `${ORDINAL_CARD_BG.size}%`,
+          backgroundRepeat: "no-repeat",
+          filter: "contrast(0.7)",
+        }}
+      ></div>
+      <div className="relative z-10 h-20 w-20 flex items-center justify-center">
+        <span className="text-2xl font-bold text-amber-500">1st</span>
+        <span className="text-xl font-bold text-sky-300">–10th</span>
+      </div>
+    </div>
+  );
+
+  const plusMinusNumberGameIcon = (
+    <div className="w-full h-full flex flex-col items-center justify-center relative rounded-full overflow-hidden">
+      <div
+        className="absolute inset-0 w-full h-full z-0"
+        style={{
+          backgroundImage: `url('${PLUS_MINUS_CARD_BG.image}')`,
+          backgroundPosition: PLUS_MINUS_CARD_BG.position,
+          backgroundSize: `${PLUS_MINUS_CARD_BG.size}%`,
+          backgroundRepeat: "no-repeat",
+          filter: "contrast(0.7)",
+        }}
+      ></div>
+      <div className="relative z-10 h-20 w-20 flex items-center justify-center gap-0.5">
+        <span className="text-3xl font-bold text-amber-500">+</span>
+        <span className="text-3xl font-bold text-sky-300">/-</span>
+      </div>
+    </div>
+  );
+
+  const whichPictureNumberGameIcon = (
+    <div className="w-full h-full flex flex-col items-center justify-center relative rounded-full overflow-hidden">
+      <div
+        className="absolute inset-0 w-full h-full z-0"
+        style={{
+          backgroundImage: `url('${WHICH_PICTURE_CARD_BG.image}')`,
+          backgroundPosition: WHICH_PICTURE_CARD_BG.position,
+          backgroundSize: `${WHICH_PICTURE_CARD_BG.size}%`,
+          backgroundRepeat: "no-repeat",
+          filter: "contrast(0.7)",
+        }}
+      ></div>
+      <div className="relative z-10 h-20 w-20 flex items-center justify-center">
+        <span className="text-2xl font-bold text-amber-500">100</span>
       </div>
     </div>
   );
@@ -189,6 +292,21 @@ const GameMenu: React.FC = () => {
             title="Multiplication Arrays"
             href="/games/multiplication"
             icon={multiplicationGameIcon}
+          />
+          <GameBadge
+            title="Ordinal numbers (1st–10th)"
+            href="/games/ordinal-numbers"
+            icon={ordinalNumbersGameIcon}
+          />
+          <GameBadge
+            title="+/- Number"
+            href="/games/plus-minus-number"
+            icon={plusMinusNumberGameIcon}
+          />
+          <GameBadge
+            title="Which picture shows number up to 100?"
+            href="/games/which-picture-number"
+            icon={whichPictureNumberGameIcon}
           />
           {/* Future game badges can be added here */}
         </div>

@@ -1,11 +1,12 @@
 "use client";
 
 import GameBoardPhonics from "@/app/components/gameBoards/GameBoardPhonics";
+import { GamePageLayout } from "@/app/components/GamePageLayout";
 
 export default function PhonicsGamePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-white relative h-full">
+    <GamePageLayout>
       <GameBoardPhonics />
-    </main>
+    </GamePageLayout>
   );
 }

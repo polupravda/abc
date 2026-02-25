@@ -1,11 +1,12 @@
 "use client";
 
 import GameBoardPlusMinusNumber from "@/app/components/gameBoards/GameBoardPlusMinusNumber";
+import { GamePageLayout } from "@/app/components/GamePageLayout";
 
 export default function PlusMinusNumberPage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-white relative h-full">
+    <GamePageLayout>
       <GameBoardPlusMinusNumber />
-    </main>
+    </GamePageLayout>
   );
 }

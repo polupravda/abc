@@ -1,49 +1,18 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import FeedbackSuccessAnimation from "../FeedbackSuccessAnimation";
-import FeedbackFailure from "../FeedbackFailure";
-import ShapeIcon, { SHAPE_TYPES, type ShapeType } from "../ShapeIcon";
+import { SHAPE_TYPES, type ShapeType } from "../ShapeIcon";
+import { ShapeArrayRow } from "../ShapeArrayRow";
 import { HeadlineInstruction } from "../../elements/HeadlineInstruction";
 import { CardLight } from "../../elements/Card";
+import { NumberPill } from "../../elements/NumberPill";
+import { shuffle } from "../../lib/utils";
+import FailureOverlay from "../FailureOverlay";
+import { useGameFeedback } from "../../hooks/useGameFeedback";
+import { useScore } from "../../contexts/ScoreContext";
 
 const MAX_SUM = 10;
-
-function shuffle<T>(arr: T[]): T[] {
-  const out = [...arr];
-  for (let i = out.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [out[i], out[j]] = [out[j], out[i]];
-  }
-  return out;
-}
-
-function ShapeArrayRow({
-  shape,
-  count,
-  className = "",
-}: {
-  shape: ShapeType;
-  count: number;
-  className?: string;
-}) {
-  return (
-    <div
-      className={`flex flex-wrap gap-1 justify-start items-center ${className}`}
-      role="img"
-      aria-label={`${count} ${shape}${count !== 1 ? "s" : ""}`}
-    >
-      {Array.from({ length: count }, (_, i) => (
-        <ShapeIcon
-          key={i}
-          shape={shape}
-          size={32}
-          className="w-8 h-8 md:w-9 md:h-9 text-indigo-500 shrink-0"
-        />
-      ))}
-    </div>
-  );
-}
 
 const GameBoardPlusMinusNumber: React.FC = () => {
   const [shape, setShape] = useState<ShapeType>("circle");
@@ -58,46 +27,13 @@ const GameBoardPlusMinusNumber: React.FC = () => {
   const [showFailure, setShowFailure] = useState(false);
   const [isGameActive, setIsGameActive] = useState(true);
 
-  const successAppearTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const successDurationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const successHideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const failureTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const currentFeedbackAudioRef = useRef<HTMLAudioElement | null>(null);
-
-  const successSoundFiles = Array.from(
-    { length: 12 },
-    (_, i) => `/sounds/success/success-${i + 1}.aac`
-  );
-
-  const playSound = useCallback((soundSrc: string) => {
-    if (typeof window !== "undefined" && window.speechSynthesis.speaking) {
-      window.speechSynthesis.cancel();
-    }
-    if (currentFeedbackAudioRef.current) {
-      currentFeedbackAudioRef.current.pause();
-      currentFeedbackAudioRef.current.onended = null;
-    }
-    const audio = new Audio(soundSrc);
-    currentFeedbackAudioRef.current = audio;
-    audio.onended = () => {
-      if (currentFeedbackAudioRef.current === audio)
-        currentFeedbackAudioRef.current = null;
-    };
-    audio.play().catch(() => {
-      if (currentFeedbackAudioRef.current === audio)
-        currentFeedbackAudioRef.current = null;
-    });
-  }, []);
-
-  const clearAllTimeouts = useCallback(() => {
-    if (successAppearTimeoutRef.current)
-      clearTimeout(successAppearTimeoutRef.current);
-    if (successDurationTimeoutRef.current)
-      clearTimeout(successDurationTimeoutRef.current);
-    if (successHideTimeoutRef.current)
-      clearTimeout(successHideTimeoutRef.current);
-    if (failureTimeoutRef.current) clearTimeout(failureTimeoutRef.current);
-  }, []);
+  const {
+    clearAllTimeouts,
+    playSuccessSound,
+    scheduleSuccessSequence,
+    scheduleFailureDismiss,
+  } = useGameFeedback();
+  const { addPoints } = useScore();
 
   const generateProblem = useCallback(() => {
     clearAllTimeouts();
@@ -143,23 +79,11 @@ const GameBoardPlusMinusNumber: React.FC = () => {
 
   useEffect(() => {
     generateProblem();
-    return () => {
-      clearAllTimeouts();
-      if (currentFeedbackAudioRef.current)
-        currentFeedbackAudioRef.current.pause();
-      if (typeof window !== "undefined" && window.speechSynthesis.speaking) {
-        window.speechSynthesis.cancel();
-      }
-    };
-  }, [generateProblem, clearAllTimeouts]);
+  }, [generateProblem]);
 
   useEffect(() => {
-    if (startSuccessAnimation) {
-      const randomSuccessSound =
-        successSoundFiles[Math.floor(Math.random() * successSoundFiles.length)];
-      playSound(randomSuccessSound);
-    }
-  }, [startSuccessAnimation, successSoundFiles, playSound]);
+    if (startSuccessAnimation) playSuccessSound();
+  }, [startSuccessAnimation, playSuccessSound]);
 
   const handleAnswer = useCallback(
     (chosenIndex: number) => {
@@ -174,29 +98,33 @@ const GameBoardPlusMinusNumber: React.FC = () => {
       setIsGameActive(false);
 
       if (chosenIndex === correctIndex) {
+        addPoints(1);
         setShowSuccessContainer(true);
         setStartSuccessAnimation(false);
-
-        successAppearTimeoutRef.current = setTimeout(() => {
-          setStartSuccessAnimation(true);
-        }, 50);
-
-        successDurationTimeoutRef.current = setTimeout(() => {
-          setStartSuccessAnimation(false);
-        }, 3050);
-
-        successHideTimeoutRef.current = setTimeout(() => {
-          generateProblem();
-        }, 3050 + 300);
+        scheduleSuccessSequence({
+          onStartAnimation: () => setStartSuccessAnimation(true),
+          onEndAnimation: () => setStartSuccessAnimation(false),
+          onComplete: generateProblem,
+        });
       } else {
+        addPoints(-1);
         setShowFailure(true);
-        failureTimeoutRef.current = setTimeout(() => {
+        scheduleFailureDismiss(3000, () => {
           setShowFailure(false);
           setIsGameActive(true);
-        }, 3000);
+        });
       }
     },
-    [isGameActive, correctIndex, generateProblem, clearAllTimeouts, optionCounts.length]
+    [
+      isGameActive,
+      correctIndex,
+      generateProblem,
+      clearAllTimeouts,
+      scheduleSuccessSequence,
+      scheduleFailureDismiss,
+      addPoints,
+      optionCounts.length,
+    ]
   );
 
   const isFeedbackShowing = showSuccessContainer || showFailure;
@@ -212,12 +140,7 @@ const GameBoardPlusMinusNumber: React.FC = () => {
           <FeedbackSuccessAnimation show={startSuccessAnimation} />
         </div>
       )}
-      {showFailure && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-neutral-800 bg-opacity-95 z-20 rounded-xl">
-          <FeedbackFailure className="w-48 h-48 md:w-64 md:h-64" />
-          <p className="text-4xl font-bold text-red-400 mt-4">Try again!</p>
-        </div>
-      )}
+      {showFailure && <FailureOverlay />}
 
       <div className="h-auto max-h-[80vh] mb-10 w-full max-w-2xl">
         <HeadlineInstruction
@@ -232,17 +155,11 @@ const GameBoardPlusMinusNumber: React.FC = () => {
             {/* Top: initial array + number container (pl matches answer button: p-3 + border-2 = 14px) */}
             <div className="flex flex-wrap items-center gap-4 justify-start pl-[14px]">
               <ShapeArrayRow shape={shape} count={initialCount} />
-              <div
-                className="px-3 py-2 rounded-full bg-indigo-600 text-white shadow-lg/20 flex items-center gap-2 select-none"
-                aria-label={`${operation}${delta}`}
-              >
-                <span className="font-semibold text-xl md:text-2xl">
-                  {operation === "+" ? "+ " : "− "}
-                </span>
-                <span className="px-2 py-0.5 rounded-md bg-amber-300 text-indigo-900 font-extrabold text-2xl md:text-3xl">
-                  {delta}
-                </span>
-              </div>
+              <NumberPill
+                label={operation === "+" ? "+ " : "− "}
+                value={delta}
+                ariaLabel={`${operation}${delta}`}
+              />
             </div>
 
             {/* 3 answer options: left-aligned shape arrays */}

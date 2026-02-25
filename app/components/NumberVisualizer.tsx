@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { toDisplayNumber } from "../lib/utils";
 
 interface NumberVisualizerProps {
   count: number;
@@ -11,12 +12,13 @@ const NumberVisualizer: React.FC<NumberVisualizerProps> = ({
   count,
   circleColor = "bg-yellow-400",
 }) => {
-  if (count < 0 || count > 10) {
+  const n = toDisplayNumber(count);
+  if (n < 0 || n > 10) {
     // Max 10 circles for now, can be adjusted
     return null;
   }
 
-  const circles = Array.from({ length: count }, (_, i) => (
+  const circles = Array.from({ length: n }, (_, i) => (
     <div
       key={i}
       className={`w-5 h-5 md:w-6 md:h-6 rounded-full ${circleColor} shadow-sm`}

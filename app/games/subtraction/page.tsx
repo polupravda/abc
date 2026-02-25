@@ -1,11 +1,12 @@
 "use client";
 
 import GameBoardMathSubtraction from "@/app/components/gameBoards/GameBoardMathSubtraction";
+import { GamePageLayout } from "@/app/components/GamePageLayout";
 
 export default function SubtractionGamePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-white relative h-full">
+    <GamePageLayout>
       <GameBoardMathSubtraction />
-    </main>
+    </GamePageLayout>
   );
 }

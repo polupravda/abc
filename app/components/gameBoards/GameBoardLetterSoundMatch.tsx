@@ -2,12 +2,14 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import FeedbackSuccessAnimation from "../FeedbackSuccessAnimation";
-import FeedbackFailure from "../FeedbackFailure";
+import FailureOverlay from "../FailureOverlay";
+import { useGameFeedback } from "../../hooks/useGameFeedback";
+import { useScore } from "../../contexts/ScoreContext";
 import { HeadlineInstruction } from "../../elements/HeadlineInstruction";
 import { CardLight } from "../../elements/Card";
 import { LetterCard } from "../../elements/LetterCard";
 import { Button } from "../../elements/Button";
-import LoudspeakerIcon from "../../icons/LoudspeakerIcon";
+import { SpeakerIcon } from "../../icons/SpeakerIcon";
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
@@ -23,17 +25,14 @@ const GameBoardLetterSoundMatch: React.FC = () => {
   const [isGameActive, setIsGameActive] = useState(true);
 
   const currentPhonicAudioRef = useRef<HTMLAudioElement | null>(null);
-  const currentFeedbackAudioRef = useRef<HTMLAudioElement | null>(null);
 
-  const successAppearTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const successDurationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const successHideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const failureTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  const successSoundFiles = Array.from(
-    { length: 12 },
-    (_, i) => `/sounds/success/success-${i + 1}.aac`
-  );
+  const {
+    clearAllTimeouts,
+    playSuccessSound,
+    scheduleSuccessSequence,
+    scheduleFailureDismiss,
+  } = useGameFeedback();
+  const { addPoints } = useScore();
 
   const playSound = useCallback(
     (
@@ -82,16 +81,6 @@ const GameBoardLetterSoundMatch: React.FC = () => {
     }
   }, [correctLetter, playSound]);
 
-  const clearAllTimeouts = useCallback(() => {
-    if (successAppearTimeoutRef.current)
-      clearTimeout(successAppearTimeoutRef.current);
-    if (successDurationTimeoutRef.current)
-      clearTimeout(successDurationTimeoutRef.current);
-    if (successHideTimeoutRef.current)
-      clearTimeout(successHideTimeoutRef.current);
-    if (failureTimeoutRef.current) clearTimeout(failureTimeoutRef.current);
-  }, []);
-
   const generateProblem = useCallback(() => {
     clearAllTimeouts();
     setShowSuccessContainer(false);
@@ -125,34 +114,16 @@ const GameBoardLetterSoundMatch: React.FC = () => {
   }, [playSound, clearAllTimeouts]);
 
   useEffect(() => {
-    generateProblem();
-
-    // Capture the ref values at the time the effect runs
     const phonicAudio = currentPhonicAudioRef.current;
-    const feedbackAudio = currentFeedbackAudioRef.current;
-
+    generateProblem();
     return () => {
-      clearAllTimeouts();
-      // Use the captured values in the cleanup function
-      if (phonicAudio) {
-        phonicAudio.pause();
-      }
-      if (feedbackAudio) {
-        feedbackAudio.pause();
-      }
-      if (typeof window !== "undefined" && window.speechSynthesis.speaking) {
-        window.speechSynthesis.cancel();
-      }
+      if (phonicAudio) phonicAudio.pause();
     };
-  }, [generateProblem, clearAllTimeouts]);
+  }, [generateProblem]);
 
   useEffect(() => {
-    if (startSuccessAnimation) {
-      const randomSuccessSound =
-        successSoundFiles[Math.floor(Math.random() * successSoundFiles.length)];
-      playSound(randomSuccessSound, currentFeedbackAudioRef);
-    }
-  }, [startSuccessAnimation, successSoundFiles, playSound]);
+    if (startSuccessAnimation) playSuccessSound();
+  }, [startSuccessAnimation, playSuccessSound]);
 
   const handleAnswer = useCallback(
     (chosenLetter: string) => {
@@ -167,32 +138,35 @@ const GameBoardLetterSoundMatch: React.FC = () => {
       setIsGameActive(false);
 
       if (chosenLetter.toUpperCase() === correctLetter.toUpperCase()) {
+        addPoints(1);
         setFeedbackText("Correct!");
         setShowSuccessContainer(true);
         setStartSuccessAnimation(false);
-
-        successAppearTimeoutRef.current = setTimeout(() => {
-          setStartSuccessAnimation(true);
-        }, 50);
-
-        successDurationTimeoutRef.current = setTimeout(() => {
-          setStartSuccessAnimation(false);
-        }, 3050);
-
-        successHideTimeoutRef.current = setTimeout(() => {
-          generateProblem();
-        }, 3050 + 300);
+        scheduleSuccessSequence({
+          onStartAnimation: () => setStartSuccessAnimation(true),
+          onEndAnimation: () => setStartSuccessAnimation(false),
+          onComplete: generateProblem,
+        });
       } else {
+        addPoints(-1);
         setFeedbackText("Try again!");
         setShowFailure(true);
-        failureTimeoutRef.current = setTimeout(() => {
+        scheduleFailureDismiss(3000, () => {
           setShowFailure(false);
           setIsGameActive(true);
           setFeedbackText("");
-        }, 3000);
+        });
       }
     },
-    [isGameActive, correctLetter, generateProblem, clearAllTimeouts]
+    [
+      isGameActive,
+      correctLetter,
+      generateProblem,
+      clearAllTimeouts,
+      scheduleSuccessSequence,
+      scheduleFailureDismiss,
+      addPoints,
+    ]
   );
 
   useEffect(() => {
@@ -233,12 +207,7 @@ const GameBoardLetterSoundMatch: React.FC = () => {
           <FeedbackSuccessAnimation show={startSuccessAnimation} />
         </div>
       )}
-      {showFailure && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-neutral-800 bg-opacity-95 z-20 rounded-xl">
-          <FeedbackFailure className="w-48 h-48 md:w-64 md:h-64" />
-          <p className="text-4xl font-bold text-red-400 mt-4">Try again!</p>
-        </div>
-      )}
+      {showFailure && <FailureOverlay />}
 
       <div className="h-auto max-h-[80vh] mb-10">
         <HeadlineInstruction
@@ -255,7 +224,7 @@ const GameBoardLetterSoundMatch: React.FC = () => {
               disabled={isFeedbackShowing}
               aria-label="Play sound again"
               text="Play Sound Again"
-              icon={LoudspeakerIcon}
+              icon={SpeakerIcon}
             >
               Play Sound Again
             </Button>

@@ -1,11 +1,12 @@
 "use client";
 
 import GameBoardMultiplication from "@/app/components/gameBoards/GameBoardMultiplication";
+import { GamePageLayout } from "@/app/components/GamePageLayout";
 
 export default function MultiplicationPage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-white relative h-full">
+    <GamePageLayout>
       <GameBoardMultiplication />
-    </main>
+    </GamePageLayout>
   );
 }

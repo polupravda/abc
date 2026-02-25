@@ -1,11 +1,12 @@
 "use client";
 
 import GameBoardOrdinalNumbers from "@/app/components/gameBoards/GameBoardOrdinalNumbers";
+import { GamePageLayout } from "@/app/components/GamePageLayout";
 
 export default function OrdinalNumbersPage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-white relative h-full">
+    <GamePageLayout>
       <GameBoardOrdinalNumbers />
-    </main>
+    </GamePageLayout>
   );
 }

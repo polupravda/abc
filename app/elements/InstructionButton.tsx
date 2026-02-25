@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef } from "react";
-import LoudspeakerIcon from "../icons/LoudspeakerIcon";
 import { ButtonIcon } from "./ButtonIcon";
+import { SpeakerIcon } from "../icons/SpeakerIcon";
 import { getInstructionVoice } from "../lib/speech";
 
 export const InstructionButton = ({
@@ -18,8 +18,12 @@ export const InstructionButton = ({
 
     try {
       synth.cancel();
-      if ((synth as any).paused) synth.resume();
-    } catch (_) {}
+      if ("paused" in synth && (synth as SpeechSynthesis & { paused?: boolean }).paused) {
+        synth.resume();
+      }
+    } catch {
+      // ignore
+    }
 
     const utterance = new SpeechSynthesisUtterance(instructions);
     instructionUtteranceRef.current = utterance;
@@ -37,7 +41,7 @@ export const InstructionButton = ({
       if (voice) utterance.voice = voice;
       try {
         synth.speak(utterance);
-      } catch (_) {
+      } catch {
         setTimeout(() => synth.speak(utterance), 0);
       }
     };
@@ -55,7 +59,9 @@ export const InstructionButton = ({
       setTimeout(() => {
         try {
           synth.removeEventListener("voiceschanged", onVoices);
-        } catch (_) {}
+        } catch {
+          // ignore
+        }
         if (!synth.speaking) speakNow(null);
       }, 500);
     }
@@ -64,7 +70,7 @@ export const InstructionButton = ({
   return (
     <ButtonIcon
       onClick={playInstructions}
-      icon={LoudspeakerIcon}
+      icon={SpeakerIcon}
       title="Play Instructions"
     />
   );

@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import GameBadge from "./GameBadge";
 import Toggle from "./Toggle";
+import GameCardIcon from "./GameCardIcon";
 
 // Game card backgrounds (image, position, size as percentage)
 const SUBTRACTION_CARD_BG = {
@@ -51,6 +52,11 @@ const WHICH_PICTURE_CARD_BG = {
   position: "45% 55%",
   size: 550,
 };
+const ADDITION_100_CARD_BG = {
+  image: "/images/space-1.svg",
+  position: "75% 65%",
+  size: 520,
+};
 const CONTINUE_PATTERN_CARD_BG = {
   image: "/images/space-1.svg",
   position: "70% 30%",
@@ -80,202 +86,92 @@ const GameMenu: React.FC = () => {
     </div>
   );
   const subtractionGameIcon = (
-    <div className="w-full h-full flex flex-col items-center justify-center relative rounded-full overflow-hidden">
-      <div
-        className="absolute inset-0 w-full h-full z-0"
-        style={{
-          backgroundImage: `url('${SUBTRACTION_CARD_BG.image}')`,
-          backgroundPosition: SUBTRACTION_CARD_BG.position,
-          backgroundSize: `${SUBTRACTION_CARD_BG.size}%`,
-          backgroundRepeat: "no-repeat",
-          filter: "contrast(0.7)",
-        }}
-      ></div>
-
-      <div className="relative z-10 h-20 w-20">
-        <span className="text-6xl font-bold text-amber-500 z-10 absolute top-2 left-1">
-          10
-        </span>
-        <span className="text-5xl font-bold text-fuchsia-100 z-10 absolute right-2 -bottom-1">
-          -
-        </span>
-      </div>
-    </div>
+    <GameCardIcon background={SUBTRACTION_CARD_BG}>
+      <span className="text-6xl font-bold text-amber-500 z-10 absolute top-2 left-1">
+        10
+      </span>
+      <span className="text-5xl font-bold text-fuchsia-100 z-10 absolute right-2 -bottom-1">
+        -
+      </span>
+    </GameCardIcon>
   );
 
   const phonicsGameIcon = (
-    <div className="w-full h-full flex flex-col items-center justify-center relative rounded-full overflow-hidden">
-      <div
-        className="absolute inset-0 w-full h-full z-0"
-        style={{
-          backgroundImage: `url('${PHONICS_CARD_BG.image}')`,
-          backgroundPosition: PHONICS_CARD_BG.position,
-          backgroundSize: `${PHONICS_CARD_BG.size}%`,
-          backgroundRepeat: "no-repeat",
-          filter: "contrast(0.7)",
-        }}
-      ></div>
-      <div className="relative z-10 h-20 w-20 flex items-center justify-center">
-        <span className="text-4xl font-bold text-amber-500">ABC</span>
-      </div>
-    </div>
+    <GameCardIcon background={PHONICS_CARD_BG}>
+      <span className="text-4xl font-bold text-amber-500">ABC</span>
+    </GameCardIcon>
   );
 
   const letterSoundMatchIcon = (
-    <div className="w-full h-full flex flex-col items-center justify-center relative rounded-full overflow-hidden">
-      <div
-        className="absolute inset-0 w-full h-full z-0"
-        style={{
-          backgroundImage: `url('${LETTER_SOUND_MATCH_CARD_BG.image}')`,
-          backgroundPosition: LETTER_SOUND_MATCH_CARD_BG.position,
-          backgroundSize: `${LETTER_SOUND_MATCH_CARD_BG.size}%`,
-          backgroundRepeat: "no-repeat",
-          filter: "contrast(0.7)",
-        }}
-      ></div>
-      <div className="relative z-10 h-20 w-20 flex flex-col items-center justify-center relative">
-        <span className="text-6xl font-bold text-amber-500 absolute top-2 left-1">
-          A?
-        </span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          className="w-8 h-8 text-neutral-100 mt-1 z-10 absolute bottom-1 right-3"
-        >
-          <path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.903A9.7 9.7 0 0 0 1.5 12c0 .898.121 1.768.35 2.597.343 1.24 1.518 1.903 2.66 1.903h1.932l4.5 4.5c.944.945 2.56.276 2.56-1.06V4.06ZM18.584 12c0-1.857-.87-3.555-2.25-4.685a.75.75 0 0 0-.916 1.192A2.99 2.99 0 0 1 16.084 12a2.99 2.99 0 0 1-1.666 2.493.75.75 0 0 0 .916 1.192C17.714 15.555 18.584 13.857 18.584 12Z" />
-          <path d="M19.816 7.192a.75.75 0 0 0-1.06 1.06A5.502 5.502 0 0 1 21.084 12a5.502 5.502 0 0 1-2.328 3.748.75.75 0 1 0 1.06 1.06A6.993 6.993 0 0 0 22.584 12a6.993 6.993 0 0 0-2.768-4.808Z" />
-        </svg>
-      </div>
-    </div>
+    <GameCardIcon background={LETTER_SOUND_MATCH_CARD_BG}>
+      <span className="text-6xl font-bold text-amber-500 absolute top-2 left-1">
+        A?
+      </span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="w-8 h-8 text-neutral-100 mt-1 z-10 absolute bottom-1 right-3"
+      >
+        <path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.903A9.7 9.7 0 0 0 1.5 12c0 .898.121 1.768.35 2.597.343 1.24 1.518 1.903 2.66 1.903h1.932l4.5 4.5c.944.945 2.56.276 2.56-1.06V4.06ZM18.584 12c0-1.857-.87-3.555-2.25-4.685a.75.75 0 0 0-.916 1.192A2.99 2.99 0 0 1 16.084 12a2.99 2.99 0 0 1-1.666 2.493.75.75 0 0 0 .916 1.192C17.714 15.555 18.584 13.857 18.584 12Z" />
+        <path d="M19.816 7.192a.75.75 0 0 0-1.06 1.06A5.502 5.502 0 0 1 21.084 12a5.502 5.502 0 0 1-2.328 3.748.75.75 0 1 0 1.06 1.06A6.993 6.993 0 0 0 22.584 12a6.993 6.993 0 0 0-2.768-4.808Z" />
+      </svg>
+    </GameCardIcon>
   );
 
   const blendingGameIcon = (
-    <div className="w-full h-full flex flex-col items-center justify-center relative rounded-full overflow-hidden">
-      <div
-        className="absolute inset-0 w-full h-full z-0"
-        style={{
-          backgroundImage: `url('${BLENDING_CARD_BG.image}')`,
-          backgroundPosition: BLENDING_CARD_BG.position,
-          backgroundSize: `${BLENDING_CARD_BG.size}%`,
-          backgroundRepeat: "no-repeat",
-          filter: "contrast(0.7)",
-        }}
-      ></div>
-      <div className="relative z-10 h-20 w-20 flex items-center justify-center">
-        <span className="text-3xl font-bold text-cyan-400">BLEND</span>
-      </div>
-    </div>
+    <GameCardIcon background={BLENDING_CARD_BG}>
+      <span className="text-3xl font-bold text-cyan-400">BLEND</span>
+    </GameCardIcon>
   );
 
   const greaterOrLessGameIcon = (
-    <div className="w-full h-full flex flex-col items-center justify-center relative rounded-full overflow-hidden">
-      <div
-        className="absolute inset-0 w-full h-full z-0"
-        style={{
-          backgroundImage: `url('${GREATER_OR_LESS_CARD_BG.image}')`,
-          backgroundPosition: GREATER_OR_LESS_CARD_BG.position,
-          backgroundSize: `${GREATER_OR_LESS_CARD_BG.size}%`,
-          backgroundRepeat: "no-repeat",
-          filter: "contrast(0.7)",
-        }}
-      ></div>
-      <div className="relative z-10 h-20 w-20 flex items-center justify-center">
-        <span className="text-4xl font-bold text-lime-400">{`<>`}</span>
-      </div>
-    </div>
+    <GameCardIcon background={GREATER_OR_LESS_CARD_BG}>
+      <span className="text-4xl font-bold text-lime-400">{`<>`}</span>
+    </GameCardIcon>
   );
 
   const multiplicationGameIcon = (
-    <div className="w-full h-full flex flex-col items-center justify-center relative rounded-full overflow-hidden">
-      <div
-        className="absolute inset-0 w-full h-full z-0"
-        style={{
-          backgroundImage: `url('${MULTIPLICATION_CARD_BG.image}')`,
-          backgroundPosition: MULTIPLICATION_CARD_BG.position,
-          backgroundSize: `${MULTIPLICATION_CARD_BG.size}%`,
-          backgroundRepeat: "no-repeat",
-          filter: "contrast(0.7)",
-        }}
-      ></div>
-      <div className="relative z-10 h-20 w-20 flex items-center justify-center">
-        <span className="text-5xl font-bold text-emerald-400">×</span>
-      </div>
-    </div>
+    <GameCardIcon background={MULTIPLICATION_CARD_BG}>
+      <span className="text-5xl font-bold text-emerald-400">×</span>
+    </GameCardIcon>
   );
 
   const continuePatternGameIcon = (
-    <div className="w-full h-full flex flex-col items-center justify-center relative rounded-full overflow-hidden">
-      <div
-        className="absolute inset-0 w-full h-full z-0"
-        style={{
-          backgroundImage: `url('${CONTINUE_PATTERN_CARD_BG.image}')`,
-          backgroundPosition: CONTINUE_PATTERN_CARD_BG.position,
-          backgroundSize: `${CONTINUE_PATTERN_CARD_BG.size}%`,
-          backgroundRepeat: "no-repeat",
-          filter: "contrast(0.7)",
-        }}
-      ></div>
-      <div className="relative z-10 h-20 w-20 flex items-center justify-center">
-        <span className="text-2xl font-bold text-amber-500">…?</span>
-      </div>
-    </div>
+    <GameCardIcon background={CONTINUE_PATTERN_CARD_BG}>
+      <span className="text-2xl font-bold text-amber-500">…?</span>
+    </GameCardIcon>
   );
 
   const ordinalNumbersGameIcon = (
-    <div className="w-full h-full flex flex-col items-center justify-center relative rounded-full overflow-hidden">
-      <div
-        className="absolute inset-0 w-full h-full z-0"
-        style={{
-          backgroundImage: `url('${ORDINAL_CARD_BG.image}')`,
-          backgroundPosition: ORDINAL_CARD_BG.position,
-          backgroundSize: `${ORDINAL_CARD_BG.size}%`,
-          backgroundRepeat: "no-repeat",
-          filter: "contrast(0.7)",
-        }}
-      ></div>
-      <div className="relative z-10 h-20 w-20 flex items-center justify-center">
+    <GameCardIcon background={ORDINAL_CARD_BG}>
+      <div className="flex items-center justify-center gap-0.5">
         <span className="text-2xl font-bold text-amber-500">1st</span>
         <span className="text-xl font-bold text-sky-300">–10th</span>
       </div>
-    </div>
+    </GameCardIcon>
   );
 
   const plusMinusNumberGameIcon = (
-    <div className="w-full h-full flex flex-col items-center justify-center relative rounded-full overflow-hidden">
-      <div
-        className="absolute inset-0 w-full h-full z-0"
-        style={{
-          backgroundImage: `url('${PLUS_MINUS_CARD_BG.image}')`,
-          backgroundPosition: PLUS_MINUS_CARD_BG.position,
-          backgroundSize: `${PLUS_MINUS_CARD_BG.size}%`,
-          backgroundRepeat: "no-repeat",
-          filter: "contrast(0.7)",
-        }}
-      ></div>
-      <div className="relative z-10 h-20 w-20 flex items-center justify-center gap-0.5">
+    <GameCardIcon background={PLUS_MINUS_CARD_BG}>
+      <div className="flex items-center justify-center gap-0.5">
         <span className="text-3xl font-bold text-amber-500">+</span>
         <span className="text-3xl font-bold text-sky-300">/-</span>
       </div>
-    </div>
+    </GameCardIcon>
   );
 
   const whichPictureNumberGameIcon = (
-    <div className="w-full h-full flex flex-col items-center justify-center relative rounded-full overflow-hidden">
-      <div
-        className="absolute inset-0 w-full h-full z-0"
-        style={{
-          backgroundImage: `url('${WHICH_PICTURE_CARD_BG.image}')`,
-          backgroundPosition: WHICH_PICTURE_CARD_BG.position,
-          backgroundSize: `${WHICH_PICTURE_CARD_BG.size}%`,
-          backgroundRepeat: "no-repeat",
-          filter: "contrast(0.7)",
-        }}
-      ></div>
-      <div className="relative z-10 h-20 w-20 flex items-center justify-center">
-        <span className="text-2xl font-bold text-amber-500">100</span>
-      </div>
-    </div>
+    <GameCardIcon background={WHICH_PICTURE_CARD_BG}>
+      <span className="text-2xl font-bold text-amber-500">100</span>
+    </GameCardIcon>
+  );
+
+  const addition100GameIcon = (
+    <GameCardIcon background={ADDITION_100_CARD_BG}>
+      <span className="text-2xl font-bold text-amber-500">100</span>
+      <span className="text-xl font-bold text-fuchsia-100 absolute right-2 bottom-1">+</span>
+    </GameCardIcon>
   );
 
   return (
@@ -288,34 +184,52 @@ const GameMenu: React.FC = () => {
           defaultOpen={true}
         >
           <GameBadge
+            title="Multiplication Arrays"
+            href="/games/multiplication"
+            icon={multiplicationGameIcon}
+            variant="learn"
+          />
+          <GameBadge
             title="Addition up to 10"
             href="/games/addition"
             icon={additionGameIcon}
+            difficulty={1}
+          />
+          <GameBadge
+            title="Addition up to 100 (no carrying)"
+            href="/games/addition-100-no-carry"
+            icon={addition100GameIcon}
+            difficulty={2}
+          />
+          <GameBadge
+            title="Addition up to 100 (with carrying)"
+            href="/games/addition-100-carry"
+            icon={addition100GameIcon}
+            difficulty={3}
           />
           <GameBadge
             title="Subtraction up to 10"
             href="/games/subtraction"
             icon={subtractionGameIcon}
-          />
-          <GameBadge
-            title="Multiplication Arrays"
-            href="/games/multiplication"
-            icon={multiplicationGameIcon}
+            difficulty={1}
           />
           <GameBadge
             title="Greater or Less"
             href="/games/greater-or-less"
             icon={greaterOrLessGameIcon}
+            difficulty={2}
           />
           <GameBadge
             title="+/- Number"
             href="/games/plus-minus-number"
             icon={plusMinusNumberGameIcon}
+            difficulty={2}
           />
           <GameBadge
             title="Which picture shows number up to 100?"
             href="/games/which-picture-number"
             icon={whichPictureNumberGameIcon}
+            difficulty={2}
           />
         </Toggle>
         <Toggle
@@ -328,16 +242,19 @@ const GameMenu: React.FC = () => {
             title="Learn Phonics"
             href="/games/phonics"
             icon={phonicsGameIcon}
+            variant="learn"
           />
           <GameBadge
             title="Letter Sound Match"
             href="/games/letter-sound-match"
             icon={letterSoundMatchIcon}
+            difficulty={1}
           />
           <GameBadge
             title="Blending"
             href="/games/blending"
             icon={blendingGameIcon}
+            difficulty={2}
           />
         </Toggle>
         <Toggle
@@ -350,11 +267,13 @@ const GameMenu: React.FC = () => {
             title="Ordinal numbers (1st–10th)"
             href="/games/ordinal-numbers"
             icon={ordinalNumbersGameIcon}
+            difficulty={1}
           />
           <GameBadge
             title="Continue pattern"
             href="/games/continue-pattern"
             icon={continuePatternGameIcon}
+            difficulty={2}
           />
         </Toggle>
       </div>

@@ -1,10 +1,13 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import FeedbackFailure from "../FeedbackFailure";
+import FailureOverlay from "../FailureOverlay";
+import { useGameFeedback } from "../../hooks/useGameFeedback";
+import { useScore } from "../../contexts/ScoreContext";
 import { HeadlineInstruction } from "../../elements/HeadlineInstruction";
 import { CardLight } from "../../elements/Card";
 import { MathProblem } from "../../elements/MathProblem";
+import { ReadyButton } from "../../elements/ReadyButton";
 import FeedbackSuccessAnimation from "../FeedbackSuccessAnimation";
 type GameBoardMathSubtractionProps = Record<string, never>;
 
@@ -22,50 +25,14 @@ const GameBoardMathSubtraction: React.FC<
   const [showFailureMonster, setShowFailureMonster] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
-  // Timeout refs for success
-  const successAppearTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const successDurationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const successHideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  // Timeout ref for failure (existing)
-  const failureTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const currentAudioRef = useRef<HTMLAudioElement | null>(null);
-  const successSoundFiles = Array.from(
-    { length: 12 },
-    (_, i) => `/sounds/success/success-${i + 1}.aac`
-  );
-
-  const playRandomSound = useCallback((soundFiles: string[]) => {
-    if (typeof window !== "undefined" && window.speechSynthesis.speaking) {
-      window.speechSynthesis.cancel();
-    }
-    if (currentAudioRef.current) {
-      currentAudioRef.current.pause();
-      currentAudioRef.current.currentTime = 0;
-    }
-    const randomIndex = Math.floor(Math.random() * soundFiles.length);
-    const soundToPlay = soundFiles[randomIndex];
-    const audio = new Audio(soundToPlay);
-    currentAudioRef.current = audio;
-    audio
-      .play()
-      .catch((error) =>
-        console.error(`Error playing sound ${soundToPlay}:`, error)
-      );
-  }, []);
-
-  const clearAllTimeouts = useCallback(() => {
-    if (successAppearTimeoutRef.current)
-      clearTimeout(successAppearTimeoutRef.current);
-    if (successDurationTimeoutRef.current)
-      clearTimeout(successDurationTimeoutRef.current);
-    if (successHideTimeoutRef.current)
-      clearTimeout(successHideTimeoutRef.current);
-    if (failureTimeoutRef.current) {
-      clearTimeout(failureTimeoutRef.current);
-      failureTimeoutRef.current = null;
-    }
-  }, []);
+  const {
+    clearAllTimeouts,
+    playSuccessSound,
+    scheduleSuccessSequence,
+    scheduleFailureDismiss,
+  } = useGameFeedback();
+  const { addPoints } = useScore();
 
   const generateProblem = useCallback(() => {
     clearAllTimeouts();
@@ -86,22 +53,11 @@ const GameBoardMathSubtraction: React.FC<
 
   useEffect(() => {
     generateProblem();
-    return () => {
-      clearAllTimeouts();
-      if (currentAudioRef.current) {
-        currentAudioRef.current.pause();
-      }
-      if (typeof window !== "undefined" && window.speechSynthesis.speaking) {
-        window.speechSynthesis.cancel();
-      }
-    };
-  }, [generateProblem, clearAllTimeouts]);
+  }, [generateProblem]);
 
   useEffect(() => {
-    if (startSuccessAnimation) {
-      playRandomSound(successSoundFiles);
-    }
-  }, [startSuccessAnimation, playRandomSound, successSoundFiles]);
+    if (startSuccessAnimation) playSuccessSound();
+  }, [startSuccessAnimation, playSuccessSound]);
 
   useEffect(() => {
     // This effect is for focusing input when no feedback is showing.
@@ -143,31 +99,26 @@ const GameBoardMathSubtraction: React.FC<
     }
 
     if (answer === num1 - num2) {
+      addPoints(1);
       setFeedback("Correct!");
-      setShowSuccessContainer(true); // 1. Mount container (elements are hidden by startSuccessAnimation=false)
-      setStartSuccessAnimation(false); // Ensure it's false before timeout
-
-      successAppearTimeoutRef.current = setTimeout(() => {
-        setStartSuccessAnimation(true); // 2. Trigger appear animation
-      }, 50); // Small delay for browser to register initial state
-
-      successDurationTimeoutRef.current = setTimeout(() => {
-        setStartSuccessAnimation(false); // 3. Trigger fade-out animation
-      }, 3050); // 3000ms visible time + 50ms appear delay
-
-      successHideTimeoutRef.current = setTimeout(() => {
-        generateProblem(); // 4. Generate next problem after fade-out (300ms for animation)
-      }, 3050 + 300);
+      setShowSuccessContainer(true);
+      setStartSuccessAnimation(false);
+      scheduleSuccessSequence({
+        onStartAnimation: () => setStartSuccessAnimation(true),
+        onEndAnimation: () => setStartSuccessAnimation(false),
+        onComplete: generateProblem,
+      });
     } else {
+      addPoints(-1);
       setFeedback(`Try again! ${num1} - ${num2} is not ${answer}.`);
       setShowFailureMonster(true);
-      failureTimeoutRef.current = setTimeout(() => {
+      scheduleFailureDismiss(2500, () => {
         setShowFailureMonster(false);
         if (inputRef.current) {
           inputRef.current.focus();
           inputRef.current.select();
         }
-      }, 2500);
+      });
       if (inputRef.current) {
         inputRef.current.focus();
         inputRef.current.select();
@@ -192,12 +143,7 @@ const GameBoardMathSubtraction: React.FC<
           <FeedbackSuccessAnimation show={startSuccessAnimation} />
         </div>
       )}
-      {showFailureMonster && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-neutral-800 bg-opacity-95 z-10 rounded-xl">
-          <FeedbackFailure className="" />
-          <p className="text-4xl font-bold text-red-500 mt-4">Try again!</p>
-        </div>
-      )}
+      {showFailureMonster && <FailureOverlay />}
 
       <div className="h-auto max-h-[80vh] mb-10">
         <HeadlineInstruction
@@ -215,11 +161,16 @@ const GameBoardMathSubtraction: React.FC<
             userAnswer={userAnswer}
             onUserAnswerChange={handleInputChange}
             onKeyDown={handleKeyDown}
-            // Disable input when feedback is showing to prevent interaction during animation
             isFeedbackShowing={isFeedbackShowing}
             inputRef={inputRef}
             inputAriaLabel="Enter difference"
           />
+          <div className="mt-6 flex justify-center">
+            <ReadyButton
+              onClick={handleCheckAnswer}
+              disabled={isFeedbackShowing}
+            />
+          </div>
         </CardLight>
       </div>
     </div>

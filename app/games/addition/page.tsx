@@ -1,13 +1,14 @@
 "use client";
 
 import React from "react";
-import GameBoardMathAddition from "@/app/components/gameBoards/GameBoardMathAddition"; // Using alias
+import GameBoardMathAddition from "@/app/components/gameBoards/GameBoardMathAddition";
+import { GamePageLayout } from "@/app/components/GamePageLayout";
 
 const MathAdditionPage: React.FC = () => {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-white relative h-full">
+    <GamePageLayout>
       <GameBoardMathAddition />
-    </main>
+    </GamePageLayout>
   );
 };
 

@@ -12,20 +12,20 @@
       "static/css/app/page.css",
       "static/chunks/app/page.js"
     ],
-    "/games/greater-or-less/page": [
+    "/games/multiplication/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/games/greater-or-less/page.js"
+      "static/chunks/app/games/multiplication/page.js"
     ],
     "/games/ordinal-numbers/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/games/ordinal-numbers/page.js"
     ],
-    "/games/continue-pattern/page": [
+    "/games/addition-100/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/games/continue-pattern/page.js"
+      "static/chunks/app/games/addition-100/page.js"
     ]
   }
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { toDisplayNumber } from "../lib/utils";
 
 const COLS = 10;
 const DEFAULT_CELL_SIZE_PX = 12;
@@ -13,11 +14,12 @@ export const NumberPictureGrid: React.FC<{
   gapPx?: number;
   className?: string;
 }> = ({
-  number: n,
+  number,
   cellSize = DEFAULT_CELL_SIZE_PX,
   gapPx = DEFAULT_GAP_PX,
   className = "",
 }) => {
+  const n = toDisplayNumber(number);
   const tens = Math.floor(n / 10);
   const ones = n % 10;
 

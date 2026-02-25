@@ -1,11 +1,14 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import FeedbackSuccessAnimation from "../FeedbackSuccessAnimation";
-import FeedbackFailure from "../FeedbackFailure";
 import ShapeIcon, { SHAPE_TYPES, type ShapeType } from "../ShapeIcon";
 import { HeadlineInstruction } from "../../elements/HeadlineInstruction";
 import { CardLight } from "../../elements/Card";
+import { shuffle } from "../../lib/utils";
+import FailureOverlay from "../FailureOverlay";
+import { useGameFeedback } from "../../hooks/useGameFeedback";
+import { useScore } from "../../contexts/ScoreContext";
 
 const SHAPE_SIZE = 40;
 const SHAPE_SIZE_MD = 48;
@@ -30,15 +33,6 @@ const COLOR_DISPLAY_NAMES: Record<string, string> = {
 
 type PatternItem = { shape: ShapeType; colorClass: string };
 type PatternMode = "sameShape" | "sameColor";
-
-function shuffle<T>(arr: T[]): T[] {
-  const out = [...arr];
-  for (let i = out.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [out[i], out[j]] = [out[j], out[i]];
-  }
-  return out;
-}
 
 function itemKey(item: PatternItem): string {
   return `${item.shape}-${item.colorClass}`;
@@ -113,49 +107,13 @@ const GameBoardContinuePattern: React.FC = () => {
   const [showFailure, setShowFailure] = useState(false);
   const [isGameActive, setIsGameActive] = useState(true);
 
-  const successAppearTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const successDurationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const successHideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const failureTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const currentFeedbackAudioRef = useRef<HTMLAudioElement | null>(null);
-
-  const successSoundFiles = Array.from(
-    { length: 12 },
-    (_, i) => `/sounds/success/success-${i + 1}.aac`
-  );
-
-  const playSound = useCallback(
-    (soundSrc: string) => {
-      if (typeof window !== "undefined" && window.speechSynthesis.speaking) {
-        window.speechSynthesis.cancel();
-      }
-      if (currentFeedbackAudioRef.current) {
-        currentFeedbackAudioRef.current.pause();
-        currentFeedbackAudioRef.current.onended = null;
-      }
-      const audio = new Audio(soundSrc);
-      currentFeedbackAudioRef.current = audio;
-      audio.onended = () => {
-        if (currentFeedbackAudioRef.current === audio)
-          currentFeedbackAudioRef.current = null;
-      };
-      audio.play().catch(() => {
-        if (currentFeedbackAudioRef.current === audio)
-          currentFeedbackAudioRef.current = null;
-      });
-    },
-    []
-  );
-
-  const clearAllTimeouts = useCallback(() => {
-    if (successAppearTimeoutRef.current)
-      clearTimeout(successAppearTimeoutRef.current);
-    if (successDurationTimeoutRef.current)
-      clearTimeout(successDurationTimeoutRef.current);
-    if (successHideTimeoutRef.current)
-      clearTimeout(successHideTimeoutRef.current);
-    if (failureTimeoutRef.current) clearTimeout(failureTimeoutRef.current);
-  }, []);
+  const {
+    clearAllTimeouts,
+    playSuccessSound,
+    scheduleSuccessSequence,
+    scheduleFailureDismiss,
+  } = useGameFeedback();
+  const { addPoints } = useScore();
 
   const nextProblem = useCallback(() => {
     clearAllTimeouts();
@@ -172,23 +130,11 @@ const GameBoardContinuePattern: React.FC = () => {
 
   useEffect(() => {
     nextProblem();
-    return () => {
-      clearAllTimeouts();
-      if (currentFeedbackAudioRef.current)
-        currentFeedbackAudioRef.current.pause();
-      if (typeof window !== "undefined" && window.speechSynthesis.speaking) {
-        window.speechSynthesis.cancel();
-      }
-    };
-  }, [nextProblem, clearAllTimeouts]);
+  }, [nextProblem]);
 
   useEffect(() => {
-    if (startSuccessAnimation) {
-      const randomSuccessSound =
-        successSoundFiles[Math.floor(Math.random() * successSoundFiles.length)];
-      playSound(randomSuccessSound);
-    }
-  }, [startSuccessAnimation, successSoundFiles, playSound]);
+    if (startSuccessAnimation) playSuccessSound();
+  }, [startSuccessAnimation, playSuccessSound]);
 
   const hintText =
     correctAnswer != null
@@ -214,26 +160,32 @@ const GameBoardContinuePattern: React.FC = () => {
         chosen.colorClass === correctAnswer.colorClass;
 
       if (isCorrect) {
+        addPoints(1);
         setShowSuccessContainer(true);
         setStartSuccessAnimation(false);
-        successAppearTimeoutRef.current = setTimeout(() => {
-          setStartSuccessAnimation(true);
-        }, 50);
-        successDurationTimeoutRef.current = setTimeout(() => {
-          setStartSuccessAnimation(false);
-        }, 3050);
-        successHideTimeoutRef.current = setTimeout(() => {
-          nextProblem();
-        }, 3050 + 300);
+        scheduleSuccessSequence({
+          onStartAnimation: () => setStartSuccessAnimation(true),
+          onEndAnimation: () => setStartSuccessAnimation(false),
+          onComplete: nextProblem,
+        });
       } else {
+        addPoints(-1);
         setShowFailure(true);
-        failureTimeoutRef.current = setTimeout(() => {
+        scheduleFailureDismiss(3000, () => {
           setShowFailure(false);
           setIsGameActive(true);
-        }, 3000);
+        });
       }
     },
-    [isGameActive, correctAnswer, nextProblem, clearAllTimeouts]
+    [
+      isGameActive,
+      correctAnswer,
+      nextProblem,
+      clearAllTimeouts,
+      scheduleSuccessSequence,
+      scheduleFailureDismiss,
+      addPoints,
+    ]
   );
 
   const isFeedbackShowing = showSuccessContainer || showFailure;
@@ -249,12 +201,7 @@ const GameBoardContinuePattern: React.FC = () => {
           <FeedbackSuccessAnimation show={startSuccessAnimation} />
         </div>
       )}
-      {showFailure && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-neutral-800 bg-opacity-95 z-20 rounded-xl">
-          <FeedbackFailure className="w-48 h-48 md:w-64 md:h-64" />
-          <p className="text-4xl font-bold text-red-400 mt-4">Try again!</p>
-        </div>
-      )}
+      {showFailure && <FailureOverlay />}
 
       <div className="h-auto max-h-[80vh] mb-10">
         <HeadlineInstruction

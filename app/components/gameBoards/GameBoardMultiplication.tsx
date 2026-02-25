@@ -8,7 +8,9 @@ import React, {
   useState,
 } from "react";
 import { CardLight } from "@/app/elements/Card";
-// import { HeadlineInstruction } from "@/app/elements/HeadlineInstruction";
+import { NumberPill } from "@/app/elements/NumberPill";
+import { NumberInput } from "@/app/elements/NumberInput";
+import { HeadlineInstruction } from "@/app/elements/HeadlineInstruction";
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
@@ -153,44 +155,39 @@ const GameBoardMultiplication: React.FC = () => {
     <div className="h-full w-full flex flex-col items-center justify-center relative overflow-auto">
       <div className="h-auto max-h-[80vh] mb-10">
         <div className="w-full mx-auto max-w-[90vw]">
-          {/* <HeadlineInstruction
-            headlineText="Build the array"
+          <HeadlineInstruction
+            headlineText="Enter X and Y to see an X×Y array of squares."
             instructionText="Enter X and Y to see an X×Y array of squares."
             className="mb-8"
-          /> */}
+          />
           <div className="w-full">
             <div className="relative mb-4 min-h-[3.25rem]">
               <div className="flex justify-center">
-                <input
-                  type="number"
+                <NumberInput
+                  size="M"
                   min={MIN_DIMENSION}
                   max={MAX_DIMENSION}
                   value={xDraft}
                   onChange={handleXChange}
                   onBlur={handleXBlur}
-                  className="w-24 rounded-md border border-sky-200 bg-white px-3 py-2 text-2xl font-bold text-sky-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-400"
                   aria-label="X dimension"
                 />
               </div>
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 px-3 py-2 rounded-full bg-indigo-600 text-white shadow-lg/20 flex items-center gap-2 select-none">
-                <span className="font-semibold text-xl md:text-2xl">
-                  {y} × {x} =
-                </span>
-                <span className="px-2 py-0.5 rounded-md bg-amber-300 text-indigo-900 font-extrabold text-2xl md:text-3xl">
-                  {x * y}
-                </span>
-              </div>
+              <NumberPill
+                label={`${y} × ${x} =`}
+                value={x * y}
+                className="absolute right-0 top-1/2 -translate-y-1/2"
+              />
             </div>
             <div className="flex items-center gap-4">
               <div className="flex flex-col items-center gap-2">
-                <input
-                  type="number"
+                <NumberInput
+                  size="M"
                   min={MIN_DIMENSION}
                   max={MAX_DIMENSION}
                   value={yDraft}
                   onChange={handleYChange}
                   onBlur={handleYBlur}
-                  className="w-24 rounded-md border border-sky-200 bg-white px-3 py-2 text-2xl font-bold text-sky-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-400"
                   aria-label="Y dimension"
                 />
               </div>

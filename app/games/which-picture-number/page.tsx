@@ -1,11 +1,12 @@
 "use client";
 
 import GameBoardWhichPictureNumber from "@/app/components/gameBoards/GameBoardWhichPictureNumber";
+import { GamePageLayout } from "@/app/components/GamePageLayout";
 
 export default function WhichPictureNumberPage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-white relative h-full">
+    <GamePageLayout>
       <GameBoardWhichPictureNumber />
-    </main>
+    </GamePageLayout>
   );
 }

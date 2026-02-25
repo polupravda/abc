@@ -2,10 +2,13 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import FeedbackSuccessAnimation from "../FeedbackSuccessAnimation";
-import FeedbackFailure from "../FeedbackFailure";
+import FailureOverlay from "../FailureOverlay";
+import { useGameFeedback } from "../../hooks/useGameFeedback";
+import { useScore } from "../../contexts/ScoreContext";
 import { CardLight } from "../../elements/Card";
 import { HeadlineInstruction } from "../../elements/HeadlineInstruction";
 import { MathProblem } from "../../elements/MathProblem";
+import { ReadyButton } from "../../elements/ReadyButton";
 
 // interface GameBoardMathAdditionProps {
 //   // Props can be added here if needed in the future
@@ -21,48 +24,14 @@ const GameBoardMathAddition: React.FC<GameBoardMathAdditionProps> = () => {
   const [startSuccessAnimation, setStartSuccessAnimation] = useState(false);
   const [showFailureMonster, setShowFailureMonster] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const successAppearTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const successDurationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const successHideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const failureTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const currentAudioRef = useRef<HTMLAudioElement | null>(null);
 
-  const successSoundFiles = Array.from(
-    { length: 12 },
-    (_, i) => `/sounds/success/success-${i + 1}.aac`
-  );
-
-  const playRandomSound = useCallback((soundFiles: string[]) => {
-    if (typeof window !== "undefined" && window.speechSynthesis.speaking) {
-      window.speechSynthesis.cancel();
-    }
-    if (currentAudioRef.current) {
-      currentAudioRef.current.pause();
-      currentAudioRef.current.currentTime = 0;
-    }
-    const randomIndex = Math.floor(Math.random() * soundFiles.length);
-    const soundToPlay = soundFiles[randomIndex];
-    const audio = new Audio(soundToPlay);
-    currentAudioRef.current = audio;
-    audio
-      .play()
-      .catch((error) =>
-        console.error(`Error playing sound ${soundToPlay}:`, error)
-      );
-  }, []);
-
-  const clearAllTimeouts = useCallback(() => {
-    if (successAppearTimeoutRef.current)
-      clearTimeout(successAppearTimeoutRef.current);
-    if (successDurationTimeoutRef.current)
-      clearTimeout(successDurationTimeoutRef.current);
-    if (successHideTimeoutRef.current)
-      clearTimeout(successHideTimeoutRef.current);
-    if (failureTimeoutRef.current) {
-      clearTimeout(failureTimeoutRef.current);
-      failureTimeoutRef.current = null;
-    }
-  }, []);
+  const {
+    clearAllTimeouts,
+    playSuccessSound,
+    scheduleSuccessSequence,
+    scheduleFailureDismiss,
+  } = useGameFeedback();
+  const { addPoints } = useScore();
 
   const generateProblem = useCallback(() => {
     clearAllTimeouts();
@@ -82,22 +51,11 @@ const GameBoardMathAddition: React.FC<GameBoardMathAdditionProps> = () => {
 
   useEffect(() => {
     generateProblem();
-    return () => {
-      clearAllTimeouts();
-      if (currentAudioRef.current) {
-        currentAudioRef.current.pause();
-      }
-      if (typeof window !== "undefined" && window.speechSynthesis.speaking) {
-        window.speechSynthesis.cancel();
-      }
-    };
-  }, [generateProblem, clearAllTimeouts]);
+  }, [generateProblem]);
 
   useEffect(() => {
-    if (startSuccessAnimation) {
-      playRandomSound(successSoundFiles);
-    }
-  }, [startSuccessAnimation, playRandomSound, successSoundFiles]);
+    if (startSuccessAnimation) playSuccessSound();
+  }, [startSuccessAnimation, playSuccessSound]);
 
   useEffect(() => {
     if (inputRef.current && !showSuccessContainer && !showFailureMonster) {
@@ -136,31 +94,26 @@ const GameBoardMathAddition: React.FC<GameBoardMathAdditionProps> = () => {
     }
 
     if (answer === num1 + num2) {
+      addPoints(1);
       setFeedback("Correct!");
       setShowSuccessContainer(true);
       setStartSuccessAnimation(false);
-
-      successAppearTimeoutRef.current = setTimeout(() => {
-        setStartSuccessAnimation(true);
-      }, 50);
-
-      successDurationTimeoutRef.current = setTimeout(() => {
-        setStartSuccessAnimation(false);
-      }, 3050);
-
-      successHideTimeoutRef.current = setTimeout(() => {
-        generateProblem();
-      }, 3050 + 300);
+      scheduleSuccessSequence({
+        onStartAnimation: () => setStartSuccessAnimation(true),
+        onEndAnimation: () => setStartSuccessAnimation(false),
+        onComplete: generateProblem,
+      });
     } else {
+      addPoints(-1);
       setFeedback(`Try again! ${num1} + ${num2} is not ${answer}.`);
       setShowFailureMonster(true);
-      failureTimeoutRef.current = setTimeout(() => {
+      scheduleFailureDismiss(2500, () => {
         setShowFailureMonster(false);
         if (inputRef.current) {
           inputRef.current.focus();
           inputRef.current.select();
         }
-      }, 2500);
+      });
       if (inputRef.current) {
         inputRef.current.focus();
         inputRef.current.select();
@@ -184,12 +137,7 @@ const GameBoardMathAddition: React.FC<GameBoardMathAdditionProps> = () => {
           <FeedbackSuccessAnimation show={startSuccessAnimation} />
         </div>
       )}
-      {showFailureMonster && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-stone-300 bg-opacity-95 z-10 rounded-xl">
-          <FeedbackFailure className="" />
-          <p className="text-4xl font-bold text-red-500 mt-4">Try again!</p>
-        </div>
-      )}
+      {showFailureMonster && <FailureOverlay />}
 
       <div className="h-auto max-h-[80vh] mb-10">
         <HeadlineInstruction
@@ -211,6 +159,12 @@ const GameBoardMathAddition: React.FC<GameBoardMathAdditionProps> = () => {
             inputRef={inputRef}
             inputAriaLabel="Enter sum"
           />
+          <div className="mt-6 flex justify-center">
+            <ReadyButton
+              onClick={handleCheckAnswer}
+              disabled={isFeedbackShowing}
+            />
+          </div>
         </CardLight>
       </div>
     </div>

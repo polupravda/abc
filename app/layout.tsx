@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 import ConditionalHomeButton from "@/app/components/ConditionalHomeButton";
+import { Providers } from "@/app/components/Providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,9 +31,12 @@ export default function RootLayout({
         suppressHydrationWarning={true}
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ConditionalHomeButton />
-        {children}
-        <Script id="prevent-space-scroll" strategy="afterInteractive">
+        <Providers>
+          <ConditionalHomeButton />
+          {children}
+        </Providers>
+        <Script
+          id="prevent-space-scroll" strategy="afterInteractive">
           {`
             // Global script to prevent space key scrolling
             window.addEventListener('keydown', function(e) {

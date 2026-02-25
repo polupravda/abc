@@ -12,10 +12,10 @@ export const Button: React.FC<ButtonProps> = ({
   className, // For custom styling of the button element itself
   ...props
 }) => {
-  // Define the classes for the icon and its wrapper as seen in your InstructionButton
+  // Square wrapper so rounded-full renders as a circle; margin 4px
   const iconWrapperClasses =
-    "flex items-center justify-center bg-gradient-to-br from-amber-400 to-amber-600 rounded-full p-1 shadow-md/20";
-  const iconClasses = "w-8 h-8 fill-white drop-shadow-md/20"; // Default classes for the icon
+    "flex items-center justify-center size-10 m-1 shrink-0 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full p-1 shadow-md/20";
+  const iconClasses = "text-base text-white drop-shadow-md/20"; // font-size: medium
 
   return (
     <button
@@ -36,15 +36,4 @@ export const Button: React.FC<ButtonProps> = ({
   );
 };
 
-// Example of how to use this Button component:
-// import LoudspeakerIcon from '../icons/LoudspeakerIcon';
-//
-// const MyPageComponent = () => {
-//   return (
-//     <Button
-//       text="My Action"
-//       icon={LoudspeakerIcon}
-//       onClick={() => console.log('Button clicked!')}
-//     />
-//   );
-// };
+// Example: import { SpeakerIcon } from '../icons/SpeakerIcon'; then icon={SpeakerIcon}

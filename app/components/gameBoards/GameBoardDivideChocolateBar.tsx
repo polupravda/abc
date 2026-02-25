@@ -32,9 +32,12 @@ const KID_COLORS = [
 
 function generateProblem(): { numKids: number; sections: number } {
   const numKids = MIN_KIDS + Math.floor(Math.random() * (MAX_KIDS - MIN_KIDS + 1));
-  const multiples: number[] = [];
-  for (let s = numKids; s <= MAX_SECTIONS; s += numKids) multiples.push(s);
-  const sections = multiples[Math.floor(Math.random() * multiples.length)] ?? numKids;
+  const allMultiples: number[] = [];
+  for (let s = numKids; s <= MAX_SECTIONS; s += numKids) allMultiples.push(s);
+  // Prefer scenarios where each kid gets more than 1 piece (sections >= 2 * numKids)
+  const preferred = allMultiples.filter((s) => s >= 2 * numKids);
+  const candidates = preferred.length > 0 ? preferred : allMultiples;
+  const sections = candidates[Math.floor(Math.random() * candidates.length)] ?? numKids;
   return { numKids, sections };
 }
 
@@ -230,10 +233,10 @@ const GameBoardDivideChocolateBar: React.FC = () => {
             {Array.from({ length: numKids }, (_, idx) => (
               <div
                 key={`kid-${idx}`}
-                className="flex flex-col items-center gap-2 pt-3 px-3 pb-0 rounded-xl bg-amber-50/80 border border-amber-200 overflow-hidden"
+                className="flex flex-col items-center gap-2 p-0 rounded-xl bg-amber-50/80 border border-amber-200 overflow-hidden"
               >
                 <div
-                  className="flex flex-col items-center gap-0"
+                  className="flex flex-col items-center gap-0 mt-3 mx-3"
                   role="group"
                   aria-label={`Fraction for kid ${idx + 1}`}
                 >
@@ -252,7 +255,7 @@ const GameBoardDivideChocolateBar: React.FC = () => {
                   </span>
                 </div>
                 {/* Kid SVG at bottom; KidMark absolutely over it, top-right */}
-                <div className="relative w-full mt-auto -mx-3">
+                <div className="relative w-full mt-auto">
                   <div
                     className="w-full overflow-hidden rounded-b-lg"
                     style={{ height: "5rem" }}
@@ -264,7 +267,6 @@ const GameBoardDivideChocolateBar: React.FC = () => {
                         src={`/images/kid-${idx + 1}.svg`}
                         alt={`Kid ${idx + 1}`}
                         className="w-full h-full object-cover object-top"
-                        style={{ transform: "translateY(-20%)" }}
                       />
                     </div>
                   </div>

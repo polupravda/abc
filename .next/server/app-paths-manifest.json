@@ -1,8 +1,7 @@
 {
-  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/games/divide-chocolate-bar/page": "app/games/divide-chocolate-bar/page.js",
   "/games/continue-pattern/page": "app/games/continue-pattern/page.js",
   "/games/fractions-of-a-block/page": "app/games/fractions-of-a-block/page.js",
-  "/games/addition-100/page": "app/games/addition-100/page.js",
   "/page": "app/page.js",
-  "/games/divide-chocolate-bar/page": "app/games/divide-chocolate-bar/page.js"
+  "/games/ordinal-numbers/page": "app/games/ordinal-numbers/page.js"
 }

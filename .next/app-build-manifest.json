@@ -26,6 +26,21 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/games/addition-100/page.js"
+    ],
+    "/games/fractions-of-a-block/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/games/fractions-of-a-block/page.js"
+    ],
+    "/games/continue-pattern/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/games/continue-pattern/page.js"
+    ],
+    "/games/divide-chocolate-bar/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/games/divide-chocolate-bar/page.js"
     ]
   }
 }

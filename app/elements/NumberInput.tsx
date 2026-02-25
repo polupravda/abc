@@ -108,7 +108,9 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
       dispatchChange(next);
     }, [value, step, numMin, clamp, dispatchChange]);
 
-    const wrapperClass = className ?? `inline-flex items-stretch ${sizeClasses.wrapperBg[size]} shadow-sm focus-within:ring-2 focus-within:ring-sky-400 focus-within:border-sky-400 ${sizeClasses.wrapper[size]}`;
+    const baseFlex = "inline-flex flex-row items-stretch";
+    const defaultWrapper = `${baseFlex} ${sizeClasses.wrapperBg[size]} shadow-sm focus-within:ring-2 focus-within:ring-sky-400 focus-within:border-sky-400 ${sizeClasses.wrapper[size]}`;
+    const wrapperClass = className ? `${baseFlex} ${className}` : defaultWrapper;
     const inputClass =
       inputClassName ??
       `font-bold text-sky-900 text-center border-0 bg-transparent outline-none disabled:opacity-50 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${sizeClasses.input[size]}`;

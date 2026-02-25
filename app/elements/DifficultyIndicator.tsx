@@ -42,9 +42,10 @@ const DifficultyIndicator: React.FC<DifficultyIndicatorProps> = ({
   const cx = 0;
   const cy = 1;
   const r = 1;
+  const round = (v: number) => Math.round(v * 1e10) / 1e10;
   const toCoord = (deg: number) => {
     const rad = (deg * Math.PI) / 180;
-    return { x: cx + r * Math.cos(rad), y: cy - r * Math.sin(rad) };
+    return { x: round(cx + r * Math.cos(rad)), y: round(cy - r * Math.sin(rad)) };
   };
   const p0 = toCoord(0);
   const p60 = toCoord(60);

@@ -62,6 +62,16 @@ const CONTINUE_PATTERN_CARD_BG = {
   position: "70% 30%",
   size: 520,
 };
+const FRACTIONS_BLOCK_CARD_BG = {
+  image: "/images/space-1.svg",
+  position: "55% 45%",
+  size: 520,
+};
+const DIVIDE_CHOCOLATE_BAR_CARD_BG = {
+  image: "/images/space-1.svg",
+  position: "50% 50%",
+  size: 520,
+};
 
 const GameMenu: React.FC = () => {
   const additionGameIcon = (
@@ -174,6 +184,28 @@ const GameMenu: React.FC = () => {
     </GameCardIcon>
   );
 
+  const fractionsOfABlockIcon = (
+    <GameCardIcon background={FRACTIONS_BLOCK_CARD_BG}>
+      <div className="flex flex-col items-center leading-none">
+        <span className="text-xl font-bold text-sky-700">1</span>
+        <span className="w-6 border-t-2 border-sky-700" />
+        <span className="text-xl font-bold text-sky-700">2</span>
+      </div>
+    </GameCardIcon>
+  );
+
+  const divideChocolateBarIcon = (
+    <GameCardIcon background={DIVIDE_CHOCOLATE_BAR_CARD_BG}>
+      <div className="flex flex-col items-center gap-0.5">
+        <div className="flex gap-0.5">
+          <span className="w-3 h-4 rounded-sm bg-amber-700" />
+          <span className="w-3 h-4 rounded-sm bg-amber-600" />
+        </div>
+        <span className="text-xs font-bold text-amber-900">÷</span>
+      </div>
+    </GameCardIcon>
+  );
+
   return (
     <div className="w-full h-screen p-8 overflow-auto flex justify-end">
       <div className="flex flex-col items-stretch max-w-2xl w-full gap-6">
@@ -188,6 +220,18 @@ const GameMenu: React.FC = () => {
             href="/games/multiplication"
             icon={multiplicationGameIcon}
             variant="learn"
+          />
+          <GameBadge
+            title="Fractions of a block"
+            href="/games/fractions-of-a-block"
+            icon={fractionsOfABlockIcon}
+            variant="learn"
+          />
+          <GameBadge
+            title="Divide chocolate bar"
+            href="/games/divide-chocolate-bar"
+            icon={divideChocolateBarIcon}
+            difficulty={2}
           />
           <GameBadge
             title="Addition up to 10"

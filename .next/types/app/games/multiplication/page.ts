@@ -1,4 +1,4 @@
-// File: /Users/elena/Documents/ElenaProjects/abc/app/games/multiplication/page.tsx
+// File: /Users/elena.volovicheva/Documents/elena-private-workspace/abc/app/games/multiplication/page.tsx
 import * as entry from '../../../../../app/games/multiplication/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

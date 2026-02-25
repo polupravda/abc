@@ -1,7 +1,8 @@
 {
-  "/games/divide-chocolate-bar/page": "app/games/divide-chocolate-bar/page.js",
-  "/games/continue-pattern/page": "app/games/continue-pattern/page.js",
-  "/games/fractions-of-a-block/page": "app/games/fractions-of-a-block/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/games/coordinates/page": "app/games/coordinates/page.js",
+  "/games/copy-coordinates/page": "app/games/copy-coordinates/page.js",
   "/page": "app/page.js",
-  "/games/ordinal-numbers/page": "app/games/ordinal-numbers/page.js"
+  "/games/continue-pattern/page": "app/games/continue-pattern/page.js",
+  "/games/divide-chocolate-bar/page": "app/games/divide-chocolate-bar/page.js"
 }

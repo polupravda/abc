@@ -1,4 +1,4 @@
-// File: /Users/elena/Documents/ElenaProjects/abc/app/games/divide-chocolate-bar/page.tsx
+// File: /Users/elena.volovicheva/Documents/elena-private-workspace/abc/app/games/divide-chocolate-bar/page.tsx
 import * as entry from '../../../../../app/games/divide-chocolate-bar/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

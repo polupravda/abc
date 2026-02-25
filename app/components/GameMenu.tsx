@@ -72,6 +72,11 @@ const DIVIDE_CHOCOLATE_BAR_CARD_BG = {
   position: "50% 50%",
   size: 520,
 };
+const COORDINATES_CARD_BG = {
+  image: "/images/space-1.svg",
+  position: "50% 60%",
+  size: 520,
+};
 
 const GameMenu: React.FC = () => {
   const additionGameIcon = (
@@ -206,6 +211,42 @@ const GameMenu: React.FC = () => {
     </GameCardIcon>
   );
 
+  const coordinatesGameIcon = (
+    <GameCardIcon background={COORDINATES_CARD_BG}>
+      <div className="relative h-full w-full flex items-center justify-center">
+        <div className="absolute inset-0 opacity-80">
+          <div className="absolute left-[10%] top-1/2 -translate-y-1/2 h-8 w-[80%] border-t-2 border-indigo-500" />
+          <div className="absolute top-[10%] left-1/2 -translate-x-1/2 h-[80%] w-8 border-l-2 border-indigo-500" />
+        </div>
+        <span
+          className="w-3.5 h-3.5 rounded-full"
+          style={{ backgroundColor: "#ef4444", boxShadow: "0 0 0 2px white" }}
+        />
+      </div>
+    </GameCardIcon>
+  );
+
+  const copyCoordinatesIcon = (
+    <GameCardIcon background={COORDINATES_CARD_BG}>
+      <div className="relative h-full w-full flex items-center justify-center">
+        <div className="absolute inset-0 opacity-80">
+          <div className="absolute left-[10%] top-1/2 -translate-y-1/2 h-8 w-[80%] border-t-2 border-indigo-500" />
+          <div className="absolute top-[10%] left-1/2 -translate-x-1/2 h-[80%] w-8 border-l-2 border-indigo-500" />
+        </div>
+        <div className="relative z-10 h-20 w-20">
+          <span
+            className="absolute left-4 top-5 w-2.5 h-2.5 rounded-full"
+            style={{ backgroundColor: "#ef4444", boxShadow: "0 0 0 2px white" }}
+          />
+          <span
+            className="absolute right-4 bottom-3 w-2.5 h-2.5 rounded-full"
+            style={{ backgroundColor: "#ef4444", boxShadow: "0 0 0 2px white" }}
+          />
+        </div>
+      </div>
+    </GameCardIcon>
+  );
+
   return (
     <div className="w-full h-screen p-8 overflow-auto flex justify-end">
       <div className="flex flex-col items-stretch max-w-2xl w-full gap-6">
@@ -226,6 +267,18 @@ const GameMenu: React.FC = () => {
             href="/games/fractions-of-a-block"
             icon={fractionsOfABlockIcon}
             variant="learn"
+          />
+          <GameBadge
+            title="Coordinates"
+            href="/games/coordinates"
+            icon={coordinatesGameIcon}
+            variant="learn"
+          />
+          <GameBadge
+            title="Copy coordinates"
+            href="/games/copy-coordinates"
+            icon={copyCoordinatesIcon}
+            difficulty={1}
           />
           <GameBadge
             title="Divide chocolate bar"

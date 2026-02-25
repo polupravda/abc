@@ -102,3 +102,16 @@ This document describes UI elements, their usage, and conventions for AI-assiste
 6. **Number inputs:** Use the shared `NumberInput` component (`app/elements/NumberInput.tsx`) for all numeric fields; do not use raw `<input type="number">`. Use size S/M/L or className/inputClassName for custom styling. Keep kid-friendly up/down stepper visible unless there is a strong reason to hide it.
 7. **Verify solution:** Use the **ReadyButton** component for the action that checks/submits the user’s answer. It shows a checkmark, "I am ready", and "Or press Enter button". Handle Enter in the input (or main control) to run the same verification logic.
 8. **Null/zero in games UI:** In game UI, **null** or **undefined** must always be displayed as **0**. Use `toDisplayNumber(value)` (for numbers) or `toDisplayValue(value)` (for string | number) from `app/lib/utils.ts` when rendering scores, pill values, problem operands, slider values, or any other numeric display. Do not render null/undefined as empty or "null"; always show 0.
+
+---
+
+## Learn vs Game (activity types)
+
+- **Learn (variant="learn")**: Concept exploration/teaching. May be interactive, but does not require a correctness check and does not change score.
+  - Do not use `ReadyButton`.
+  - Prefer clear instructions and demonstrations; optional light interactions without pass/fail feedback.
+  - No points added/subtracted in `ScoreContext`.
+- **Game**: Practice activity with correctness and scoring.
+  - Must provide a way to verify correctness (clicking options or `ReadyButton`).
+  - Uses success/failure feedback and updates score via `ScoreContext`.
+  - Follow headline + single voice control pattern; use `ReadyButton` for answer submission when applicable.

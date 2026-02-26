@@ -57,7 +57,7 @@ const GameBoardCoordinates: React.FC = () => {
     const availableW = rect.width;
     const availableH = rect.height;
     const size = Math.floor(
-      Math.min(availableW / (GRID_MAX + 1), availableH / (GRID_MAX + 1))
+      Math.min(availableW / (GRID_MAX + 1), availableH / (GRID_MAX + 1)),
     );
     setCellSize(Math.max(16, Math.min(64, size)));
   }, []);
@@ -79,7 +79,7 @@ const GameBoardCoordinates: React.FC = () => {
       left: x * cellSize - POINT_DIAMETER / 2,
       top: (GRID_MAX - y) * cellSize - POINT_DIAMETER / 2,
     }),
-    [cellSize]
+    [cellSize],
   );
 
   const pxToGrid = useCallback(
@@ -92,7 +92,7 @@ const GameBoardCoordinates: React.FC = () => {
       const gy = GRID_MAX - Math.round(relY / cellSize);
       return { x: clamp(gx, 0, GRID_MAX), y: clamp(gy, 0, GRID_MAX) };
     },
-    [cellSize]
+    [cellSize],
   );
 
   const handleGridClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -118,7 +118,7 @@ const GameBoardCoordinates: React.FC = () => {
     if (!dragId) return;
     const { x, y } = pxToGrid(e.clientX, e.clientY);
     setPoints((prev) =>
-      prev.map((p) => (p.id === dragId ? { ...p, x, y } : p))
+      prev.map((p) => (p.id === dragId ? { ...p, x, y } : p)),
     );
   };
 
@@ -131,7 +131,7 @@ const GameBoardCoordinates: React.FC = () => {
       gridTemplateColumns: `repeat(${GRID_MAX}, ${cellSize}px)`,
       gridTemplateRows: `repeat(${GRID_MAX}, ${cellSize}px)`,
     }),
-    [cellSize]
+    [cellSize],
   );
 
   return (

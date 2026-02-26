@@ -137,11 +137,12 @@ const GameBoardCoordinates: React.FC = () => {
   return (
     <div className="h-full w-full flex flex-col items-center justify-center relative overflow-auto">
       <div className="h-auto max-h-[90vh] mb-10 w-full px-2">
-        <HeadlineInstruction
-          headlineText="Place points on the coordinate grid"
-          instructionText="Place points on the coordinate grid. Click to add; drag to move."
-        />
         <div className="w-full mx-auto max-w-[min(72rem,95vw)]">
+          <HeadlineInstruction
+            headlineText="Place points on the coordinate grid"
+            instructionText="Place points on the coordinate grid. Click to add; drag to move."
+            className="text-left mb-2"
+          />
           <CardLight className="w-full">
             <div className="w-full flex gap-8">
               {/* Grid area */}

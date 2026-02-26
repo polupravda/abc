@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { CardLight } from "@/app/elements/Card";
 import { HeadlineInstruction } from "@/app/elements/HeadlineInstruction";
 import { ReadyButton } from "@/app/elements/ReadyButton";
@@ -148,14 +154,19 @@ const Grid: React.FC<{
   const recomputeLayout = useCallback(() => {
     const el = gridRef.current;
     if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const availableW = rect.width;
-    const availableH = rect.height;
-    const vhCap = Math.floor(((typeof window !== "undefined" ? window.innerHeight : 800) * 0.35) / GRID_MAX);
+    const parentRect =
+      el.parentElement?.getBoundingClientRect() ?? el.getBoundingClientRect();
+    const availableW = parentRect.width;
+    const availableH = parentRect.height;
+    const viewportH = typeof window !== "undefined" ? window.innerHeight : 800;
+    const viewportW = typeof window !== "undefined" ? window.innerWidth : 1280;
+    const isSmall = viewportW < 768; // matches md breakpoint
+    const vhFrac = isSmall ? 0.3 : 0.42;
+    const vhCap = Math.floor((viewportH * vhFrac) / GRID_MAX);
     const size = Math.floor(
-      Math.min(availableW / GRID_MAX, availableH / GRID_MAX, vhCap)
+      Math.min(availableW / GRID_MAX, availableH / GRID_MAX, vhCap),
     );
-    setCellSize(Math.max(14, Math.min(44, size)));
+    setCellSize(Math.max(16, Math.min(52, size)));
   }, []);
 
   useEffect(() => {
@@ -175,7 +186,7 @@ const Grid: React.FC<{
       gridTemplateColumns: `repeat(${GRID_MAX}, ${cellSize}px)`,
       gridTemplateRows: `repeat(${GRID_MAX}, ${cellSize}px)`,
     }),
-    [cellSize]
+    [cellSize],
   );
 
   const gridToPx = useCallback(
@@ -183,7 +194,7 @@ const Grid: React.FC<{
       left: x * cellSize - POINT_DIAMETER / 2,
       top: (GRID_MAX - y) * cellSize - POINT_DIAMETER / 2,
     }),
-    [cellSize]
+    [cellSize],
   );
 
   const pxToGrid = useCallback(
@@ -196,7 +207,7 @@ const Grid: React.FC<{
       const gy = GRID_MAX - Math.round(relY / cellSize);
       return { x: clamp(gx, 0, GRID_MAX), y: clamp(gy, 0, GRID_MAX) };
     },
-    [cellSize]
+    [cellSize],
   );
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -206,19 +217,28 @@ const Grid: React.FC<{
     if (!exists) onAddPoint(x, y);
   };
 
+  const gridPx = GRID_MAX * cellSize;
+
   return (
     <div
       ref={gridRef}
       onClick={handleClick}
-      className="relative w-full rounded-lg"
-      style={{ aspectRatio: "1 / 1" }}
+      className="relative rounded-lg"
+      style={{ width: `${gridPx}px`, height: `${gridPx}px` }}
     >
       <div className="absolute inset-0 grid" style={gridStyle}>
         {Array.from({ length: GRID_MAX * GRID_MAX }).map((_, i) => {
           const cols = GRID_MAX;
           const row = Math.floor(i / cols);
-          const cellStyle: React.CSSProperties = row === GRID_MAX - 1 ? { borderTop: "none" } : {};
-          return <div key={`cell-${i}`} className="border border-gray-400" style={cellStyle} />;
+          const cellStyle: React.CSSProperties =
+            row === GRID_MAX - 1 ? { borderTop: "none" } : {};
+          return (
+            <div
+              key={`cell-${i}`}
+              className="border border-gray-400"
+              style={cellStyle}
+            />
+          );
         })}
       </div>
       <div className="absolute inset-0 pointer-events-none">
@@ -226,7 +246,6 @@ const Grid: React.FC<{
       </div>
       {points.map((p) => {
         const pos = gridToPx(p.x, p.y);
-        const ButtonTag = readonly ? "div" : "button";
         const common = {
           className: "absolute rounded-full border border-white shadow",
           style: {
@@ -238,7 +257,9 @@ const Grid: React.FC<{
           } as React.CSSProperties,
         };
         if (readonly) {
-          return <div key={p.id} {...common} aria-label={`Point (${p.x}, ${p.y})`} />;
+          return (
+            <div key={p.id} {...common} aria-label={`Point (${p.x}, ${p.y})`} />
+          );
         }
         return (
           <button
@@ -264,8 +285,12 @@ const GameBoardCopyCoordinates: React.FC = () => {
   const [showFailure, setShowFailure] = useState(false);
   const [isBusy, setIsBusy] = useState(false);
 
-  const { clearAllTimeouts, playSuccessSound, scheduleSuccessSequence, scheduleFailureDismiss } =
-    useGameFeedback();
+  const {
+    clearAllTimeouts,
+    playSuccessSound,
+    scheduleSuccessSequence,
+    scheduleFailureDismiss,
+  } = useGameFeedback();
   const { addPoints } = useScore();
 
   const resetRound = useCallback(() => {
@@ -293,7 +318,12 @@ const GameBoardCopyCoordinates: React.FC = () => {
     if (exists) return;
     setUserPoints((prev) => [
       ...prev,
-      { id: `${Date.now()}-${Math.random().toString(36).slice(2)}`, x, y, color: "#ef4444" },
+      {
+        id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+        x,
+        y,
+        color: "#ef4444",
+      },
     ]);
   };
 
@@ -308,7 +338,9 @@ const GameBoardCopyCoordinates: React.FC = () => {
     const toKey = (p: Point) => `${p.x},${p.y}`;
     const targetSet = new Set(targetPoints.map(toKey));
     const userSet = new Set(userPoints.map(toKey));
-    const equal = targetSet.size === userSet.size && [...targetSet].every((k) => userSet.has(k));
+    const equal =
+      targetSet.size === userSet.size &&
+      [...targetSet].every((k) => userSet.has(k));
     if (equal) {
       addPoints(1);
       setShowSuccessContainer(true);
@@ -337,33 +369,36 @@ const GameBoardCopyCoordinates: React.FC = () => {
       )}
       {showFailure && <FailureOverlay />}
 
-      <div className="h-auto max-h-[90vh] mb-10 w-full px-2">
-        <HeadlineInstruction
-          headlineText="Copy the coordinates pattern"
-          instructionText="Copy the coordinates pattern from the left grid to the right grid, then press I am ready."
-        />
+      <div className="h-auto max-h-screen mb-4 w-full px-2 py-2">
         <div className="w-full mx-auto max-w-[min(72rem,95vw)]">
-          <CardLight className="w-full p-6">
-            <div className="w-full flex flex-col gap-6">
-              <div className="flex flex-col md:flex-row gap-8 items-start">
-              <div className="flex-1 min-w-0">
-                <div className="mb-2 text-sm font-semibold text-gray-700">Pattern</div>
-                <Grid points={targetPoints} readonly />
+          <HeadlineInstruction
+            headlineText="Copy the coordinates pattern"
+            instructionText="Copy the coordinates pattern from the left grid to the right grid, then press I am ready."
+            className="text-left mb-2"
+          />
+          <CardLight className="w-full p-4">
+            <div className="w-full flex flex-col gap-10">
+              <div className="flex flex-col md:flex-row gap-6 items-start">
+                <div className="flex-1 min-w-0">
+                  <Grid points={targetPoints} readonly />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <Grid
+                    points={userPoints}
+                    onAddPoint={handleAddUserPoint}
+                    onRemovePoint={handleRemoveUserPoint}
+                  />
+                </div>
               </div>
-              <div className="flex-1 min-w-0">
-                <div className="mb-2 text-sm font-semibold text-gray-700">Copy here</div>
-                <Grid
-                  points={userPoints}
-                  onAddPoint={handleAddUserPoint}
-                  onRemovePoint={handleRemoveUserPoint}
+
+              <div className="mt-3">
+                <ReadyButton
+                  onClick={verify}
+                  disabled={isBusy}
+                  className="transform scale-110 md:scale-125"
                 />
               </div>
             </div>
-
-            <div>
-              <ReadyButton onClick={verify} disabled={isBusy} />
-            </div>
-          </div>
           </CardLight>
         </div>
       </div>

@@ -151,6 +151,15 @@ const GameMenu: React.FC = () => {
       <span className="text-5xl font-bold text-emerald-400">×</span>
     </GameCardIcon>
   );
+  const fewerMoreSameIcon = (
+    <GameCardIcon background={MULTIPLICATION_CARD_BG}>
+      <div className="flex items-center justify-center gap-1">
+        <span className="text-2xl font-bold text-emerald-400">{"<"}</span>
+        <span className="text-xl font-bold text-amber-400">=</span>
+        <span className="text-2xl font-bold text-emerald-400">{">"}</span>
+      </div>
+    </GameCardIcon>
+  );
 
   const continuePatternGameIcon = (
     <GameCardIcon background={CONTINUE_PATTERN_CARD_BG}>
@@ -196,6 +205,24 @@ const GameMenu: React.FC = () => {
         <span className="w-6 border-t-2 border-sky-700" />
         <span className="text-xl font-bold text-sky-700">2</span>
       </div>
+    </GameCardIcon>
+  );
+
+  const fractionsOfACircleIcon = (
+    <GameCardIcon background={FRACTIONS_BLOCK_CARD_BG}>
+      <svg
+        viewBox="0 0 100 100"
+        className="w-16 h-16 text-emerald-600"
+        aria-hidden="true"
+      >
+        <circle cx="50" cy="50" r="32" fill="#ecfeff" stroke="#065f46" strokeWidth="6" />
+        <path
+          d="M50 50 L50 18 A32 32 0 0 1 81 50 Z"
+          fill="#10b981"
+          stroke="#065f46"
+          strokeWidth="2"
+        />
+      </svg>
     </GameCardIcon>
   );
 
@@ -269,6 +296,12 @@ const GameMenu: React.FC = () => {
             variant="learn"
           />
           <GameBadge
+            title="Fractions of a circle"
+            href="/games/fractions-of-a-circle"
+            icon={fractionsOfACircleIcon}
+            variant="learn"
+          />
+          <GameBadge
             title="Coordinates"
             href="/games/coordinates"
             icon={coordinatesGameIcon}
@@ -278,6 +311,12 @@ const GameMenu: React.FC = () => {
             title="Copy coordinates"
             href="/games/copy-coordinates"
             icon={copyCoordinatesIcon}
+            difficulty={1}
+          />
+          <GameBadge
+            title="Fewer, more, or same?"
+            href="/games/fewer-more-same"
+            icon={fewerMoreSameIcon}
             difficulty={1}
           />
           <GameBadge

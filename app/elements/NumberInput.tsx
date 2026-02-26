@@ -54,6 +54,8 @@ export interface NumberInputProps
   inputClassName?: string;
   /** Show up/down stepper buttons (default true). Kid-friendly controls. */
   showStepper?: boolean;
+  /** Optional: when Enter is pressed, invoke this handler (e.g., to verify). */
+  onEnterPress?: () => void;
 }
 
 export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
@@ -63,6 +65,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
       className,
       inputClassName,
       showStepper = true,
+      onEnterPress,
       value,
       onChange,
       min,
@@ -116,6 +119,49 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
       `font-bold text-sky-900 text-center border-0 bg-transparent outline-none disabled:opacity-50 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${sizeClasses.input[size]}`;
     const stepperClass = `flex flex-col shrink-0 ${sizeClasses.stepper[size]}`;
 
+    const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
+      // Block non-integer typing: e/E, +, -, ., and disallow arrow-up/down from changing page scroll is default ok
+      const blocked = ["e", "E", "+", "-", ".", ","];
+      if (blocked.includes(e.key)) {
+        e.preventDefault();
+        return;
+      }
+      if (e.key === "Enter") {
+        e.preventDefault();
+        if (onEnterPress) {
+          onEnterPress();
+        } else {
+          // Fallback: try to click the unified ReadyButton if present on the page
+          if (typeof window !== "undefined") {
+            const btn = document.querySelector(
+              'button[aria-label="I am ready to check my answer"]'
+            ) as HTMLButtonElement | null;
+            btn?.click();
+          }
+        }
+      }
+      rest.onKeyDown?.(e);
+    };
+
+    const handleWheel: React.WheelEventHandler<HTMLInputElement> = (e) => {
+      // Prevent wheel from changing the value or scrolling the page while focused
+      e.preventDefault();
+    };
+
+    const handleBeforeInput: React.FormEventHandler<HTMLInputElement> = (e: any) => {
+      // Guard against pasting or inputting non-digits
+      const data: string | null = e.data ?? null;
+      if (data && /\D/.test(data)) {
+        e.preventDefault();
+      }
+    };
+    const handlePaste: React.ClipboardEventHandler<HTMLInputElement> = (e) => {
+      const text = e.clipboardData.getData("text");
+      if (/\D/.test(text)) {
+        e.preventDefault();
+      }
+    };
+
     return (
       <div className={wrapperClass}>
         <input
@@ -129,6 +175,12 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
           disabled={disabled}
           className={inputClass}
           aria-label={rest["aria-label"]}
+          inputMode="numeric"
+          pattern="[0-9]*"
+          onKeyDown={handleKeyDown}
+          onWheel={handleWheel}
+          onBeforeInput={handleBeforeInput}
+          onPaste={handlePaste}
           {...rest}
         />
         {showStepper && (

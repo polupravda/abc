@@ -51,6 +51,46 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/games/continue-pattern/page.js"
+    ],
+    "/games/fractions-of-a-circle/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/games/fractions-of-a-circle/page.js"
+    ],
+    "/games/which-picture-number/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/games/which-picture-number/page.js"
+    ],
+    "/games/fewer-more-same/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/games/fewer-more-same/page.js"
+    ],
+    "/games/addition/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/games/addition/page.js"
+    ],
+    "/games/blending/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/games/blending/page.js"
+    ],
+    "/games/ordinal-numbers/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/games/ordinal-numbers/page.js"
+    ],
+    "/games/addition-100-carry/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/games/addition-100-carry/page.js"
+    ],
+    "/games/greater-or-less/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/games/greater-or-less/page.js"
     ]
   }
 }

@@ -65,7 +65,9 @@ export const MathProblem: React.FC<MathProblemProps> = ({
           value={userAnswer}
           onChange={onUserAnswerChange}
           onKeyDown={onKeyDown}
+          onEnterPress={onKeyDown ? () => onKeyDown({ key: "Enter" } as any) : undefined}
           disabled={isFeedbackShowing}
+          min={0}
           maxLength={inputMaxLength}
           aria-label={inputAriaLabel}
           className="inline-flex items-stretch bg-transparent border-0 shadow-none focus-within:ring-0 focus-within:border-0 rounded-none"

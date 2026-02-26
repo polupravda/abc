@@ -31,13 +31,29 @@ const KID_COLORS = [
 ];
 
 function generateProblem(): { numKids: number; sections: number } {
-  const numKids = MIN_KIDS + Math.floor(Math.random() * (MAX_KIDS - MIN_KIDS + 1));
-  const allMultiples: number[] = [];
-  for (let s = numKids; s <= MAX_SECTIONS; s += numKids) allMultiples.push(s);
-  // Prefer scenarios where each kid gets more than 1 piece (sections >= 2 * numKids)
-  const preferred = allMultiples.filter((s) => s >= 2 * numKids);
-  const candidates = preferred.length > 0 ? preferred : allMultiples;
-  const sections = candidates[Math.floor(Math.random() * candidates.length)] ?? numKids;
+  // Balance the frequency of the numerator (pieces per kid) across rounds.
+  // For MAX_SECTIONS=10 and MIN_KIDS=2, possible piecesPerKid are 1..5.
+  const maxPiecesPerKid = Math.floor(MAX_SECTIONS / MIN_KIDS);
+  const byPieces: Record<number, Array<{ numKids: number; sections: number }>> = {};
+
+  for (let p = 1; p <= maxPiecesPerKid; p++) {
+    byPieces[p] = [];
+    for (let k = MIN_KIDS; k <= MAX_KIDS; k++) {
+      const s = p * k;
+      if (s <= MAX_SECTIONS) {
+        byPieces[p].push({ numKids: k, sections: s });
+      }
+    }
+  }
+
+  // Choose piecesPerKid uniformly among available options
+  const availablePieces = Object.entries(byPieces)
+    .filter(([, arr]) => arr.length > 0)
+    .map(([p]) => Number(p));
+  const pIdx = Math.floor(Math.random() * availablePieces.length);
+  const chosenP = availablePieces[pIdx]!;
+  const pool = byPieces[chosenP]!;
+  const { numKids, sections } = pool[Math.floor(Math.random() * pool.length)]!;
   return { numKids, sections };
 }
 

@@ -1,4 +1,4 @@
-// File: /Users/elena.volovicheva/Documents/elena-private-workspace/abc/app/games/fractions-of-a-circle/page.tsx
+// File: /Users/elena/Documents/ElenaProjects/abc/app/games/fractions-of-a-circle/page.tsx
 import * as entry from '../../../../../app/games/fractions-of-a-circle/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

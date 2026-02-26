@@ -2,6 +2,8 @@
 
 import React from "react";
 import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDove } from "@fortawesome/free-solid-svg-icons";
 import GameBadge from "./GameBadge";
 import Toggle from "./Toggle";
 import GameCardIcon from "./GameCardIcon";
@@ -274,6 +276,22 @@ const GameMenu: React.FC = () => {
     </GameCardIcon>
   );
 
+  const plottingPointsIcon = (
+    <GameCardIcon background={COORDINATES_CARD_BG}>
+      <div className="relative h-full w-full flex items-center justify-center">
+        <div className="absolute inset-0 opacity-80">
+          <div className="absolute left-[10%] top-1/2 -translate-y-1/2 h-8 w-[80%] border-t-2 border-indigo-500" />
+          <div className="absolute top-[10%] left-1/2 -translate-x-1/2 h-[80%] w-8 border-l-2 border-emerald-500" />
+        </div>
+        <FontAwesomeIcon
+          icon={faDove}
+          className="w-10 h-10 text-indigo-600 z-10"
+          aria-hidden
+        />
+      </div>
+    </GameCardIcon>
+  );
+
   return (
     <div className="w-full h-screen p-8 overflow-auto flex justify-end">
       <div className="flex flex-col items-stretch max-w-2xl w-full gap-6">
@@ -306,6 +324,12 @@ const GameMenu: React.FC = () => {
             href="/games/coordinates"
             icon={coordinatesGameIcon}
             variant="learn"
+          />
+          <GameBadge
+            title="Plotting points"
+            href="/games/plotting-points"
+            icon={plottingPointsIcon}
+            difficulty={1}
           />
           <GameBadge
             title="Copy coordinates"

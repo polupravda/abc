@@ -1,4 +1,4 @@
-// File: /Users/elena.volovicheva/Documents/elena-private-workspace/abc/app/games/coordinates/page.tsx
+// File: /Users/elena/Documents/ElenaProjects/abc/app/games/coordinates/page.tsx
 import * as entry from '../../../../../app/games/coordinates/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

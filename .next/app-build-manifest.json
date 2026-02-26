@@ -6,91 +6,26 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/games/coordinates/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/games/coordinates/page.js"
-    ],
     "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/page.css",
       "static/chunks/app/page.js"
     ],
-    "/games/copy-coordinates/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/games/copy-coordinates/page.js"
-    ],
-    "/games/divide-chocolate-bar/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/games/divide-chocolate-bar/page.js"
-    ],
-    "/games/letter-sound-match/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/games/letter-sound-match/page.js"
-    ],
-    "/games/multiplication/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/games/multiplication/page.js"
-    ],
-    "/games/addition-100-no-carry/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/games/addition-100-no-carry/page.js"
-    ],
-    "/games/fractions-of-a-block/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/games/fractions-of-a-block/page.js"
-    ],
-    "/games/continue-pattern/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/games/continue-pattern/page.js"
-    ],
     "/games/fractions-of-a-circle/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/games/fractions-of-a-circle/page.js"
     ],
-    "/games/which-picture-number/page": [
+    "/games/coordinates/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/games/which-picture-number/page.js"
+      "static/chunks/app/games/coordinates/page.js"
     ],
-    "/games/fewer-more-same/page": [
+    "/games/plotting-points/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/games/fewer-more-same/page.js"
-    ],
-    "/games/addition/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/games/addition/page.js"
-    ],
-    "/games/blending/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/games/blending/page.js"
-    ],
-    "/games/ordinal-numbers/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/games/ordinal-numbers/page.js"
-    ],
-    "/games/addition-100-carry/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/games/addition-100-carry/page.js"
-    ],
-    "/games/greater-or-less/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/games/greater-or-less/page.js"
+      "static/chunks/app/games/plotting-points/page.js"
     ]
   }
 }

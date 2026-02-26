@@ -1,7 +1,5 @@
 {
-  "/games/addition-100-carry/page": "app/games/addition-100-carry/page.js",
-  "/games/greater-or-less/page": "app/games/greater-or-less/page.js",
-  "/page": "app/page.js",
-  "/games/fewer-more-same/page": "app/games/fewer-more-same/page.js",
-  "/games/divide-chocolate-bar/page": "app/games/divide-chocolate-bar/page.js"
+  "/games/coordinates/page": "app/games/coordinates/page.js",
+  "/games/plotting-points/page": "app/games/plotting-points/page.js",
+  "/page": "app/page.js"
 }

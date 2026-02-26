@@ -153,6 +153,15 @@ const GameMenu: React.FC = () => {
       <span className="text-5xl font-bold text-emerald-400">×</span>
     </GameCardIcon>
   );
+  const countByClustersIcon = (
+    <GameCardIcon background={MULTIPLICATION_CARD_BG}>
+      <div className="flex items-center justify-center gap-0.5">
+        <span className="text-xl font-bold text-amber-400">•••</span>
+        <span className="text-2xl font-bold text-emerald-400">×</span>
+        <span className="text-xl font-bold text-amber-400">••••</span>
+      </div>
+    </GameCardIcon>
+  );
   const fewerMoreSameIcon = (
     <GameCardIcon background={MULTIPLICATION_CARD_BG}>
       <div className="flex items-center justify-center gap-1">
@@ -344,6 +353,12 @@ const GameMenu: React.FC = () => {
             difficulty={1}
           />
           <GameBadge
+            title="Count by clusters"
+            href="/games/count-by-clusters"
+            icon={countByClustersIcon}
+            difficulty={2}
+          />
+          <GameBadge
             title="Divide chocolate bar"
             href="/games/divide-chocolate-bar"
             icon={divideChocolateBarIcon}
@@ -356,8 +371,20 @@ const GameMenu: React.FC = () => {
             difficulty={1}
           />
           <GameBadge
+            title="Add 3 numbers (to 10)"
+            href="/games/add-3-up-to-10"
+            icon={additionGameIcon}
+            difficulty={1}
+          />
+          <GameBadge
             title="Addition up to 100 (no carrying)"
             href="/games/addition-100-no-carry"
+            icon={addition100GameIcon}
+            difficulty={2}
+          />
+          <GameBadge
+            title="Add 3 numbers (to 100)"
+            href="/games/add-3-up-to-100"
             icon={addition100GameIcon}
             difficulty={2}
           />

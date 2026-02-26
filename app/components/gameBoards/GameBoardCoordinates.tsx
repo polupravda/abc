@@ -126,6 +126,18 @@ const GameBoardCoordinates: React.FC = () => {
     setDragId(null);
   };
 
+  // Ensure drag ends even if mouse/touch is released outside the grid
+  useEffect(() => {
+    if (!dragId) return;
+    const handleGlobalUp = () => setDragId(null);
+    window.addEventListener("mouseup", handleGlobalUp);
+    window.addEventListener("touchend", handleGlobalUp);
+    return () => {
+      window.removeEventListener("mouseup", handleGlobalUp);
+      window.removeEventListener("touchend", handleGlobalUp);
+    };
+  }, [dragId]);
+
   const gridStyle = useMemo(
     () => ({
       gridTemplateColumns: `repeat(${GRID_MAX}, ${cellSize}px)`,
@@ -151,6 +163,7 @@ const GameBoardCoordinates: React.FC = () => {
                 onClick={handleGridClick}
                 onMouseMove={onMouseMove}
                 onMouseUp={onMouseUp}
+                onMouseLeave={onMouseUp}
                 className="relative flex-1 mx-auto rounded-lg"
                 style={{ height: "60vh" }}
               >

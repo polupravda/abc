@@ -20,11 +20,155 @@ import { toDisplayNumber } from "@/app/lib/utils";
 
 const GRID_MAX = 10;
 const PIN_SIZE_PX = 32;
+const SLIDER_THICKNESS_PX = 14;
 
 const pickTarget = (): { x: number; y: number } => ({
   x: Math.floor(Math.random() * (GRID_MAX + 1)),
   y: Math.floor(Math.random() * (GRID_MAX + 1)),
 });
+
+type AxisSliderProps = {
+  orientation: "horizontal" | "vertical";
+  value: number;
+  min: number;
+  max: number;
+  lengthPx: number;
+  onChange: (n: number) => void;
+  disabled?: boolean;
+  /** Tailwind classes for thumb color (e.g., bg/gradient) */
+  thumbClassName?: string;
+  /** Additional classes for the track */
+  trackClassName?: string;
+  ariaLabel: string;
+};
+
+function AxisSlider({
+  orientation,
+  value,
+  min,
+  max,
+  lengthPx,
+  onChange,
+  disabled = false,
+  thumbClassName = "",
+  trackClassName = "",
+  ariaLabel,
+}: AxisSliderProps) {
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const isVertical = orientation === "vertical";
+  const clamp = useCallback(
+    (n: number) => Math.max(min, Math.min(max, n)),
+    [min, max],
+  );
+  const pct = (value - min) / (max - min || 1);
+
+  const handlePointer = useCallback(
+    (clientX: number, clientY: number) => {
+      if (!trackRef.current) return;
+      const rect = trackRef.current.getBoundingClientRect();
+      let ratio = 0;
+      if (isVertical) {
+        const relY = clientY - rect.top; // 0 at top
+        const yDownRatio = relY / Math.max(1, rect.height);
+        // For vertical slider, 0 at bottom, max at top
+        ratio = 1 - yDownRatio;
+      } else {
+        const relX = clientX - rect.left; // 0 at left
+        ratio = relX / Math.max(1, rect.width);
+      }
+      const newVal = clamp(Math.round(min + ratio * (max - min)));
+      onChange(newVal);
+    },
+    [clamp, isVertical, min, max, onChange],
+  );
+
+  const draggingRef = useRef(false);
+  const onPointerDown: React.PointerEventHandler<HTMLDivElement> = (e) => {
+    if (disabled) return;
+    draggingRef.current = true;
+    (e.currentTarget as HTMLDivElement).setPointerCapture(e.pointerId);
+    handlePointer(e.clientX, e.clientY);
+  };
+  const onPointerMove: React.PointerEventHandler<HTMLDivElement> = (e) => {
+    if (disabled || !draggingRef.current) return;
+    handlePointer(e.clientX, e.clientY);
+  };
+  const onPointerUp: React.PointerEventHandler<HTMLDivElement> = (e) => {
+    draggingRef.current = false;
+    (e.currentTarget as HTMLDivElement).releasePointerCapture(e.pointerId);
+  };
+
+  const onKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
+    if (disabled) return;
+    if (isVertical) {
+      if (e.key === "ArrowUp") {
+        e.preventDefault();
+        onChange(clamp(value + 1));
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        onChange(clamp(value - 1));
+      }
+    } else {
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        onChange(clamp(value + 1));
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        onChange(clamp(value - 1));
+      }
+    }
+  };
+
+  const commonTrack = `relative rounded-full bg-slate-300 ${trackClassName}`;
+  const trackStyle: React.CSSProperties = isVertical
+    ? { width: SLIDER_THICKNESS_PX, height: lengthPx }
+    : { height: SLIDER_THICKNESS_PX, width: lengthPx };
+
+  // Progress (passed distance)
+  const progressStyle: React.CSSProperties = isVertical
+    ? { height: `${pct * 100}%`, width: "100%", bottom: 0, left: 0 }
+    : { width: `${pct * 100}%`, height: "100%", top: 0, left: 0 };
+  const progressClasses = isVertical ? "bg-emerald-400" : "bg-indigo-400";
+
+  const thumbStyle: React.CSSProperties = isVertical
+    ? { bottom: `${pct * 100}%`, transform: "translate(-50%, 50%)", left: "50%" }
+    : { left: `${pct * 100}%`, transform: "translate(-50%, -50%)", top: "50%" };
+
+  const thumbClasses =
+    thumbClassName ||
+    (isVertical
+      ? "from-emerald-400 to-emerald-700"
+      : "from-indigo-400 to-indigo-700");
+
+  return (
+    <div
+      ref={trackRef}
+      role="slider"
+      aria-label={ariaLabel}
+      aria-valuemin={min}
+      aria-valuemax={max}
+      aria-valuenow={value}
+      tabIndex={disabled ? -1 : 0}
+      className={`${commonTrack} ${disabled ? "opacity-60" : "cursor-pointer"}`}
+      style={trackStyle}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onKeyDown={onKeyDown}
+    >
+      {/* Passed distance */}
+      <div
+        className={`absolute rounded-full ${progressClasses} transition-[width,height] duration-150 ease-out`}
+        style={progressStyle}
+      />
+      {/* Thumb */}
+      <div
+        className={`absolute w-5 h-5 rounded-full bg-gradient-to-br ${thumbClasses} shadow-md`}
+        style={thumbStyle}
+      />
+    </div>
+  );
+}
 
 const GameBoardPlottingPoints: React.FC = () => {
   const gridRef = useRef<HTMLDivElement | null>(null);
@@ -148,7 +292,6 @@ const GameBoardPlottingPoints: React.FC = () => {
   );
 
   const gridPx = GRID_MAX * cellSize;
-  const sliderTrackHeight = 28;
   const gridWrapperSize = "min(60vmin, 90vw - 80px)";
 
   return (
@@ -177,36 +320,23 @@ const GameBoardPlottingPoints: React.FC = () => {
             <div className="flex flex-col md:flex-row gap-4 items-start">
               {/* Vertical slider (Y) - left of grid, green */}
               <div
-                className="flex flex-col items-center shrink-0"
+                className="flex items-center justify-center shrink-0"
                 style={{
-                  width: sliderTrackHeight + 16,
+                  width: SLIDER_THICKNESS_PX,
                   height: gridWrapperSize,
                   minHeight: 200,
                 }}
               >
-                <div
-                  className="relative flex-1 flex items-center justify-center"
-                  style={{ width: sliderTrackHeight, height: gridPx }}
-                >
-                  <input
-                    type="range"
+                <div className="flex items-center" style={{ height: gridPx }}>
+                  <AxisSlider
+                    orientation="vertical"
+                    value={pinY}
                     min={0}
                     max={GRID_MAX}
-                    step={1}
-                    value={pinY}
-                    onChange={(e) => setPinY(Number(e.target.value))}
+                    lengthPx={gridPx}
+                    onChange={setPinY}
                     disabled={isBusy}
-                    className="absolute accent-emerald-600 cursor-pointer border-0 appearance-none [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-0 [&::-webkit-slider-thumb]:bg-gradient-to-br [&::-webkit-slider-thumb]:from-emerald-400 [&::-webkit-slider-thumb]:to-emerald-700 [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:appearance-none [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-gradient-to-br [&::-moz-range-thumb]:from-emerald-400 [&::-moz-range-thumb]:to-emerald-700 [&::-moz-range-thumb]:shadow-md"
-                    style={{
-                      width: gridPx,
-                      height: sliderTrackHeight,
-                      left: "50%",
-                      top: "50%",
-                      marginLeft: -gridPx / 2,
-                      marginTop: -sliderTrackHeight / 2,
-                      transform: "rotate(-90deg)",
-                    }}
-                    aria-label="Y coordinate"
+                    ariaLabel="Y coordinate"
                   />
                 </div>
               </div>
@@ -235,7 +365,7 @@ const GameBoardPlottingPoints: React.FC = () => {
                       return (
                         <div
                           key={`cell-${i}`}
-                          className="border border-gray-400"
+                          className="border border-gray-400 border-dashed"
                           style={cellStyle}
                         />
                       );
@@ -243,6 +373,25 @@ const GameBoardPlottingPoints: React.FC = () => {
                   </div>
                   {/* Axes and labels */}
                   <div className="absolute inset-0 pointer-events-none">
+                    {/* Emphasize distance from origin to pin along axes */}
+                    <div
+                      className="absolute bg-emerald-400/80 rounded-full"
+                      style={{
+                        left: pinX * cellSize - 3,
+                        top: GRID_MAX * cellSize - pinY * cellSize,
+                        width: 6,
+                        height: pinY * cellSize,
+                      }}
+                    />
+                    <div
+                      className="absolute bg-indigo-400/80 rounded-full"
+                      style={{
+                        left: 0,
+                        top: (GRID_MAX - pinY) * cellSize - 3,
+                        height: 6,
+                        width: pinX * cellSize,
+                      }}
+                    />
                     <div
                       className="absolute bg-gray-700"
                       style={{
@@ -353,18 +502,17 @@ const GameBoardPlottingPoints: React.FC = () => {
                 {/* Horizontal slider (X) - below grid */}
                 <div
                   className="flex items-center w-full"
-                  style={{ width: gridPx }}
+                  style={{ width: gridPx, marginTop: 16 }}
                 >
-                  <input
-                    type="range"
+                  <AxisSlider
+                    orientation="horizontal"
+                    value={pinX}
                     min={0}
                     max={GRID_MAX}
-                    step={1}
-                    value={pinX}
-                    onChange={(e) => setPinX(Number(e.target.value))}
+                    lengthPx={gridPx}
+                    onChange={setPinX}
                     disabled={isBusy}
-                    className="flex-1 h-7 accent-indigo-600 border-0 appearance-none [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-0 [&::-webkit-slider-thumb]:bg-gradient-to-br [&::-webkit-slider-thumb]:from-indigo-400 [&::-webkit-slider-thumb]:to-indigo-700 [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:appearance-none [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-gradient-to-br [&::-moz-range-thumb]:from-indigo-400 [&::-moz-range-thumb]:to-indigo-700 [&::-moz-range-thumb]:shadow-md"
-                    aria-label="X coordinate"
+                    ariaLabel="X coordinate"
                   />
                 </div>
               </div>

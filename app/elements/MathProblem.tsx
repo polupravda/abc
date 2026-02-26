@@ -65,7 +65,14 @@ export const MathProblem: React.FC<MathProblemProps> = ({
           value={userAnswer}
           onChange={onUserAnswerChange}
           onKeyDown={onKeyDown}
-          onEnterPress={onKeyDown ? () => onKeyDown({ key: "Enter" } as any) : undefined}
+          onEnterPress={
+            onKeyDown
+              ? () =>
+                  onKeyDown(
+                    ({ key: "Enter" } as unknown) as React.KeyboardEvent<HTMLInputElement>
+                  )
+              : undefined
+          }
           disabled={isFeedbackShowing}
           min={0}
           maxLength={inputMaxLength}

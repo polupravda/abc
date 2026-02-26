@@ -148,9 +148,9 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
       e.preventDefault();
     };
 
-    const handleBeforeInput: React.FormEventHandler<HTMLInputElement> = (e: any) => {
+    const handleBeforeInput: React.FormEventHandler<HTMLInputElement> = (e) => {
       // Guard against pasting or inputting non-digits
-      const data: string | null = e.data ?? null;
+      const data: string | null = (e.nativeEvent as InputEvent).data ?? null;
       if (data && /\D/.test(data)) {
         e.preventDefault();
       }

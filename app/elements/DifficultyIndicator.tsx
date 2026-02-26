@@ -3,9 +3,6 @@
 import React from "react";
 
 const GREY = "#d1d5db";
-const GREEN = "#22c55e";
-const YELLOW = "#eab308";
-const RED = "#ef4444";
 
 /** Easy = 1, Medium = 2, Hard = 3. Gauge: gradient green → yellow → red (left to right), fanned from bottom center. */
 export type DifficultyLevel = 1 | 2 | 3;

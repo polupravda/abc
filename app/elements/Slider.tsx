@@ -3,7 +3,6 @@ import { Button } from "./Button";
 import { ReadyButton } from "./ReadyButton";
 import { getInstructionVoice } from "../lib/speech";
 import { toDisplayNumber } from "../lib/utils";
-import { NumberPill } from "./NumberPill";
 
 interface SliderProps {
   /** When provided, check result is reported here and visual feedback is handled by parent (e.g. FeedbackSuccess/Failure). Voice feedback is not used. */
@@ -193,12 +192,13 @@ const Slider: React.FC<SliderProps> = ({ onCheck, renderCard, renderRightColumn,
         <div className="rounded-md border border-sky-200 bg-white px-4 py-3 text-4xl md:text-5xl shadow-sm min-w-[4rem] text-center select-none">
           {toDisplayNumber(value)}
         </div>
-        <div className="text-4xl md:text-5xl text-sky-700 select-none">{symbol}</div>
-        <NumberPill
-          value={toDisplayNumber(numberToCompare)}
-          ariaLabel={`Target number ${toDisplayNumber(numberToCompare)}`}
-          className="select-none"
-        />
+        <div className="text-4xl md:text-5xl text-sky-950 select-none">{symbol}</div>
+        <div
+          className="text-4xl md:text-5xl text-sky-950 select-none"
+          aria-label={`Target number ${toDisplayNumber(numberToCompare)}`}
+        >
+          {toDisplayNumber(numberToCompare)}
+        </div>
       </div>
       <div className="flex flex-col items-center gap-2">
         {!showNextProblemButton ? (

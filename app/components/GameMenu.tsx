@@ -301,6 +301,28 @@ const GameMenu: React.FC = () => {
     </GameCardIcon>
   );
 
+  const numberBondsIcon = (
+    <GameCardIcon background={MULTIPLICATION_CARD_BG}>
+      <div className="relative h-full w-full flex items-center justify-center">
+        {/* Triangle nodes */}
+        <div className="absolute -top-1">
+          <span className="inline-block w-6 h-6 rounded-full border-2 border-emerald-400 bg-white" />
+        </div>
+        <div className="absolute bottom-1 left-4">
+          <span className="inline-block w-5 h-5 rounded-full border-2 border-sky-300 bg-white" />
+        </div>
+        <div className="absolute bottom-1 right-4">
+          <span className="inline-block w-5 h-5 rounded-full border-2 border-sky-300 bg-white" />
+        </div>
+        {/* Connecting lines */}
+        <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full opacity-70">
+          <line x1="50" y1="18" x2="24" y2="76" stroke="#93c5fd" strokeWidth="3" />
+          <line x1="50" y1="18" x2="76" y2="76" stroke="#93c5fd" strokeWidth="3" />
+        </svg>
+      </div>
+    </GameCardIcon>
+  );
+
   return (
     <div className="w-full h-screen p-8 overflow-auto flex justify-end">
       <div className="flex flex-col items-stretch max-w-2xl w-full gap-6">
@@ -353,6 +375,12 @@ const GameMenu: React.FC = () => {
             difficulty={1}
           />
           <GameBadge
+            title="Number Bonds"
+            href="/games/number-bonds"
+            icon={numberBondsIcon}
+            difficulty={1}
+          />
+          <GameBadge
             title="Count by clusters"
             href="/games/count-by-clusters"
             icon={countByClustersIcon}
@@ -379,12 +407,6 @@ const GameMenu: React.FC = () => {
           <GameBadge
             title="Addition up to 100 (no carrying)"
             href="/games/addition-100-no-carry"
-            icon={addition100GameIcon}
-            difficulty={2}
-          />
-          <GameBadge
-            title="Add 3 numbers (to 100)"
-            href="/games/add-3-up-to-100"
             icon={addition100GameIcon}
             difficulty={2}
           />

@@ -68,7 +68,15 @@ export function useGameFeedback() {
         config.onEndAnimation,
         3050
       );
-      successHideTimeoutRef.current = setTimeout(config.onComplete, 3050 + 300);
+      successHideTimeoutRef.current = setTimeout(() => {
+        try {
+          config.onComplete();
+        } finally {
+          if (typeof window !== "undefined") {
+            window.dispatchEvent(new CustomEvent("abc-game-success-complete"));
+          }
+        }
+      }, 3050 + 300);
     },
     [clearAllTimeouts]
   );

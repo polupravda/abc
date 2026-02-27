@@ -1,9 +1,5 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
   "/page": "app/page.js",
   "/games/plotting-points/page": "app/games/plotting-points/page.js",
-  "/games/addition/page": "app/games/addition/page.js",
-  "/games/add-3-up-to-100/page": "app/games/add-3-up-to-100/page.js",
-  "/games/subtraction/page": "app/games/subtraction/page.js",
-  "/games/greater-or-less/page": "app/games/greater-or-less/page.js"
+  "/games/divide-chocolate-bar/page": "app/games/divide-chocolate-bar/page.js"
 }

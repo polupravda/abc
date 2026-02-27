@@ -6,21 +6,21 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/games/divide-chocolate-bar/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/games/divide-chocolate-bar/page.js"
-    ],
     "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/page.css",
       "static/chunks/app/page.js"
     ],
-    "/games/plotting-points/page": [
+    "/games/build-1000/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/games/plotting-points/page.js"
+      "static/chunks/app/games/build-1000/page.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

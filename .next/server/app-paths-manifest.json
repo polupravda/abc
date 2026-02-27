@@ -1,5 +1,5 @@
 {
-  "/page": "app/page.js",
-  "/games/plotting-points/page": "app/games/plotting-points/page.js",
-  "/games/divide-chocolate-bar/page": "app/games/divide-chocolate-bar/page.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/games/build-1000/page": "app/games/build-1000/page.js",
+  "/page": "app/page.js"
 }

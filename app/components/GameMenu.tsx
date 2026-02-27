@@ -264,6 +264,16 @@ const GameMenu: React.FC = () => {
     </GameCardIcon>
   );
 
+  const build1000Icon = (
+    <GameCardIcon background={COORDINATES_CARD_BG}>
+      <div className="relative h-full w-full flex flex-col items-center justify-center gap-0.5">
+        <span className="text-lg font-bold text-amber-600">1</span>
+        <span className="text-sm font-bold text-sky-600">10</span>
+        <span className="text-xs font-bold text-sky-700">100</span>
+      </div>
+    </GameCardIcon>
+  );
+
   const copyCoordinatesIcon = (
     <GameCardIcon background={COORDINATES_CARD_BG}>
       <div className="relative h-full w-full flex items-center justify-center">
@@ -354,6 +364,12 @@ const GameMenu: React.FC = () => {
             title="Coordinates"
             href="/games/coordinates"
             icon={coordinatesGameIcon}
+            variant="learn"
+          />
+          <GameBadge
+            title="Build 1000"
+            href="/games/build-1000"
+            icon={build1000Icon}
             variant="learn"
           />
           <GameBadge
